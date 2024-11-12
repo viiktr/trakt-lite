@@ -1,7 +1,11 @@
 {
   "imports": {
     "$lib": "./src/lib",
-    "$lib/": "./src/lib/"
+    "$lib/": "./src/lib/",
+    "$env/static/public": "./.svelte-kit/ambient.d.ts",
+    "$env/static/private": "./.svelte-kit/ambient.d.ts",
+    "$env/dynamic/public": "./.svelte-kit/ambient.d.ts",
+    "$env/dynamic/private": "./.svelte-kit/ambient.d.ts"
   },
   "lint": {
     "exclude": [

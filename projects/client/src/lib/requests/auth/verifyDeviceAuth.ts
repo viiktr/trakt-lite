@@ -1,5 +1,5 @@
-import process from 'node:process';
 import { api } from '$lib/requests/_internal/api.ts';
+import { env } from '$env/dynamic/private';
 
 export type DeviceAuth = {
   token: {
@@ -12,8 +12,8 @@ export type DeviceAuth = {
 export class DeviceUnauthorizedError extends Error {}
 
 export async function verifyDeviceAuth(code: string): Promise<DeviceAuth> {
-  const client_secret = process.env.TRAKT_CLIENT_SECRET ?? '';
-  const client_id = process.env.TRAKT_CLIENT_ID ?? '';
+  const client_secret = env.TRAKT_CLIENT_SECRET ?? '';
+  const client_id = env.TRAKT_CLIENT_ID ?? '';
 
   const tokenResponse = await api.oauth.device
     .token({
