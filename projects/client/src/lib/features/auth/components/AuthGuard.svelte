@@ -83,7 +83,7 @@
 
 <style>
   .auth-container {
-    width: 20dvw;
+    width: max(30dvw, 15em);
     padding: 10rem;
     border-radius: 0.5rem;
 
