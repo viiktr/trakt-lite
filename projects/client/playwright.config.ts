@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   webServer: {
-    command: 'deno run build && deno run preview',
+    command: 'deno task build && deno task preview',
     port: 4173,
   },
 
