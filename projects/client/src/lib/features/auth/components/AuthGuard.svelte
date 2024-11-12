@@ -1,6 +1,6 @@
 <script lang="ts">
   import { deserialize } from "$app/forms";
-  import { initiateDeviceAuth } from "$lib/requests/auth/initiateDeviceAuth";
+  import { type InitiateDeviceAuth } from "$lib/requests/auth/initiateDeviceAuth";
   import { onMount, type Snippet } from "svelte";
   import { writable } from "svelte/store";
   import type { SerializedAuthResponse } from "../models/SerializedAuthResponse";
@@ -22,7 +22,7 @@
     const body = new FormData();
     body.append("code", code);
 
-    return fetch("/auth/?/resolve", {
+    return fetch("/auth?/resolve", {
       method: "POST",
       headers: {
         "x-sveltekit-action": "true",
@@ -40,12 +40,31 @@
     });
   }
 
+  function requestAuthCode() {
+    return fetch("/auth?/initiate", {
+      method: "POST",
+      headers: {
+        "x-sveltekit-action": "true",
+      },
+      body: new FormData(),
+    }).then(async (res) => {
+      const text = await res.text();
+      const deserialized = deserialize<InitiateDeviceAuth, undefined>(text);
+
+      if (deserialized?.type !== "success") {
+        throw new Error("Deserialization error. The data has betrayed us.");
+      }
+
+      return deserialized.data!;
+    });
+  }
+
   onMount(async () => {
     if (seed != null) {
       return;
     }
 
-    const auth = await initiateDeviceAuth();
+    const auth = await requestAuthCode();
     authUrl.set(auth.url);
 
     const interval = setInterval(async () => {

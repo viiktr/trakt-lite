@@ -1,14 +1,14 @@
 import { api } from '$lib/requests/_internal/api.ts';
 import { prependHttps } from '$lib/utils/url/prependHttps.ts';
 
-export type DeviceAuth = {
+export type InitiateDeviceAuth = {
   url: HttpsUrl | Nil;
   interval: number;
   expireAt: number;
   code: string;
 };
 
-export const initiateDeviceAuth = async (): Promise<DeviceAuth> => {
+export const initiateDeviceAuth = async (): Promise<InitiateDeviceAuth> => {
   const response = await api.oauth.device.code({
     body: {
       client_id: TRAKT_CLIENT_ID,
