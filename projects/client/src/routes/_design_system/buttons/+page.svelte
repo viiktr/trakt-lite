@@ -1,5 +1,7 @@
 <script>
   import Button from "$lib/components/buttons/Button.svelte";
+  import VipIcon from "$lib/components/icons/VipIcon.svelte";
+  import WatchNowIcon from "$lib/components/icons/WatchNowIcon.svelte";
 </script>
 
 <main>
@@ -8,12 +10,11 @@
   <div class="button-display">
     <section>
       <h2>Textured Buttons</h2>
-      <Button
-        label="This is the primary textured button"
-        alignment="centered"
-        style="textured"
-      >
-        Centered Textured
+      <Button label="This is the primary textured button" style="textured">
+        Icon Textured
+        {#snippet icon()}
+          <WatchNowIcon />
+        {/snippet}
       </Button>
 
       <Button label="This is the primary textured button" style="textured">
@@ -51,6 +52,9 @@
         style="textured"
       >
         VIP Textured
+        {#snippet icon()}
+          <VipIcon />
+        {/snippet}
       </Button>
 
       <Button
@@ -65,8 +69,12 @@
 
     <section>
       <h2>Flat Buttons</h2>
-      <Button label="This is the primary flat button" alignment="centered">
-        Centered Flat
+      <Button label="This is the primary flat button"
+        >Icon Flat
+
+        {#snippet icon()}
+          <WatchNowIcon />
+        {/snippet}
       </Button>
 
       <Button label="This is the primary flat button">Primary Flat</Button>
@@ -92,6 +100,9 @@
 
       <Button variant="vip" label="This is the VIP flat button">
         VIP Flat
+        {#snippet icon()}
+          <VipIcon />
+        {/snippet}
       </Button>
 
       <Button

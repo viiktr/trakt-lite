@@ -1,20 +1,24 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import type { ButtonProps } from "./ButtonProps";
 
   type TexturedButtonProps = ButtonProps & {
-    variant?: "primary" | "secondary" | "vip";
-    alignment?: "centered" | "default";
+    variant?: "primary" | "secondary" | "vip" | "custom";
     style?: "textured" | "flat";
+    icon?: Snippet;
   };
 
   const {
     label,
     children,
     variant = "primary",
-    alignment = "default",
     style = "flat",
+    icon,
     ...props
   }: TexturedButtonProps = $props();
+
+  const hasIcon = $state(icon != null);
+  const alignment = $derived(!hasIcon ? "centered" : "default");
 </script>
 
 <button
@@ -26,6 +30,11 @@
   data-style={style}
 >
   <p class="button-label">{@render children()}</p>
+  {#if icon}
+    <div class="button-icon">
+      {@render icon()}
+    </div>
+  {/if}
 </button>
 
 <style>
@@ -69,6 +78,10 @@
       --color-background-button-disabled: var(--color-surface-button-disabled);
     }
 
+    &[data-alignment="default"] {
+      justify-content: space-between;
+    }
+
     &[data-alignment="centered"] {
       justify-content: center;
     }
@@ -93,13 +106,18 @@
     &,
     &::before,
     &:active[disabled] {
-      width: 14.1875rem;
+      min-width: 14.1875rem;
       height: 3.25rem;
       box-sizing: border-box;
       border-radius: 0.75rem;
     }
 
-    p {
+    .button-icon {
+      display: flex;
+    }
+
+    p,
+    .button-icon {
       z-index: 1;
     }
 
