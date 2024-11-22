@@ -136,6 +136,7 @@
 
     &[disabled] {
       cursor: not-allowed;
+      color: var(--color-foreground-button-disabled);
       background: var(
         --color-background-button-disabled,
         var(--color-background-button-disabled-default)
