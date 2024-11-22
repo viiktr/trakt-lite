@@ -113,6 +113,13 @@
     padding: 2rem;
     align-items: center;
 
+    @media (max-width: 768px) {
+      .button-display {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
     section {
       display: flex;
       flex-direction: column;
