@@ -1,5 +1,6 @@
 <script lang="ts">
   import Logo from "$lib/components/logo/Logo.svelte";
+  import LocalePicker from "$lib/features/i18n/components/LocalePicker.svelte";
   import ThemePicker from "$lib/features/theme/components/ThemePicker.svelte";
   import type { Theme } from "$lib/features/theme/models/Theme";
   import { onMount } from "svelte";
@@ -27,7 +28,10 @@
   <div class="trakt-logo">
     <Logo />
   </div>
-  <ThemePicker {theme} />
+  <div class="trakt-user-preferences">
+    <LocalePicker />
+    <ThemePicker {theme} />
+  </div>
 </nav>
 
 <div class="trakt-navbar-spacer"></div>
@@ -39,6 +43,12 @@
     margin: var(--ni-12) auto;
     padding: var(--ni-12) var(--ni-16);
     height: var(--ni-64);
+  }
+
+  .trakt-user-preferences {
+    display: flex;
+    gap: var(--ni-16);
+    align-items: center;
   }
 
   .trakt-navbar {

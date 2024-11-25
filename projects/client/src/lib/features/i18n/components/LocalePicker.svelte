@@ -1,13 +1,13 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
   import {
     type AvailableLanguageTag,
     availableLanguageTags,
-    languageTag,
-    isAvailableLanguageTag,
     i18n,
+    isAvailableLanguageTag,
+    languageTag,
   } from "$lib/features/i18n/index.ts";
-  import { page } from "$app/stores";
-  import { goto } from "$app/navigation";
 
   function switchToLanguage(newLanguage: string) {
     if (!isAvailableLanguageTag(newLanguage)) {
@@ -33,11 +33,14 @@
   const currentLanguage = languageTag();
 </script>
 
-<div class="container">
+<div class="locale-picker-container">
   <select onchange={(ev) => switchToLanguage(ev.currentTarget.value)}>
     {#each availableLanguageTags as tag}
-      <option selected={currentLanguage == tag} value={tag}>
-        {tagToTitle[tag]}
+      <option
+        selected={currentLanguage == tag}
+        value={tag}
+        aria-label={tagToTitle[tag]}
+      >
         {tagToFlag[tag]}
       </option>
     {/each}
@@ -45,26 +48,32 @@
 </div>
 
 <style>
-  .container {
-    width: 10em;
-    margin: auto;
-    text-align: center;
-    font-family: Arial, sans-serif;
+  .locale-picker-container {
+    width: var(--ni-48);
+    height: var(--ni-48);
+    border-radius: 50%;
+
+    &:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--color-background) 30%,
+        transparent 70%
+      );
+
+      backdrop-filter: blur(8px);
+    }
   }
 
   select {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid var(--color-foreground);
+    font-size: var(--ni-32);
+    line-height: var(--ni-52);
+    border: none;
     border-radius: 5px;
-    color: var(--color-foreground);
-    background-color: color-mix(
-      in srgb,
-      var(--color-background) 85%,
-      var(--color-foreground) 15%
-    );
+    background-color: transparent;
+    text-align: center;
     appearance: none;
+    cursor: pointer;
   }
 
   select:focus {
