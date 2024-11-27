@@ -94,6 +94,13 @@
     gap: var(--ni-32);
     grid-template-columns: 1fr 2fr 1fr;
     margin: 0 var(--ni-56);
+
+    @media (max-width: 680px) {
+      display: flex;
+      flex-direction: column;
+      gap: var(--ni-16);
+      align-items: center;
+    }
   }
 
   .trakt-summary-main {
