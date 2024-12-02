@@ -10,9 +10,8 @@
 
   const { alt, src, onLoad }: CrossOriginImageProps = $props();
 
-  const response = writable({ uri: src });
-
-  const isImageLoaded = writable(false);
+  const response = $derived(writable({ uri: src }));
+  const isImageLoaded = $derived(writable(false));
 </script>
 
 <img
