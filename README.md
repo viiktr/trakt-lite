@@ -1,8 +1,8 @@
-# trakt-webapp
+# trakt-lite
 
-[![CI](https://github.com/trakt/trakt-webapp/actions/workflows/ci.yml/badge.svg)](https://github.com/trakt/trakt-webapp/actions/workflows/ci.yml)
+[![CI](https://github.com/trakt/trakt-lite/actions/workflows/ci.yml/badge.svg)](https://github.com/trakt/trakt-lite/actions/workflows/ci.yml)
 
-[![CD](https://github.com/trakt/trakt-webapp/actions/workflows/cd.yml/badge.svg)](https://github.com/trakt/trakt-webapp/actions/workflows/cd.yml)
+[![CD](https://github.com/trakt/trakt-lite/actions/workflows/cd.yml/badge.svg)](https://github.com/trakt/trakt-lite/actions/workflows/cd.yml)
 
 ## Project Structure
 

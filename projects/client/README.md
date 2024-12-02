@@ -1,4 +1,4 @@
-# trakt-webapp
+# trakt-lite
 
 ## Developing
 
