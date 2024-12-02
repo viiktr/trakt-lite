@@ -1,9 +1,10 @@
 import { browser } from '$app/environment';
 import {
   searchQuery,
+  searchQueryKey,
   type SearchResult,
 } from '$lib/requests/queries/search/searchQuery.ts';
-import { useQueryClient } from '@tanstack/svelte-query';
+import { CancelledError, useQueryClient } from '@tanstack/svelte-query';
 import { writable } from 'svelte/store';
 
 export function useSearch() {
@@ -22,13 +23,27 @@ export function useSearch() {
 
     const response = await client.fetchQuery(searchQuery({
       query,
-    }));
+    })).catch((error) => {
+      if (error instanceof CancelledError) {
+        return new Promise<SearchResult[]>((resolve) => resolve([]));
+      }
+
+      return Promise.reject(error);
+    });
 
     results.set(response.filter((result) => result.year != null));
   }
 
+  function clear() {
+    client?.cancelQueries({
+      predicate: (query) => query.queryKey.at(0) === searchQueryKey('').at(0),
+    });
+    results.set([]);
+  }
+
   return {
     search,
+    clear,
     results,
   };
 }

@@ -14,7 +14,7 @@
   let windowScrollY = $state(0);
   const isScrolled = $derived(windowScrollY > 0);
 
-  const { search, results } = useSearch();
+  const { search, clear, results } = useSearch();
 
   function handleScroll() {
     windowScrollY = window.scrollY;
@@ -67,7 +67,7 @@
               href={buildMediaLink(result.type, result.slug)}
               onclick={() => {
                 inputElement.value = "";
-                search("");
+                clear();
               }}
             >
               <CrossOriginImage alt={result.title} src={result.poster.url} />
