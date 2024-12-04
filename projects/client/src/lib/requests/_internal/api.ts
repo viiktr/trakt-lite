@@ -23,10 +23,12 @@ const environment = (() => {
 export const api = ({
   fetch = globalThis.fetch,
   cancellable = false,
+  cancellationId,
 }: ApiParams = {}) =>
   traktApi({
     apiKey: TRAKT_CLIENT_ID,
     environment,
     fetch,
     cancellable,
+    cancellationId,
   });

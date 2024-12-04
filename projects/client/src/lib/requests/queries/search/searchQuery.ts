@@ -57,7 +57,11 @@ function searchRequest({
   query,
   fetch,
 }: SearchParams): Promise<SearchResult[]> {
-  return api({ fetch, cancellable: true })
+  return api({
+    fetch,
+    cancellable: true,
+    cancellationId: searchCancellationId(),
+  })
     .search
     .query({
       query: {
@@ -82,6 +86,7 @@ function searchRequest({
 }
 
 export const searchQueryKey = (q: string) => ['search', q] as const;
+export const searchCancellationId = () => `search_cancellation_token`;
 export const searchQuery = (params: SearchParams) => ({
   queryKey: searchQueryKey(params.query),
   queryFn: () => searchRequest(params),

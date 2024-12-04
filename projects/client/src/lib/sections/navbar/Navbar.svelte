@@ -59,7 +59,6 @@
         type="search"
         placeholder={m.search_placeholder()}
         oninput={onSearch}
-        onchange={onSearch}
       />
       {#if $results.length > 0}
         <div class="trakt-search-results">

@@ -1,7 +1,8 @@
 import { browser } from '$app/environment';
+import { AbortError, abortRequest } from '$lib/api.ts';
 import {
+  searchCancellationId,
   searchQuery,
-  searchQueryKey,
   type SearchResult,
 } from '$lib/requests/queries/search/searchQuery.ts';
 import { useMedia, WellKnownMediaQuery } from '$lib/utils/css/useMedia.ts';
@@ -29,6 +30,10 @@ export function useSearch() {
     const response = await client.fetchQuery(searchQuery({
       query,
     })).catch((error) => {
+      if (error instanceof AbortError) {
+        return new Promise<SearchResult[]>((resolve) => resolve(get(results)));
+      }
+
       if (error instanceof CancelledError) {
         return new Promise<SearchResult[]>((resolve) => resolve([]));
       }
@@ -45,15 +50,17 @@ export function useSearch() {
   onDestroy(() => unsubscribeFromResults());
 
   function clear() {
-    client?.cancelQueries({
-      predicate: (query) => query.queryKey.at(0) === searchQueryKey('').at(0),
-    });
+    abortRequest(
+      (id) => id.includes(searchCancellationId()),
+      new CancelledError(),
+    );
     results.set([]);
   }
 
   return {
     search: (term: string) => {
       isSearching.set(true);
+      console.log('searching', term);
       debounce(search, get(isDesktop) ? 150 : 250)(term);
     },
     clear,
