@@ -5,7 +5,7 @@ import { coerceTheme } from '$lib/features/theme/utils/coerceTheme.ts';
 import { buildOAuthUrl } from '$lib/utils/url/buildOAuthLink.ts';
 import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = ({ cookies, request, setHeaders }) => {
+export const load: LayoutServerLoad = ({ cookies, request }) => {
   const theme = coerceTheme(cookies.get(THEME_STORE_NAME));
   const serializedToken = cookies.get(AUTH_COOKIE_NAME);
   const requestUrl = new URL(request.url);
@@ -28,10 +28,6 @@ export const load: LayoutServerLoad = ({ cookies, request, setHeaders }) => {
   } catch {
     cookies.delete(AUTH_COOKIE_NAME, { path: '/' });
   }
-
-  setHeaders({
-    'Cache-Control': 'private, no-store, no-cache, must-revalidate',
-  });
 
   return defaultResponse;
 };

@@ -11,6 +11,19 @@ const WHITELISTED_HEADERS = new Set([
   'x-pagination-page-count',
 ]);
 
+export const handleCacheControl: Handle = async ({ event, resolve }) => {
+  const response = await resolve(event);
+
+  if (response.headers.get('content-type')?.includes('text/html')) {
+    response.headers.set(
+      'Cache-Control',
+      'private, no-store, no-cache, must-revalidate',
+    );
+  }
+
+  return response;
+};
+
 export const handle: Handle = sequence(
   handleLocale,
   handleTheme,
@@ -21,4 +34,5 @@ export const handle: Handle = sequence(
       filterSerializedResponseHeaders: (name) => WHITELISTED_HEADERS.has(name),
     });
   },
+  handleCacheControl,
 );
