@@ -173,7 +173,6 @@
 
     .button-icon {
       display: flex;
-      width: var(--ni-24);
     }
 
     p,
