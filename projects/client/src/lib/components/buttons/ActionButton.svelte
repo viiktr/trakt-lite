@@ -48,6 +48,11 @@
       var(--color-foreground) 90%
     );
 
+    :global(svg) {
+      display: flex;
+      width: var(--ni-24);
+    }
+
     &[data-variant="purple"] {
       --color-background-action-button: var(--purple-700);
       --color-foreground-action-button: var(--shade-50);
