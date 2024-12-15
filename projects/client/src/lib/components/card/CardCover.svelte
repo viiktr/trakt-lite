@@ -19,7 +19,12 @@
     {@render tags?.()}
   </div>
   <div class="card-cover-image">
-    <CrossOriginImage {src} {alt} onload={() => (isImagePending = false)} />
+    <CrossOriginImage
+      animate={false}
+      {src}
+      {alt}
+      onload={() => (isImagePending = false)}
+    />
   </div>
 </div>
 

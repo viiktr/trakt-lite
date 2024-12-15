@@ -5,9 +5,10 @@
   const {
     alt,
     src,
+    animate = true,
     onload: _onload,
     onerror: _onerror,
-  }: HTMLImageElementProps = $props();
+  }: HTMLImageElementProps & { animate?: boolean } = $props();
 
   const response = $derived(writable({ uri: src }));
   const isImageLoaded = $derived(writable(false));
@@ -16,6 +17,7 @@
 <img
   loading="lazy"
   class:image-loaded={$isImageLoaded}
+  class:image-animation-enabled={animate}
   src={$response.uri}
   {alt}
   onerror={(ev) => {
@@ -23,18 +25,20 @@
     _onerror?.(ev);
   }}
   onload={function (ev) {
-    requestAnimationFrame(() => isImageLoaded.set(true));
+    setTimeout(() => {
+      isImageLoaded.set(true);
+    }, 100);
     _onload?.(ev);
   }}
 />
 
 <style>
-  .image-loaded {
-    opacity: 1;
-  }
-
-  img {
-    transition: opacity calc(var(--transition-increment) * 2) ease-in;
+  img.image-animation-enabled {
+    transition: opacity calc(var(--transition-increment) * 2) ease-in-out;
     opacity: 0;
+
+    &.image-loaded {
+      opacity: 1;
+    }
   }
 </style>
