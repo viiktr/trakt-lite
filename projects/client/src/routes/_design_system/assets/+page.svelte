@@ -146,4 +146,10 @@
     display: flex;
     justify-content: center;
   }
+
+  .asset-navigation {
+    :global(.trakt-button svg) {
+      width: var(--ni-24);
+    }
+  }
 </style>
