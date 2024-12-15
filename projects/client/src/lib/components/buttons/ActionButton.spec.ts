@@ -6,25 +6,6 @@ import { createRawSnippet } from 'svelte';
 import { describe, expect, it, vi } from 'vitest';
 import type { TraktActionButtonProps } from './TraktActionButtonProps.ts';
 
-// TODO: investigate if there is a way to mock the store without using the $app/stores path
-vi.mock('$app/stores', () => ({
-  page: {
-    subscribe: (resolver: (_: Record<string, unknown>) => void) => {
-      resolver({
-        url: new URL('https://example.com'),
-      });
-
-      return () => {};
-    },
-  },
-}));
-
-// TODO: investigate if there is a way to mock the navigation without using the $app/navigation path
-// Or we can do it globally
-vi.mock('$app/navigation', () => ({
-  goto: vi.fn(() => Promise.resolve()),
-}));
-
 describe('ActionButton', () => {
   const defaultProps: TraktActionButtonProps = {
     label: 'Test ActionButton',
