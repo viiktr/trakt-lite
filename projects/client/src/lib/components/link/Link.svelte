@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { useActiveLink } from "$lib/stores/useActiveLink";
   import { navigateWithFocus } from "$lib/utils/actions/navigateWithFocus";
 
   const {
@@ -15,6 +15,8 @@
       color?: "default" | "classic";
       focusable?: boolean;
     } = $props();
+
+  const { isActive } = $derived(useActiveLink(href));
 </script>
 
 {#if href}
@@ -25,7 +27,7 @@
     use:navigateWithFocus
     data-color={color}
     class="trakt-link"
-    class:trakt-link-active={$page.url.pathname === href}
+    class:trakt-link-active={$isActive}
     {...props}
   >
     {@render children?.()}

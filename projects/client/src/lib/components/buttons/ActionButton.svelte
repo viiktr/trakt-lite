@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { useActiveLink } from "$lib/stores/useActiveLink";
   import { disableTransitionOn } from "$lib/utils/actions/disableTransitionOn";
   import { navigateWithFocus } from "$lib/utils/actions/navigateWithFocus";
   import type { TraktActionButtonProps } from "./TraktActionButtonProps";
@@ -14,6 +14,7 @@
   }: TraktActionButtonProps | TraktActionButtonAnchorProps = $props();
 
   const href = $derived((props as TraktActionButtonAnchorProps).href);
+  const { isActive } = $derived(useActiveLink(href));
 </script>
 
 {#if href != null}
@@ -21,7 +22,7 @@
     use:disableTransitionOn={"touch"}
     use:navigateWithFocus
     class="trakt-action-button trakt-button-link"
-    class:trakt-link-active={$page.url.pathname === href}
+    class:trakt-link-active={$isActive}
     aria-label={label}
     data-variant={variant}
     {...props}

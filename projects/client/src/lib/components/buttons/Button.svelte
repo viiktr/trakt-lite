@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from "$app/stores";
+  import { useActiveLink } from "$lib/stores/useActiveLink";
   import { disableTransitionOn } from "$lib/utils/actions/disableTransitionOn";
   import { navigateWithFocus } from "$lib/utils/actions/navigateWithFocus";
   import type { TraktButtonProps } from "./TraktButtonProps";
@@ -22,6 +22,7 @@
   const isDefaultAlignment = $derived(hasIcon);
   const alignment = $derived(isDefaultAlignment ? "default" : "centered");
   const href = $derived((props as TraktButtonAnchorProps).href);
+  const { isActive } = $derived(useActiveLink(href));
 </script>
 
 {#snippet contents()}
@@ -45,7 +46,7 @@
     use:disableTransitionOn={"touch"}
     use:navigateWithFocus
     class="trakt-button trakt-button-link"
-    class:trakt-link-active={$page.url.pathname === href}
+    class:trakt-link-active={$isActive}
     aria-label={label}
     data-variant={variant}
     data-alignment={alignment}
@@ -96,8 +97,8 @@
     --color-shadow: color-mix(in srgb, black 32%, transparent 68%);
 
     &.trakt-button-link {
-      &.trakt-link-active {
-        &[data-style="ghost"] {
+      &[data-style="ghost"] {
+        &.trakt-link-active {
           color: var(--color-background-button);
         }
       }
