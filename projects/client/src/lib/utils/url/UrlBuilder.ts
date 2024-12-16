@@ -13,9 +13,9 @@ export const UrlBuilder = {
         throw new Error(`Invalid media type: ${type}`);
     }
   },
-  show: (id: string) => `/show/${id}`,
+  show: (id: string) => `/shows/${id}`,
   movies: () => '/movies',
-  movie: (id: string) => `/movie/${id}`,
+  movie: (id: string) => `/movies/${id}`,
   profile: {
     user: (username: string) => `/profile/${username}`,
     me: () => UrlBuilder.profile.user('me'),
