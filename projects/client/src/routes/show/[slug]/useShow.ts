@@ -1,9 +1,7 @@
-import { browser } from '$app/environment';
 import {
   showProgressQuery,
-  showProgressQueryKey,
 } from '$lib/requests/queries/shows/showProgressQuery.ts';
-import { createQuery, useQueryClient } from '@tanstack/svelte-query';
+import { createQuery } from '@tanstack/svelte-query';
 import { derived } from 'svelte/store';
 import { showRatingQuery } from '../../../lib/requests/queries/shows/showRatingQuery.ts';
 import { showSummaryQuery } from '../../../lib/requests/queries/shows/showSummaryQuery.ts';
@@ -12,8 +10,6 @@ import { getLanguageAndRegion, languageTag } from '$lib/features/i18n/index.ts';
 import { showIntlQuery } from '$lib/requests/queries/shows/showIntlQuery.ts';
 
 export function useShow(slug: string) {
-  const client = browser ? useQueryClient() : undefined;
-
   const show = createQuery(
     showSummaryQuery({
       slug,
@@ -32,15 +28,11 @@ export function useShow(slug: string) {
     }),
   );
 
-  const reload = () => {
-    client?.resetQueries({
-      queryKey: showProgressQueryKey(slug),
-    });
-  };
-
   const locale = languageTag();
-  const intl = locale === 'en'
-    ? show
+  const isLocaleSkipped = locale === 'en';
+
+  const intl = isLocaleSkipped
+    ? derived(show, ($show) => $show)
     : createQuery(showIntlQuery({ slug, ...getLanguageAndRegion() }));
 
   return {
@@ -50,8 +42,12 @@ export function useShow(slug: string) {
     intl: derived(
       [show, intl],
       ([$show, $intl]) => {
+        if (isLocaleSkipped) {
+          return $intl.data;
+        }
+
         if ($intl.isFetching) {
-          return undefined;
+          return;
         }
 
         return {
@@ -61,6 +57,5 @@ export function useShow(slug: string) {
         };
       },
     ),
-    reload,
   };
 }

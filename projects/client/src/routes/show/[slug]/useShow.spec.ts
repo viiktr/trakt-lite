@@ -29,7 +29,7 @@ describe('store: useShow', () => {
     });
 
     const result = await waitForQueryResult();
-    expect(result).to.deep.equal({
+    expect(result).to.include({
       'overview': ShowSiloMappedMock.overview,
       'tagline': ShowSiloMappedMock.tagline,
       'title': ShowSiloMappedMock.title,

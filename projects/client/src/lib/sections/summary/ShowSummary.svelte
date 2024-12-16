@@ -8,17 +8,15 @@
 
   type ShowSummaryProps = MediaSummaryProps<ShowSummary> & {
     progress?: EpisodeProgressEntry;
-    onMarkAsWatched: () => void;
   };
 
-  const { media, ratings, intl, progress, onMarkAsWatched }: ShowSummaryProps =
-    $props();
+  const { media, ratings, intl, progress }: ShowSummaryProps = $props();
 </script>
 
 {#snippet contextualContent()}
   <RenderFor device={["desktop"]} audience="authenticated">
     {#if progress}
-      <NextEpisodeItem episode={progress} show={media} {onMarkAsWatched} />
+      <NextEpisodeItem episode={progress} show={media} />
     {/if}
   </RenderFor>
 {/snippet}

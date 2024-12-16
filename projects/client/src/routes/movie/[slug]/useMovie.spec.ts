@@ -29,7 +29,7 @@ describe('store: useMovie', () => {
     });
 
     const result = await waitForQueryResult();
-    expect(result).to.deep.equal({
+    expect(result).to.include({
       'overview': MovieHereticMappedMock.overview,
       'tagline': MovieHereticMappedMock.tagline,
       'title': MovieHereticMappedMock.title,

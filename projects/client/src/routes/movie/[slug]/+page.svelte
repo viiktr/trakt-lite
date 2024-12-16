@@ -8,7 +8,12 @@
   const { movie, ratings, intl } = $derived(useMovie($page.params.slug));
 </script>
 
-<TraktPage title={$movie?.title}>
+<TraktPage
+  title={$movie?.title}
+  info={$movie}
+  image={$movie?.cover.url.thumb}
+  type="movie"
+>
   {#if $movie != null && $ratings != null && $intl != null}
     <MovieSummary media={$movie} ratings={$ratings} intl={$intl} />
   {:else}

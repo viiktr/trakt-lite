@@ -1,14 +1,80 @@
 <script lang="ts">
-  type TraktPageProps = { title: string | undefined };
-  const { children, title }: ChildrenProps & TraktPageProps = $props();
+  import { page } from "$app/stores";
+  import type { MediaType } from "$lib/models/MediaType";
+  import { DEFAULT_COVER } from "$lib/utils/constants";
+
+  type TraktPageProps = {
+    title: string | undefined;
+    type?: MediaType | "webpage";
+    image?: string;
+    info?: {
+      title: string;
+      overview: string;
+      runtime: number;
+    };
+  };
+  const {
+    children,
+    title,
+    type,
+    image = DEFAULT_COVER,
+    info: _info,
+  }: ChildrenProps & TraktPageProps = $props();
+
+  const websiteName = "Trakt Lite";
+  const twitterHandle = "@trakt";
+  const displayTitle = $derived(
+    title != null ? `${websiteName}: ${title}` : `${websiteName}`,
+  );
+
+  const ogType = $derived.by(() => {
+    switch (type) {
+      case "movie":
+        return "video.movie";
+      case "show":
+        return "video.tv_show";
+      case "webpage":
+      default:
+        return "website";
+    }
+  });
+
+  const info = $derived(
+    type === "webpage"
+      ? {
+          title: "Trakt Lite: Track Your Shows & Movies",
+          overview:
+            "Trakt Lite: A new, lightweight way to track your favorite movies and TV shows.",
+          runtime: 0,
+        }
+      : _info,
+  );
 </script>
 
 <svelte:head>
-  {#if title != null}
-    <title>Trakt Lite: {title}</title>
-  {:else}
-    <title>Trakt Lite</title>
+  <title>{displayTitle}</title>
+  <meta property="og:site_name" content={websiteName} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={$page.url.toString()} />
+  <meta property="og:image" content={image} />
+  <meta property="og:title" content={title} />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:updated_time" content={new Date().toISOString()} />
+
+  {#if info != null}
+    <meta name="description" content={info.overview} />
+    <meta property="og:description" content={info.overview} />
+    {#if info.runtime > 0}
+      <meta property="video:duration" content={`${info.runtime * 60}`} />
+    {/if}
+    <meta name="twitter:description" content={info.overview} />
   {/if}
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content={twitterHandle} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:image" content={image} />
+  <meta name="twitter:creator" content={twitterHandle} />
 </svelte:head>
 
 <div class="trakt-content">

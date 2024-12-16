@@ -20,7 +20,8 @@ export function useMovie(slug: string) {
 
   const locale = languageTag();
 
-  const intl = locale === 'en'
+  const isLocaleSkipped = locale === 'en';
+  const intl = isLocaleSkipped
     ? movie
     : createQuery(movieIntlQuery({ slug, ...getLanguageAndRegion() }));
 
@@ -30,8 +31,12 @@ export function useMovie(slug: string) {
     intl: derived(
       [movie, intl],
       ([$movie, $intl]) => {
+        if (isLocaleSkipped) {
+          return $intl.data;
+        }
+
         if ($intl.isFetching) {
-          return undefined;
+          return;
         }
 
         return {
