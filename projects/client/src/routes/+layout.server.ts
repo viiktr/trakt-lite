@@ -3,6 +3,7 @@ import type { SerializedAuthResponse } from '$lib/features/auth/models/Serialize
 import { THEME_STORE_NAME } from '$lib/features/theme/constants.ts';
 import { coerceTheme } from '$lib/features/theme/utils/coerceTheme.ts';
 import { buildOAuthUrl } from '$lib/utils/url/buildOAuthLink.ts';
+import { isBotAgent } from '$lib/utils/url/isBotAgent';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = ({ cookies, request }) => {
@@ -16,6 +17,7 @@ export const load: LayoutServerLoad = ({ cookies, request }) => {
       url: buildOAuthUrl(requestUrl.origin),
       token: null as string | Nil,
     },
+    isBot: isBotAgent(request.headers.get('user-agent')),
   };
 
   if (!serializedToken) {
