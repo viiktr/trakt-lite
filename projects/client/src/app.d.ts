@@ -111,7 +111,7 @@ declare global {
   };
 
   type HTMLAnchorProps = {
-    href: string | undefined;
+    href: string | Nil;
     target?: '_blank' | '_self' | '_parent' | '_top';
   };
 

@@ -1,12 +1,10 @@
 <script lang="ts">
-  import Button from "$lib/components/buttons/Button.svelte";
-  import YouTubeIcon from "$lib/components/icons/YouTubeIcon.svelte";
   import GenreList from "$lib/components/summary/GenreList.svelte";
   import RatingList from "$lib/components/summary/RatingList.svelte";
-  import * as m from "$lib/features/i18n/messages";
   import { useMedia, WellKnownMediaQuery } from "$lib/stores/css/useMedia";
   import type { MediaSummary } from "./MediaSummary";
   import type { MediaSummaryProps } from "./MediaSummaryProps";
+  import YoutubeButton from "./YoutubeButton.svelte";
 
   const { media, ratings, intl }: MediaSummaryProps<MediaSummary> = $props();
   const isLargeDisplay = useMedia(WellKnownMediaQuery.desktop);
@@ -23,15 +21,7 @@
 <p class="trakt-media-overview secondary">{intl.overview}</p>
 
 <div class="trakt-info-actions">
-  <Button href={media.trailer} target="_blank" label={"Trailer"} variant="vip">
-    {m.watch_the_trailer()}
-    {#snippet subtitle()}
-      YouTube
-    {/snippet}
-    {#snippet icon()}
-      <YouTubeIcon />
-    {/snippet}
-  </Button>
+  <YoutubeButton trailer={media.trailer} />
 </div>
 
 <style>
