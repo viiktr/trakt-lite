@@ -8,7 +8,7 @@ export const GenreIntlProvider: GenreIntl = {
     const messages = m as unknown as IntlStore;
 
     const key = `genre_${
-      genre.toLocaleLowerCase().replaceAll(' ', '_')
+      genre.toLocaleLowerCase().replace(/[\s-]+/g, '_')
     }` as const;
 
     return messages[key]?.() ?? genre;
