@@ -8,7 +8,6 @@
   import { useUser } from "$lib/features/auth/stores/useUser";
   import * as m from "$lib/features/i18n/messages";
   import RenderFor from "$lib/guards/RenderFor.svelte";
-  import { useMedia, WellKnownMediaQuery } from "$lib/stores/css/useMedia";
   import { UrlBuilder } from "$lib/utils/url/UrlBuilder";
   import ProfileImage from "../profile-banner/ProfileImage.svelte";
   import VipBadge from "./components/VIPBadge.svelte";
@@ -18,8 +17,6 @@
   const isVip = $derived(!!$user?.isVip);
   const variant = $derived(isVip ? "vip" : "primary");
   const style = $derived(isVip ? "textured" : "flat");
-  const isMobile = useMedia(WellKnownMediaQuery.mobile);
-  const name = $derived($isMobile ? "" : $user?.name?.first);
 </script>
 
 {#if !isVip}
@@ -55,7 +52,12 @@
   text="capitalize"
   size="small"
 >
-  {name}
+  <RenderFor
+    audience="authenticated"
+    device={["desktop", "tablet-lg", "tablet-sm"]}
+  >
+    {$user?.name?.first}
+  </RenderFor>
   {#snippet icon()}
     <div class="profile-icon">
       <ProfileImage
