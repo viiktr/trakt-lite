@@ -19,7 +19,7 @@
   const variant = $derived(isVip ? "vip" : "primary");
   const style = $derived(isVip ? "textured" : "flat");
   const isMobile = useMedia(WellKnownMediaQuery.mobile);
-  const name = $derived(isMobile ? "" : $user?.name?.first);
+  const name = $derived($isMobile ? "" : $user?.name?.first);
 </script>
 
 {#if !isVip}
