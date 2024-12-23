@@ -43,10 +43,10 @@ function showRelatedRequest(
     });
 }
 
-const showRelatedQueryKey = ['showRelated'] as const;
+const showRelatedQueryKey = (id: string) => ['showRelated', id] as const;
 export const showRelatedQuery = (
   params: ShowRelatedParams,
 ) => ({
-  queryKey: showRelatedQueryKey,
+  queryKey: showRelatedQueryKey(params.slug),
   queryFn: () => showRelatedRequest(params),
 });

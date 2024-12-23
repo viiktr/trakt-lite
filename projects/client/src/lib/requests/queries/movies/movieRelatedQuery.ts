@@ -28,10 +28,10 @@ function movieRelatedRequest(
     });
 }
 
-const movieRelatedQueryKey = ['movieRelated'] as const;
+const movieRelatedQueryKey = (id: string) => ['movieRelated', id] as const;
 export const movieRelatedQuery = (
   params: MovieRelatedParams,
 ) => ({
-  queryKey: movieRelatedQueryKey,
+  queryKey: movieRelatedQueryKey(params.slug),
   queryFn: () => movieRelatedRequest(params),
 });
