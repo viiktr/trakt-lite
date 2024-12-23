@@ -6,7 +6,7 @@
   type TraktPageProps = {
     title: string | undefined;
     type?: MediaType | "webpage";
-    image?: string;
+    image: string | Nil;
     info?: {
       title: string;
       overview: string;

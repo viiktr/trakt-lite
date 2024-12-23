@@ -10,7 +10,10 @@
   import TrendingList from "$lib/sections/lists/TrendingList.svelte";
   import WatchlistList from "$lib/sections/lists/WatchlistList.svelte";
 
-  import { DEFAULT_COVER } from "$lib/utils/constants";
+  import {
+    DEFAULT_COVER,
+    DEFAULT_SHARE_SHOW_COVER,
+  } from "$lib/utils/constants";
 
   const { current } = useUser();
 
@@ -37,7 +40,7 @@
   <PopularList title={m.most_popular()} {type} />
 {/snippet}
 
-<TraktPage title={m.navbar_link_shows()}>
+<TraktPage image={DEFAULT_SHARE_SHOW_COVER} title={m.navbar_link_shows()}>
   <RenderFor audience="authenticated">
     {@render content({
       ...current(),

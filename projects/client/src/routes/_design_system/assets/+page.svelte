@@ -12,6 +12,7 @@
   import { usePopularList } from "$lib/sections/lists/stores/usePopularList";
   import { useTrendingList } from "$lib/sections/lists/stores/useTrendingList";
   import { shuffle } from "$lib/utils/array/shuffle";
+  import { DEFAULT_SHARE_COVER } from "$lib/utils/constants";
   import DownloadIcon from "./DownloadIcon.svelte";
 
   const total = $derived(parseInt($page.url.searchParams.get("limit") ?? "70"));
@@ -63,7 +64,7 @@
   {/if}
 {/snippet}
 
-<TraktPage title="Assets">
+<TraktPage image={DEFAULT_SHARE_COVER} title="Assets">
   <div class="asset-navigation">
     <Button
       href="/_design_system/assets?type=movie"
@@ -100,7 +101,7 @@
     --height-list="var(--ni-128)"
   >
     {#snippet item(media)}
-      <CrossOriginImage src={media.cover.url.thumb} alt={media.title} />
+      <CrossOriginImage src={media.cover.url.medium} alt={media.title} />
     {/snippet}
 
     {#snippet actions()}

@@ -4,11 +4,12 @@
   import { useUser } from "$lib/features/auth/stores/useUser";
   import * as m from "$lib/features/i18n/messages.ts";
   import Profile from "$lib/sections/profile/Profile.svelte";
+  import { DEFAULT_SHARE_COVER } from "$lib/utils/constants";
 
   const { current } = useUser();
 </script>
 
-<TraktPage title={m.profile()}>
+<TraktPage image={DEFAULT_SHARE_COVER} title={m.profile()}>
   {#if current() != null}
     <BackgroundCoverImage src={current().cover.url} type="main" />
     <Profile />

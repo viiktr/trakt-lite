@@ -10,12 +10,12 @@
   import UpNextList from "$lib/sections/lists/UpNextList.svelte";
   import UpcomingList from "$lib/sections/lists/UpcomingList.svelte";
   import ProfileBanner from "$lib/sections/profile-banner/ProfileBanner.svelte";
-  import { DEFAULT_COVER } from "$lib/utils/constants";
+  import { DEFAULT_COVER, DEFAULT_SHARE_COVER } from "$lib/utils/constants";
 
   const { current } = useUser();
 </script>
 
-<TraktPage title={m.navbar_link_home()}>
+<TraktPage image={DEFAULT_SHARE_COVER} title={m.navbar_link_home()}>
   <RenderFor audience="authenticated">
     <BackgroundCoverImage src={current().cover.url} type="main" />
     <ProfileBanner />
