@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import type { MediaType } from "$lib/models/MediaType";
-  import { DEFAULT_COVER } from "$lib/utils/constants";
+  import { DEFAULT_SHARE_COVER } from "$lib/utils/constants";
 
   type TraktPageProps = {
     title: string | undefined;
@@ -16,8 +16,8 @@
   const {
     children,
     title,
-    type,
-    image = DEFAULT_COVER,
+    type = "webpage",
+    image = DEFAULT_SHARE_COVER,
     info: _info,
   }: ChildrenProps & TraktPageProps = $props();
 

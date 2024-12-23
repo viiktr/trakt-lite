@@ -1,3 +1,5 @@
+import { assets } from '$app/paths';
+
 /**
  * This cover is the Alien Isolation cover.
  */
@@ -20,3 +22,5 @@ export const DEFAULT_TRAILER = 'https://www.youtube.com/watch?v=o-YBDTqX_ZU';
 
 export const MAX_DATE = new Date('9999-12-31T23:59:59.999Z');
 export const MIN_DATE = new Date('0000-01-01T00:00:00.000Z');
+
+export const DEFAULT_SHARE_COVER = `${assets}/trakt_default_share.webp`;
