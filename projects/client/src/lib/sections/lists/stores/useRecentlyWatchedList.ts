@@ -32,7 +32,11 @@ function useRecentlyWatchedMovies() {
   return {
     list: derived(
       query,
-      ($query) => ($query.data ?? []).map((item) => item.movie),
+      ($query) =>
+        ($query.data ?? []).map((item) => item.movie)
+          .filter((item, index, self) =>
+            self.findIndex((t) => t.id === item.id) === index
+          ),
     ),
   };
 }
