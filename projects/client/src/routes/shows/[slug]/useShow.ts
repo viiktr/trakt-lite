@@ -7,6 +7,7 @@ import { showSummaryQuery } from '$lib/requests/queries/shows/showSummaryQuery.t
 import { showWatchersQuery } from '$lib/requests/queries/shows/showWatchersQuery.ts';
 import { time } from '$lib/utils/timing/time.ts';
 import { createQuery } from '@tanstack/svelte-query';
+import { onMount } from 'svelte';
 import { derived } from 'svelte/store';
 
 export function useShow(slug: string) {
@@ -41,6 +42,13 @@ export function useShow(slug: string) {
   const intl = isLocaleSkipped ? show : createQuery({
     ...showIntlQuery({ slug, ...getLanguageAndRegion() }),
     staleTime: time.days(7),
+  });
+
+  // TODO: remove this when we have empty state, make sure requests fire in parallel
+  const queries = [show, ratings, stats, watchers, progress, intl];
+
+  onMount(() => {
+    queries.forEach((query) => query.subscribe(() => {}));
   });
 
   return {

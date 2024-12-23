@@ -6,6 +6,7 @@ import { movieSummaryQuery } from '$lib/requests/queries/movies/movieSummaryQuer
 import { movieWatchersQuery } from '$lib/requests/queries/movies/movieWatchersQuery.ts';
 import { time } from '$lib/utils/timing/time.ts';
 import { createQuery } from '@tanstack/svelte-query';
+import { onMount } from 'svelte';
 import { derived } from 'svelte/store';
 
 export function useMovie(slug: string) {
@@ -43,6 +44,13 @@ export function useMovie(slug: string) {
   const intl = isLocaleSkipped ? movie : createQuery({
     ...movieIntlQuery({ slug, ...getLanguageAndRegion() }),
     staleTime: time.days(7),
+  });
+
+  // TODO: remove this when we have empty state, make sure requests fire in parallel
+  const queries = [movie, ratings, stats, watchers, intl];
+
+  onMount(() => {
+    queries.forEach((query) => query.subscribe(() => {}));
   });
 
   return {

@@ -27,7 +27,7 @@
   {:else}
     <!-- TODO: remove this when we have empty state, currently prevents content jumps -->
     <RenderFor audience="all" device={["tablet-sm", "tablet-lg", "desktop"]}>
-      <div style="height: 616px; display:flex"></div>
+      <div style="height: 100dvh; display:flex"></div>
     </RenderFor>
   {/if}
 </TraktPage>
