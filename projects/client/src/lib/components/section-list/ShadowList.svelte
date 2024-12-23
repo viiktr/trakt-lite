@@ -48,20 +48,20 @@
 
 <section
   use:whenInViewport={() => isVisible.set(true)}
-  class="section-list-container"
+  class="shadow-list-container"
 >
-  <div class="section-list-header">
-    <h4 class="section-list-title ellipsis">{title}</h4>
+  <div class="shadow-list-header">
+    <h4 class="shadow-list-title ellipsis">{title}</h4>
     {#if actions != null}
-      <div class="section-list-actions">
+      <div class="shadow-list-actions">
         {@render actions()}
       </div>
     {/if}
   </div>
   <div
-    class="section-list"
-    class:section-list-left-shadow={isLeftShadowVisible}
-    class:section-list-right-shadow={isRightShadowVisible}
+    class="shadow-list"
+    class:shadow-list-left-shadow={isLeftShadowVisible}
+    class:shadow-list-right-shadow={isRightShadowVisible}
     style:--left-shadow-opacity={leftShadowIntensity}
     style:--right-shadow-opacity={rightShadowIntensity}
   >
@@ -69,14 +69,14 @@
       <div
         bind:this={$scrollContainer}
         use:scrollTracking={scrollX}
-        class="section-list-horizontal-scroll"
+        class="shadow-list-horizontal-scroll"
       >
         {#each items as i (i.id)}
           {@render item(i)}
         {/each}
       </div>
     {:else if empty != null && $isMounted}
-      <div class="section-list-empty-state">
+      <div class="shadow-list-empty-state">
         {@render empty()}
       </div>
     {/if}
@@ -84,19 +84,19 @@
 </section>
 
 <style>
-  .section-list-container,
-  .section-list,
-  .section-list-empty-state {
-    min-height: var(--height-section-list);
+  .shadow-list-container,
+  .shadow-list,
+  .shadow-list-empty-state {
+    min-height: var(--height-list);
   }
 
-  .section-list-container {
+  .shadow-list-container {
     display: flex;
     flex-direction: column;
     gap: var(--ni-32);
   }
 
-  .section-list-empty-state {
+  .shadow-list-empty-state {
     width: 100%;
 
     display: flex;
@@ -111,7 +111,7 @@
     }
   }
 
-  .section-list-header {
+  .shadow-list-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -125,18 +125,18 @@
     @media (max-width: 480px) {
       margin-left: var(--ni-32);
 
-      .section-list-actions {
+      .shadow-list-actions {
         display: none;
       }
     }
   }
 
-  .section-list-actions {
+  .shadow-list-actions {
     display: flex;
     gap: var(--ni-4);
   }
 
-  .section-list-title {
+  .shadow-list-title {
     color: var(--color-text-primary);
     transition: font-size calc(var(--transition-increment) * 2) ease-in-out;
 
@@ -149,14 +149,14 @@
     }
   }
 
-  .section-list {
+  .shadow-list {
     position: relative;
 
-    &.section-list-left-shadow::before {
+    &.shadow-list-left-shadow::before {
       opacity: var(--left-shadow-opacity);
     }
 
-    &.section-list-right-shadow::after {
+    &.shadow-list-right-shadow::after {
       opacity: var(--right-shadow-opacity);
     }
 
@@ -180,9 +180,7 @@
       top: 0;
 
       width: var(--ni-56);
-      height: calc(
-        var(--height-section-list) - var(--layout-distance-scroll-card)
-      );
+      height: calc(var(--height-list) - var(--layout-distance-scroll-card));
 
       opacity: 0;
 
@@ -208,9 +206,9 @@
     }
   }
 
-  .section-list-horizontal-scroll {
+  .shadow-list-horizontal-scroll {
     padding: 0 var(--layout-distance-side);
-
+    height: var(--height-list);
     display: flex;
     gap: var(--ni-8);
     overflow-x: auto;

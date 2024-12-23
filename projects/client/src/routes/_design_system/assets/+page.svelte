@@ -97,7 +97,7 @@
   <ShadowList
     title={`Covers (${media.length})`}
     items={media}
-    --height-section-list="var(--ni-128)"
+    --height-list="var(--ni-128)"
   >
     {#snippet item(media)}
       <CrossOriginImage src={media.cover.url.thumb} alt={media.title} />
@@ -120,7 +120,7 @@
   <ShadowList
     title={`Posters (${media.length})`}
     items={media}
-    --height-section-list="var(--ni-180)"
+    --height-list="var(--ni-180)"
   >
     {#snippet item(media)}
       <CrossOriginImage src={media.poster.url.thumb} alt={media.title} />

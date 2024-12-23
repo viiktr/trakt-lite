@@ -14,7 +14,7 @@
 <SectionList
   items={$calendar}
   title={m.upcoming_schedule_title()}
-  --height-section-list={mediaListHeightResolver("episode")}
+  --height-list={mediaListHeightResolver("episode")}
 >
   {#snippet item(entry)}
     <UpcomingEpisode

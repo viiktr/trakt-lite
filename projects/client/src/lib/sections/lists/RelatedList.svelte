@@ -19,7 +19,7 @@
 <SectionList
   items={$list}
   {title}
-  --height-section-list={mediaListHeightResolver(type)}
+  --height-list={mediaListHeightResolver(type)}
 >
   {#snippet item(media)}
     <MediaItem {type} {media} />

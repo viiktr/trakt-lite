@@ -25,7 +25,7 @@
 <SectionList
   items={$list}
   title={m.up_next_title()}
-  --height-section-list={mediaListHeightResolver("episode")}
+  --height-list={mediaListHeightResolver("episode")}
 >
   {#snippet item(episode)}
     <NextEpisodeItem {episode} show={episode.show} />
