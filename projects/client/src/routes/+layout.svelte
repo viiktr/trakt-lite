@@ -106,7 +106,7 @@
     flex: 1;
   }
 
-  @include mouse {
+  @include for-mouse {
     :global(::-webkit-scrollbar) {
       width: var(--ni-8);
       height: var(--ni-8);

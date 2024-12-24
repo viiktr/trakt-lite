@@ -92,7 +92,7 @@
       transform: translate(-50%, -50%);
     }
 
-    @include mouse {
+    @include for-mouse {
       &:hover {
         background-color: color-mix(
           in srgb,

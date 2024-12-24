@@ -73,7 +73,7 @@
     &[data-style="normal"] {
       color: var(--purple-800);
 
-      @include mouse {
+      @include for-mouse {
         &:hover {
           background: var(--purple-100);
         }
@@ -92,7 +92,7 @@
     &[data-style="danger"] {
       color: var(--red-600);
 
-      @include mouse {
+      @include for-mouse {
         &:hover {
           background: var(--red-100);
         }

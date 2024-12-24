@@ -88,7 +88,7 @@
       --color-foreground-button: #{$foreground-color};
 
       &:not([data-style="textured"]):not([data-style="ghost"]) {
-        @include mouse {
+        @include for-mouse {
           &:hover,
           &:focus-visible {
             --color-foreground-button: #{$background-color};
@@ -111,7 +111,7 @@
         $background-color
       );
 
-      @include mouse {
+      @include for-mouse {
         &:focus-visible {
           outline: var(--border-thickness-xs) solid
             var(--color-foreground-button);
@@ -225,7 +225,7 @@
       transition: opacity var(--transition-increment) ease-in-out;
     }
 
-    @include mouse {
+    @include for-mouse {
       &:hover::before,
       &:focus-visible::before {
         opacity: 1;
@@ -264,7 +264,7 @@
         color: var(--color-foreground-button-disabled);
       }
 
-      @include mouse {
+      @include for-mouse {
         &:hover:not([disabled]) {
           color: var(--color-foreground-button);
 

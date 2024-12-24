@@ -165,7 +165,7 @@
       :global(a.trakt-link) {
         transition: background-color var(--transition-increment) ease-in-out;
 
-        @include mouse {
+        @include for-mouse {
           &:hover,
           &:focus-visible {
             background: var(--purple-900);

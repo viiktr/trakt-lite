@@ -53,7 +53,7 @@
       --color-background-action-button: #{$background-color};
       --color-foreground-action-button: #{$foreground-color};
 
-      @include mouse {
+      @include for-mouse {
         &:hover,
         &:focus-visible {
           --color-background-action-button: #{$foreground-color};
@@ -76,7 +76,7 @@
         $background-color
       );
 
-      @include mouse {
+      @include for-mouse {
         &:focus-visible {
           outline: var(--border-thickness-xs) solid
             var(--color-foreground-action-button);

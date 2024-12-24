@@ -78,7 +78,7 @@
         color: var(--color-foreground);
       }
 
-      @include mouse {
+      @include for-mouse {
         &:hover,
         &:focus-visible {
           color: var(--color-link-active);
@@ -91,7 +91,7 @@
           color: var(--color-link-active);
         }
 
-        @include mouse {
+        @include for-mouse {
           &:hover {
             color: var(--color-foreground);
           }
@@ -107,7 +107,7 @@
         color: var(--red-300);
       }
 
-      @include mouse {
+      @include for-mouse {
         &:hover {
           color: var(--blue-600);
         }

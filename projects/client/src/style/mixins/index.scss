@@ -1,10 +1,10 @@
-@mixin mouse {
+@mixin for-mouse {
   @media (hover: hover) and (pointer: fine) {
     @content;
   }
 }
 
-@mixin touch {
+@mixin for-touch {
   @media (hover: none) and (pointer: coarse) {
     @content;
   }
