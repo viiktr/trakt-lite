@@ -38,7 +38,7 @@
 {/if}
 
 <style lang="scss">
-  @use "../../../style/mixins/index" as *;
+  @use "$style/mixins/index" as *;
 
   .trakt-link {
     -webkit-tap-highlight-color: transparent;

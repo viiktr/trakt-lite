@@ -39,6 +39,7 @@
     ]
   },
   "explorer.excludeGitIgnore": true,
+  "files.insertFinalNewline": true,
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },

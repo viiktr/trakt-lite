@@ -46,7 +46,7 @@
 {/if}
 
 <style lang="scss">
-  @use "../../../style/mixins/index.scss" as *;
+  @use "$style/mixins/index" as *;
 
   @mixin variant-styles($variant, $background-color, $foreground-color) {
     &[data-variant="#{$variant}"] {
