@@ -219,5 +219,8 @@
   "job_theatre_play": "Театральна п'єса",
   "job_writer": "Письменник",
   "job_writers_assistant": "Помічник письменника",
-  "job_writers_production": "Виробництво письменників"
+  "job_writers_production": "Виробництво письменників",
+  "remove_from_watched": "Видалити з Переглянутого",
+  "remove_from_watched_label": "Видалити {title} зі списку Переглянутого",
+  "remove_from_watched_warning": "Ви впевнені, що хочете видалити {title} зі списку Переглянутого?"
 }

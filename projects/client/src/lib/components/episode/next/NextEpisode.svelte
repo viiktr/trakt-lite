@@ -73,6 +73,7 @@
         isWatched={false}
         isMarkingAsWatched={isLoading}
         onWatch={onMarkAsWatched}
+        onRemove={() => {}}
       />
     {/snippet}
   </CardFooter>

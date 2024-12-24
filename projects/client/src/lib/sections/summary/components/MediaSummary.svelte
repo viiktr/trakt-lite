@@ -42,12 +42,13 @@
     crew: MediaCrew;
   } = $props();
 
-  const { markAsWatched, isMarkingAsWatched, isWatched } = $derived(
-    useMarkAsWatched({
-      type,
-      id: media.id,
-    }),
-  );
+  const { markAsWatched, removeWatched, isMarkingAsWatched, isWatched } =
+    $derived(
+      useMarkAsWatched({
+        type,
+        id: media.id,
+      }),
+    );
 
   const {
     isWatchlistUpdating,
@@ -74,6 +75,7 @@
     isMarkingAsWatched: $isMarkingAsWatched,
     isWatched: $isWatched,
     onWatch: markAsWatched,
+    onRemove: removeWatched,
   });
 
   const { watchNow, isLoading } = useWatchNow({ type, id: media.slug });

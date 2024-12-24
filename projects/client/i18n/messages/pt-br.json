@@ -219,5 +219,8 @@
   "job_theatre_play": "Peça de Teatro",
   "job_writer": "Escritor",
   "job_writers_assistant": "Assistente de Escritor",
-  "job_writers_production": "Produção de Escritores"
+  "job_writers_production": "Produção de Escritores",
+  "remove_from_watched": "Remover de Assistidos",
+  "remove_from_watched_label": "Remover {title} da sua lista de Assistidos",
+  "remove_from_watched_warning": "Tem certeza que deseja remover {title} da sua lista de Assistidos?"
 }

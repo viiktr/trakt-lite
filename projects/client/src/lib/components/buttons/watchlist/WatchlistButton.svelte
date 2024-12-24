@@ -20,6 +20,7 @@
 <Button
   label={i18n.label({ isWatchlisted, title })}
   color="blue"
+  variant="secondary"
   onclick={handler}
   disabled={isWatchlistUpdating}
 >

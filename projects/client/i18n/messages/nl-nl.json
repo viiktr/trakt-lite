@@ -219,5 +219,8 @@
   "job_theatre_play": "Toneelstuk",
   "job_writer": "Schrijver",
   "job_writers_assistant": "Assistent Schrijver",
-  "job_writers_production": "Schrijvers Productie"
+  "job_writers_production": "Schrijvers Productie",
+  "remove_from_watched": "Verwijder van Bekijkt",
+  "remove_from_watched_label": "Verwijder {title} van je Bekijkt lijst",
+  "remove_from_watched_warning": "Weet je zeker dat je {title} wilt verwijderen van je Bekijkt lijst?"
 }

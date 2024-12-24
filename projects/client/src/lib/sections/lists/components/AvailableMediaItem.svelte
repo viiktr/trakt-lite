@@ -39,12 +39,13 @@
     }),
   );
 
-  const { isMarkingAsWatched, isWatched, markAsWatched } = $derived(
-    useMarkAsWatched({
-      type,
-      id: media.id,
-    }),
-  );
+  const { isMarkingAsWatched, isWatched, markAsWatched, removeWatched } =
+    $derived(
+      useMarkAsWatched({
+        type,
+        id: media.id,
+      }),
+    );
 </script>
 
 {#snippet content(mediaCoverImageUrl: string)}
@@ -84,6 +85,7 @@
           isWatched={$isWatched}
           isMarkingAsWatched={$isMarkingAsWatched}
           onWatch={markAsWatched}
+          onRemove={removeWatched}
         />
       </RenderFor>
     {/snippet}

@@ -36,6 +36,7 @@ function generatePromptText({
           *   Imagine the text might refer to a movie, show, episode, or other media-related term.
           *   When the JSON key starts with 'job_' it relates to a job one can have in the film and TV industry
           *   Refrain from making assumptions of where media content is consumed (e.g., theaters, streaming services) unless explicitly mentioned in the English text.
+          *   Do not translate things between curly braces {like this}, they are placeholders for dynamic content.
 
           Examples in Trakt Lite:
 

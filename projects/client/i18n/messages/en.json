@@ -219,5 +219,8 @@
   "job_theatre_play": "Theatre Play",
   "job_writer": "Writer",
   "job_writers_assistant": "Writers' Assistant",
-  "job_writers_production": "Writers' Production"
+  "job_writers_production": "Writers' Production",
+  "remove_from_watched": "Remove from Watched",
+  "remove_from_watched_label": "Remove {title} from your Watched list",
+  "remove_from_watched_warning": "Are you sure you want to remove {title} from your Watched list?"
 }

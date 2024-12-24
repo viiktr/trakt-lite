@@ -4,6 +4,7 @@ import * as m from '$lib/features/i18n/messages.ts';
 import type { MediaType } from '$lib/models/MediaType.ts';
 import { InvalidateAction } from '$lib/requests/models/InvalidateAction.ts';
 import { markAsWatchedRequest } from '$lib/requests/sync/markAsWatchedRequest.ts';
+import { removeWatchedRequest } from '$lib/requests/sync/removeWatchedRequest.ts';
 import { derived, writable } from 'svelte/store';
 import { toMarkAsWatchedPayload } from './_internal/toMarkAsWatchedPayload.ts';
 import { useInvalidator } from './useInvalidator.ts';
@@ -77,8 +78,22 @@ export function useMarkAsWatched({ type, id }: MarkAsWatchedStoreProps) {
     await invalidate(InvalidateAction.MarkAsWatched(type));
   };
 
+  const removeWatched = async () => {
+    isMarkingAsWatched.set(true);
+    const result = await removeWatchedRequest({
+      body: toMarkAsWatchedPayload(type, {
+        ids: [id],
+      }),
+    });
+    isMarkingAsWatched.set(false);
+
+    _isWatched.set(!result);
+    await invalidate(InvalidateAction.MarkAsWatched(type));
+  };
+
   return {
     markAsWatched,
+    removeWatched,
     isWatched,
     isMarkingAsWatched,
   };

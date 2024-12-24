@@ -219,5 +219,8 @@
   "job_theatre_play": "Spectacol de teatru",
   "job_writer": "Scriitor",
   "job_writers_assistant": "Asistent de scriitor",
-  "job_writers_production": "Producție de scriitori"
+  "job_writers_production": "Producție de scriitori",
+  "remove_from_watched": "Eliminare din Vizionate",
+  "remove_from_watched_label": "Eliminare {title} din lista ta de Vizionate",
+  "remove_from_watched_warning": "Esti sigur că vrei să elimini {title} din lista ta de Vizionate?"
 }

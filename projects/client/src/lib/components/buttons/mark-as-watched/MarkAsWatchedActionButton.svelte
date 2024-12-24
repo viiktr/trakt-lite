@@ -1,6 +1,7 @@
 <script lang="ts">
-  import CheckIcon from "$lib/components/icons/CheckIcon.svelte";
+  import MarkAsWatchedIcon from "../../icons/MarkAsWatchedIcon.svelte";
   import ActionButton from "../ActionButton.svelte";
+  import { attachRemoveWarning } from "./attachRemoveWarning";
   import { MarkAsWatchedButtonIntlProvider } from "./MarkAsWatchedButtonIntlProvider";
   import type { MarkAsWatchedButtonProps } from "./MarkAsWatchedButtonProps";
 
@@ -8,18 +9,26 @@
     i18n = MarkAsWatchedButtonIntlProvider,
     title,
     onWatch,
+    onRemove,
     isMarkingAsWatched,
     isWatched,
     ...props
   }: MarkAsWatchedButtonProps = $props();
+
+  const handler = $derived(
+    isWatched
+      ? attachRemoveWarning(onRemove, i18n.warning({ isWatched, title }))
+      : onWatch,
+  );
+  const color = $derived(isWatched ? "red" : "purple");
 </script>
 
 <ActionButton
-  color="purple"
-  label={i18n.label({ title })}
-  onclick={onWatch}
-  disabled={isMarkingAsWatched || isWatched}
+  {color}
+  label={i18n.label({ title, isWatched })}
+  onclick={handler}
+  disabled={isMarkingAsWatched}
   {...props}
 >
-  <CheckIcon />
+  <MarkAsWatchedIcon state={isWatched ? "watched" : "unwatched"} />
 </ActionButton>

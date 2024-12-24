@@ -219,5 +219,8 @@
   "job_theatre_play": "Obra de Teatro",
   "job_writer": "Escritor",
   "job_writers_assistant": "Asistente de Escritores",
-  "job_writers_production": "Producción de Escritores"
+  "job_writers_production": "Producción de Escritores",
+  "remove_from_watched": "Quitar de Visto",
+  "remove_from_watched_label": "Quitar {title} de tu lista de Visto",
+  "remove_from_watched_warning": "¿Estás seguro de que deseas quitar {title} de tu lista de Visto?"
 }

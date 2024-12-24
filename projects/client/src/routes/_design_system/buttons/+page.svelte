@@ -1,9 +1,9 @@
 <script lang="ts">
   import ActionButton from "$lib/components/buttons/ActionButton.svelte";
   import Button from "$lib/components/buttons/Button.svelte";
-  import CheckIcon from "$lib/components/icons/CheckIcon.svelte";
   import VipIcon from "$lib/components/icons/VipIcon.svelte";
   import WatchNowIcon from "$lib/components/icons/WatchNowIcon.svelte";
+  import YouTubeIcon from "../../../lib/components/icons/YouTubeIcon.svelte";
 
   import type { TraktButtonProps } from "$lib/components/buttons/TraktButtonProps";
 
@@ -31,7 +31,7 @@
               {/if}
 
               {#if color === "blue"}
-                <CheckIcon />
+                <YouTubeIcon />
               {/if}
 
               {#if color === "red"}
@@ -88,7 +88,7 @@
 
       <div class="action-button-demo">
         <ActionButton label="Purple action button" color="purple">
-          <CheckIcon />
+          <YouTubeIcon />
         </ActionButton>
 
         <ActionButton
@@ -96,7 +96,7 @@
           color="purple"
           variant="secondary"
         >
-          <CheckIcon />
+          <YouTubeIcon />
         </ActionButton>
 
         Variant: purple
@@ -104,11 +104,11 @@
 
       <div class="action-button-demo">
         <ActionButton label="Red action button" color="red">
-          <CheckIcon />
+          <YouTubeIcon />
         </ActionButton>
 
         <ActionButton label="Red action button" color="red" variant="secondary">
-          <CheckIcon />
+          <YouTubeIcon />
         </ActionButton>
 
         Variant: red
@@ -116,7 +116,7 @@
 
       <div class="action-button-demo">
         <ActionButton label="Blue action button" color="blue">
-          <CheckIcon />
+          <YouTubeIcon />
         </ActionButton>
 
         <ActionButton
@@ -124,7 +124,7 @@
           color="blue"
           variant="secondary"
         >
-          <CheckIcon />
+          <YouTubeIcon />
         </ActionButton>
 
         Variant: blue
@@ -132,11 +132,11 @@
 
       <div class="action-button-demo">
         <ActionButton label="Default action button">
-          <CheckIcon />
+          <YouTubeIcon />
         </ActionButton>
 
         <ActionButton label="Default action button" variant="secondary">
-          <CheckIcon />
+          <YouTubeIcon />
         </ActionButton>
 
         Variant: default

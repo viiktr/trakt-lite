@@ -219,5 +219,8 @@
   "job_theatre_play": "Pièce de théâtre",
   "job_writer": "Scénariste",
   "job_writers_assistant": "Assistant scénariste",
-  "job_writers_production": "Production scénaristique"
+  "job_writers_production": "Production scénaristique",
+  "remove_from_watched": "Supprimer de Visionnés",
+  "remove_from_watched_label": "Supprimer {title} de votre liste Visionnés",
+  "remove_from_watched_warning": "Êtes-vous sûr de vouloir supprimer {title} de votre liste Visionnés ?"
 }
