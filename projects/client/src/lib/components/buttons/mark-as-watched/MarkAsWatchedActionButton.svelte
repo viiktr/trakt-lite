@@ -21,10 +21,12 @@
       : onWatch,
   );
   const color = $derived(isWatched ? "red" : "purple");
+  const variant = $derived(isWatched ? "secondary" : "primary");
 </script>
 
 <ActionButton
   {color}
+  {variant}
   label={i18n.label({ title, isWatched })}
   onclick={handler}
   disabled={isMarkingAsWatched}
