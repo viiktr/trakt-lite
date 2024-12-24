@@ -130,9 +130,8 @@ describe('ActionButton', () => {
       );
 
       const link = screen.getByRole('link', { name: 'Test ActionButton' });
-      await fireEvent.click(link);
 
-      expect(link).toHaveFocus();
+      expect(link).toHaveAttribute('data-sveltekit-keepfocus');
     });
   });
 });

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { useActiveLink } from "$lib/stores/useActiveLink";
-  import { navigateWithFocus } from "$lib/utils/actions/navigateWithFocus";
+  import { triggerWithKeyboard } from "$lib/utils/actions/triggerWithKeyboard";
 
   const {
     children,
@@ -23,8 +23,9 @@
   <a
     {href}
     {target}
+    use:triggerWithKeyboard
+    data-sveltekit-keepfocus
     tabindex={focusable ? 0 : -1}
-    use:navigateWithFocus
     data-color={color}
     class="trakt-link"
     class:trakt-link-active={$isActive}

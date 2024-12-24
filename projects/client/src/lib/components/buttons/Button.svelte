@@ -2,7 +2,7 @@
   import { useActiveLink } from "$lib/stores/useActiveLink";
   import { clickOutside } from "$lib/utils/actions/clickOutside";
   import { disableTransitionOn } from "$lib/utils/actions/disableTransitionOn";
-  import { navigateWithFocus } from "$lib/utils/actions/navigateWithFocus";
+  import { triggerWithKeyboard } from "$lib/utils/actions/triggerWithKeyboard";
   import type { TraktButtonProps } from "./TraktButtonProps";
 
   type TraktButtonAnchorProps = HTMLAnchorProps &
@@ -47,8 +47,9 @@
 {#if href != null}
   <a
     use:disableTransitionOn={"touch"}
-    use:navigateWithFocus
     use:clickOutside
+    use:triggerWithKeyboard
+    data-sveltekit-keepfocus
     class="trakt-button trakt-button-link"
     class:trakt-link-active={$isActive}
     aria-label={label}

@@ -169,9 +169,8 @@ describe('Button', () => {
       );
 
       const link = screen.getByRole('link', { name: 'Test Button' });
-      await fireEvent.click(link);
 
-      expect(link).toHaveFocus();
+      expect(link).toHaveAttribute('data-sveltekit-keepfocus');
     });
   });
 });

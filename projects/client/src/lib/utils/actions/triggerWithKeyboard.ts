@@ -1,4 +1,4 @@
-export function enableKeyboardA11y(node: HTMLElement) {
+export function triggerWithKeyboard(node: HTMLElement) {
   const handleKeyDown = (event: KeyboardEvent) => {
     const isElement = event.target instanceof HTMLElement;
     if (!isElement) {
