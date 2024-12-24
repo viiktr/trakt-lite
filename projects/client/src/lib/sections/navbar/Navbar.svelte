@@ -71,6 +71,11 @@
         >
           {m.navbar_link_movies()}
         </Button>
+      </RenderFor>
+      <RenderFor audience="public">
+        <JoinTraktButton />
+      </RenderFor>
+      <RenderFor audience="authenticated">
         <Button
           href={UrlBuilder.watchlist()}
           label={m.navbar_link_watchlist_label()}
@@ -80,11 +85,7 @@
         >
           {m.navbar_link_watchlist()}
         </Button>
-      </RenderFor>
-      <RenderFor audience="public">
-        <JoinTraktButton />
-      </RenderFor>
-      <RenderFor audience="authenticated">
+
         <ProfileButton />
       </RenderFor>
     </div>

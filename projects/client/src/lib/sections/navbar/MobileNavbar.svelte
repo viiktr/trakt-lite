@@ -5,6 +5,7 @@
   import ShowIcon from "$lib/components/icons/ShowIcon.svelte";
   import Link from "$lib/components/link/Link.svelte";
   import * as m from "$lib/features/i18n/messages";
+  import RenderFor from "$lib/guards/RenderFor.svelte";
   import { UrlBuilder } from "$lib/utils/url/UrlBuilder";
 </script>
 
@@ -30,12 +31,14 @@
     </div>
   </Link>
 
-  <Link href={UrlBuilder.watchlist()}>
-    <div class="trakt-mobile-navbar-link">
-      <WatchlistIcon />
-      <p class="meta-info">{m.navbar_link_watchlist()}</p>
-    </div>
-  </Link>
+  <RenderFor audience="authenticated">
+    <Link href={UrlBuilder.watchlist()}>
+      <div class="trakt-mobile-navbar-link">
+        <WatchlistIcon />
+        <p class="meta-info">{m.navbar_link_watchlist()}</p>
+      </div>
+    </Link>
+  </RenderFor>
 </div>
 
 <div class="trakt-mobile-navbar-spacer"></div>
