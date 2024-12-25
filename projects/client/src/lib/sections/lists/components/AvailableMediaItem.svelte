@@ -35,15 +35,15 @@
   } = $derived(
     useWatchlist({
       type,
-      id: media.id,
+      media,
     }),
   );
 
   const { isMarkingAsWatched, isWatched, markAsWatched, removeWatched } =
     $derived(
       useMarkAsWatched({
-        type,
-        id: media.id,
+        type: type as "movie" | "show",
+        media,
       }),
     );
 </script>

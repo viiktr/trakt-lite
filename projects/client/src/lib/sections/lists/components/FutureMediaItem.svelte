@@ -32,7 +32,7 @@
   } = $derived(
     useWatchlist({
       type,
-      id: media.id,
+      media,
     }),
   );
 </script>

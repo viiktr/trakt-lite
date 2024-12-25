@@ -9,10 +9,10 @@ import { useInvalidator } from './useInvalidator.ts';
 
 type WatchlistStoreProps = {
   type: MediaType;
-  id: number;
+  media: { id: number };
 };
 
-export function useWatchlist({ type, id }: WatchlistStoreProps) {
+export function useWatchlist({ type, media }: WatchlistStoreProps) {
   const isWatchlistUpdating = writable(false);
   const { watchlist } = useUser();
   const { invalidate } = useInvalidator();
@@ -27,11 +27,9 @@ export function useWatchlist({ type, id }: WatchlistStoreProps) {
 
       switch (type) {
         case 'movie':
-          return $watchlist.movies.has(id) || $_isWatchlisted;
-        case 'episode':
-          return false;
+          return $watchlist.movies.has(media.id) || $_isWatchlisted;
         case 'show':
-          return $watchlist.shows.has(id) || $_isWatchlisted;
+          return $watchlist.shows.has(media.id) || $_isWatchlisted;
       }
     },
   );
@@ -39,7 +37,7 @@ export function useWatchlist({ type, id }: WatchlistStoreProps) {
   const addToWatchlist = async () => {
     isWatchlistUpdating.set(true);
     const result = await addToWatchlistRequest({
-      body: toWatchlistPayload(type, [id]),
+      body: toWatchlistPayload(type, [media.id]),
     });
     isWatchlistUpdating.set(false);
     _isWatchlisted.set(result);
@@ -50,7 +48,7 @@ export function useWatchlist({ type, id }: WatchlistStoreProps) {
   const removeFromWatchlist = async () => {
     isWatchlistUpdating.set(true);
     const result = await removeFromWatchlistRequest({
-      body: toWatchlistPayload(type, [id]),
+      body: toWatchlistPayload(type, [media.id]),
     });
     isWatchlistUpdating.set(false);
     _isWatchlisted.set(!result);

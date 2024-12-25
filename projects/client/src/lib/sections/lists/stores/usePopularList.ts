@@ -29,8 +29,6 @@ function typeToQuery(
       return moviePopularQuery(params);
     case 'show':
       return showPopularQuery(params);
-    case 'episode':
-      throw new Error('Not implemented');
   }
 }
 

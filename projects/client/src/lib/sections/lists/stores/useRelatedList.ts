@@ -27,8 +27,6 @@ function typeToQuery(
       return movieRelatedQuery(params);
     case 'show':
       return showRelatedQuery(params);
-    case 'episode':
-      throw new Error('Not implemented');
   }
 }
 

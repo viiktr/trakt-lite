@@ -31,8 +31,6 @@ function typeToQuery(
       return movieTrendingQuery(params);
     case 'show':
       return showTrendingQuery(params);
-    case 'episode':
-      throw new Error('Not implemented');
   }
 }
 

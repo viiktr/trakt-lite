@@ -25,8 +25,6 @@ function typeToQuery(
       return movieWatchNowQuery(params);
     case 'show':
       return showWatchNowQuery(params);
-    case 'episode':
-      throw new Error('Not implemented');
   }
 }
 

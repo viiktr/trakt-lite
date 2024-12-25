@@ -28,17 +28,31 @@ export function resolveWatchDate(
   }
 }
 
-type MarkAsWatchedStoreProps = {
-  type: MediaType;
-  id: number;
-  season?: number;
-  episode?: number;
+type BaseProps = {
+  type: MediaType | 'episode';
+  media: { id: number };
 };
+
+type EpisodeProps = {
+  type: 'episode';
+  show: { id: number };
+  episode: {
+    season: number;
+    number: number;
+  };
+};
+
+type NonEpisodeProps = {
+  type: 'movie' | 'show';
+  media: { id: number };
+};
+
+type MarkAsWatchedStoreProps = BaseProps & (EpisodeProps | NonEpisodeProps);
 
 export function useMarkAsWatched(
   props: MarkAsWatchedStoreProps,
 ) {
-  const { type, id } = props;
+  const { type, media } = props;
   const isMarkingAsWatched = writable(false);
   const { history } = useUser();
   const { invalidate } = useInvalidator();
@@ -53,14 +67,15 @@ export function useMarkAsWatched(
 
       switch (type) {
         case 'movie':
-          return $history.movies.has(id) || $_isWatched;
+          return $history.movies.has(media.id) || $_isWatched;
         case 'episode':
-          return $history.shows.get(id)
+          return $history.shows.get(props.show.id)
             ?.episodes.some((entry) =>
-              entry.episode === props.episode && entry.season === props.season
+              entry.episode === props.episode.number &&
+              entry.season === props.episode.season
             ) || $_isWatched;
         case 'show': {
-          return !!$history.shows.get(id)?.isWatched || $_isWatched;
+          return !!$history.shows.get(media.id)?.isWatched || $_isWatched;
         }
       }
     },
@@ -76,7 +91,7 @@ export function useMarkAsWatched(
     isMarkingAsWatched.set(true);
     const result = await markAsWatchedRequest({
       body: toMarkAsWatchedPayload(type, {
-        ids: [id],
+        ids: [media.id],
         watchedAtDate,
       }),
     });
@@ -90,7 +105,7 @@ export function useMarkAsWatched(
     isMarkingAsWatched.set(true);
     const result = await removeWatchedRequest({
       body: toMarkAsWatchedPayload(type, {
-        ids: [id],
+        ids: [media.id],
       }),
     });
     isMarkingAsWatched.set(false);

@@ -24,8 +24,6 @@ function typeToQuery(type: MediaType): CreateQueryOptions<RecommendedMedia> {
       return recommendedMoviesQuery();
     case 'show':
       return recommendedShowsQuery();
-    case 'episode':
-      throw new Error('Not implemented');
   }
 }
 

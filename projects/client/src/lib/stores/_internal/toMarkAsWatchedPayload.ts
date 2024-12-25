@@ -1,7 +1,7 @@
 import type { MediaType } from '$lib/models/MediaType.ts';
 
 export function toMarkAsWatchedPayload(
-  type: MediaType,
+  type: MediaType | 'episode',
   payload: {
     ids: number[];
     watchedAtDate?: string;

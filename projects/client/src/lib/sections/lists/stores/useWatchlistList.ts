@@ -35,8 +35,6 @@ function typeToQuery(
       return movieWatchlistQuery(params);
     case 'show':
       return showWatchlistQuery(params);
-    case 'episode':
-      throw new Error('Not implemented');
   }
 }
 

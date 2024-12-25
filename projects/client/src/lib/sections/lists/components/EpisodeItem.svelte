@@ -22,9 +22,9 @@
   const { isWatched, isMarkingAsWatched, markAsWatched, removeWatched } =
     useMarkAsWatched({
       type: "episode",
-      id: show.id,
-      episode: episode.number,
-      season: episode.season,
+      media: episode,
+      show,
+      episode,
     });
 </script>
 

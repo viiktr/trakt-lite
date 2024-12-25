@@ -72,7 +72,5 @@ export function useRecentlyWatchedList(params: RecentlyWatchedListStoreProps) {
       return useRecentlyWatchedMovies();
     case 'show':
       return useRecentlyWatchedShows();
-    case 'episode':
-      throw new Error('Not implemented');
   }
 }

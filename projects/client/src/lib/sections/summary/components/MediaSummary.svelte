@@ -46,7 +46,7 @@
     $derived(
       useMarkAsWatched({
         type,
-        id: media.id,
+        media,
       }),
     );
 
@@ -58,7 +58,7 @@
   } = $derived(
     useWatchlist({
       type,
-      id: media.id,
+      media,
     }),
   );
 

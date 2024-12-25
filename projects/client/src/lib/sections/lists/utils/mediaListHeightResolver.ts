@@ -1,6 +1,6 @@
 import type { MediaType } from '$lib/models/MediaType.ts';
 
-export function mediaListHeightResolver(type: MediaType) {
+export function mediaListHeightResolver(type: MediaType | 'episode') {
   switch (type) {
     case 'movie':
       return 'var(--height-poster-list)';

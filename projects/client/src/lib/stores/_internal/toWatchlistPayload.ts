@@ -1,7 +1,7 @@
 import type { MediaType } from '$lib/models/MediaType.ts';
 
 export function toWatchlistPayload(
-  type: MediaType,
+  type: MediaType | 'episode',
   ids: number[],
 ) {
   const mappedIds = ids.map((id) => ({ ids: { trakt: id } }));

@@ -27,8 +27,6 @@ function typeToQuery(type: MediaType): CreateQueryOptions<AnticipatedMedia> {
       return movieAnticipatedQuery(params);
     case 'show':
       return showAnticipatedQuery(params);
-    case 'episode':
-      throw new Error('Not implemented');
   }
 }
 
