@@ -17,41 +17,42 @@ export function useWatchlist({ type, media }: WatchlistStoreProps) {
   const { watchlist } = useUser();
   const { invalidate } = useInvalidator();
 
-  const _isWatchlisted = writable(false);
+  /**
+   *  TODO: implement some sort of in-memory cache for result of action response
+   *  that will allow to show optimistic UI updates while history is being updated
+   */
   const isWatchlisted = derived(
-    [watchlist, _isWatchlisted],
-    ([$watchlist, $_isWatchlisted]) => {
+    watchlist,
+    ($watchlist) => {
       if (!$watchlist) {
         return false;
       }
 
       switch (type) {
         case 'movie':
-          return $watchlist.movies.has(media.id) || $_isWatchlisted;
+          return $watchlist.movies.has(media.id);
         case 'show':
-          return $watchlist.shows.has(media.id) || $_isWatchlisted;
+          return $watchlist.shows.has(media.id);
       }
     },
   );
 
   const addToWatchlist = async () => {
     isWatchlistUpdating.set(true);
-    const result = await addToWatchlistRequest({
+    await addToWatchlistRequest({
       body: toWatchlistPayload(type, [media.id]),
     });
     isWatchlistUpdating.set(false);
-    _isWatchlisted.set(result);
 
     await invalidate(InvalidateAction.Watchlisted(type));
   };
 
   const removeFromWatchlist = async () => {
     isWatchlistUpdating.set(true);
-    const result = await removeFromWatchlistRequest({
+    await removeFromWatchlistRequest({
       body: toWatchlistPayload(type, [media.id]),
     });
     isWatchlistUpdating.set(false);
-    _isWatchlisted.set(!result);
 
     await invalidate(InvalidateAction.Watchlisted(type));
   };

@@ -20,12 +20,14 @@
   const { show, episode }: EpisodeProps = $props();
 
   const { isWatched, isMarkingAsWatched, markAsWatched, removeWatched } =
-    useMarkAsWatched({
-      type: "episode",
-      media: episode,
-      show,
-      episode,
-    });
+    $derived(
+      useMarkAsWatched({
+        type: "episode",
+        media: episode,
+        show,
+        episode,
+      }),
+    );
 </script>
 
 <EpisodeCard>

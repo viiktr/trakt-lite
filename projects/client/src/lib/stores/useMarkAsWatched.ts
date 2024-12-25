@@ -57,25 +57,28 @@ export function useMarkAsWatched(
   const { history } = useUser();
   const { invalidate } = useInvalidator();
 
-  const _isWatched = writable(false);
+  /**
+   *  TODO: implement some sort of in-memory cache for result of action response
+   *  that will allow to show optimistic UI updates while history is being updated
+   */
   const isWatched = derived(
-    [history, _isWatched],
-    ([$history, $_isWatched]) => {
+    history,
+    ($history) => {
       if (!$history) {
         return false;
       }
 
       switch (type) {
         case 'movie':
-          return $history.movies.has(media.id) || $_isWatched;
+          return $history.movies.has(media.id);
         case 'episode':
-          return $history.shows.get(props.show.id)
+          return !!$history.shows.get(props.show.id)
             ?.episodes.some((entry) =>
               entry.episode === props.episode.number &&
               entry.season === props.episode.season
-            ) || $_isWatched;
+            );
         case 'show': {
-          return !!$history.shows.get(media.id)?.isWatched || $_isWatched;
+          return !!$history.shows.get(media.id)?.isWatched;
         }
       }
     },
@@ -89,7 +92,7 @@ export function useMarkAsWatched(
     );
 
     isMarkingAsWatched.set(true);
-    const result = await markAsWatchedRequest({
+    await markAsWatchedRequest({
       body: toMarkAsWatchedPayload(type, {
         ids: [media.id],
         watchedAtDate,
@@ -97,20 +100,18 @@ export function useMarkAsWatched(
     });
     isMarkingAsWatched.set(false);
 
-    _isWatched.set(result);
     await invalidate(InvalidateAction.MarkAsWatched(type));
   };
 
   const removeWatched = async () => {
     isMarkingAsWatched.set(true);
-    const result = await removeWatchedRequest({
+    await removeWatchedRequest({
       body: toMarkAsWatchedPayload(type, {
         ids: [media.id],
       }),
     });
     isMarkingAsWatched.set(false);
 
-    _isWatched.set(!result);
     await invalidate(InvalidateAction.MarkAsWatched(type));
   };
 
