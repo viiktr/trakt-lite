@@ -1,5 +1,5 @@
 <script lang="ts">
-  import BackgroundCoverImage from "$lib/components/background/BackgroundCoverImage.svelte";
+  import CoverImageSetter from "$lib/components/background/CoverImageSetter.svelte";
   import TraktPage from "$lib/components/layout/TraktPage.svelte";
   import { useUser } from "$lib/features/auth/stores/useUser";
   import * as m from "$lib/features/i18n/messages.ts";
@@ -11,7 +11,7 @@
 
 <TraktPage image={DEFAULT_SHARE_COVER} title={m.profile()}>
   {#if current() != null}
-    <BackgroundCoverImage src={current().cover.url} type="main" />
+    <CoverImageSetter src={current().cover.url} type="main" />
     <Profile />
   {/if}
 </TraktPage>

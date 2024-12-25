@@ -2,6 +2,7 @@
   import "../style";
 
   import { page } from "$app/stores";
+  import CoverImage from "$lib/components/background/CoverImage.svelte";
   import CoverProvider from "$lib/components/background/CoverProvider.svelte";
   import ListScrollHistoryProvider from "$lib/components/section-list/ListScrollHistoryProvider.svelte";
   import AnalyticsProvider from "$lib/features/analytics/AnalyticsProvider.svelte";
@@ -61,6 +62,8 @@
     <AnalyticsProvider>
       <LocaleProvider>
         <CoverProvider>
+          <CoverImage />
+
           <ThemeProvider theme={data.theme}>
             <ListScrollHistoryProvider>
               <div class="trakt-layout-wrapper">

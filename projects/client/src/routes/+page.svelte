@@ -1,5 +1,5 @@
 <script lang="ts">
-  import BackgroundCoverImage from "$lib/components/background/BackgroundCoverImage.svelte";
+  import CoverImageSetter from "$lib/components/background/CoverImageSetter.svelte";
   import TraktPage from "$lib/components/layout/TraktPage.svelte";
   import { useUser } from "$lib/features/auth/stores/useUser";
   import * as m from "$lib/features/i18n/messages.ts";
@@ -17,7 +17,7 @@
 
 <TraktPage image={DEFAULT_SHARE_COVER} title={m.navbar_link_home()}>
   <RenderFor audience="authenticated">
-    <BackgroundCoverImage src={current().cover.url} type="main" />
+    <CoverImageSetter src={current().cover.url} type="main" />
     <ProfileBanner />
     <UpNextList />
     <OutNowList title={m.out_now_title()} />
@@ -26,6 +26,6 @@
   </RenderFor>
   <RenderFor audience="public">
     <Landing />
-    <BackgroundCoverImage src={DEFAULT_COVER} type="main" />
+    <CoverImageSetter src={DEFAULT_COVER} type="main" />
   </RenderFor>
 </TraktPage>

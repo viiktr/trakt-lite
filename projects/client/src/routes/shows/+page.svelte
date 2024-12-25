@@ -1,5 +1,5 @@
 <script lang="ts">
-  import BackgroundCoverImage from "$lib/components/background/BackgroundCoverImage.svelte";
+  import CoverImageSetter from "$lib/components/background/CoverImageSetter.svelte";
   import TraktPage from "$lib/components/layout/TraktPage.svelte";
   import { useUser } from "$lib/features/auth/stores/useUser";
   import * as m from "$lib/features/i18n/messages.ts";
@@ -25,7 +25,8 @@
 </script>
 
 {#snippet content({ cover: { url }, isAuthorized }: ShowContentProps)}
-  <BackgroundCoverImage src={url} type="main" />
+  <CoverImageSetter src={url} type="main" />
+
   <TrendingList title={m.trending_now()} {type} />
   {#if isAuthorized}
     <RecommendedList title={m.your_recommendations()} {type} />

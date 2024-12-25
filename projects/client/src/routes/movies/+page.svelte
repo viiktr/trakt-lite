@@ -1,5 +1,5 @@
 <script lang="ts">
-  import BackgroundCoverImage from "$lib/components/background/BackgroundCoverImage.svelte";
+  import CoverImageSetter from "$lib/components/background/CoverImageSetter.svelte";
   import TraktPage from "$lib/components/layout/TraktPage.svelte";
   import { useUser } from "$lib/features/auth/stores/useUser";
   import * as m from "$lib/features/i18n/messages.ts";
@@ -8,7 +8,6 @@
   import PopularList from "$lib/sections/lists/PopularList.svelte";
   import RecommendedList from "$lib/sections/lists/RecommendedList.svelte";
   import TrendingList from "$lib/sections/lists/TrendingList.svelte";
-  import WatchlistList from "$lib/sections/lists/WatchlistList.svelte";
   import {
     DEFAULT_COVER,
     DEFAULT_SHARE_MOVIE_COVER,
@@ -25,7 +24,7 @@
 </script>
 
 {#snippet content({ cover: { url }, isAuthorized }: MovieContentProps)}
-  <BackgroundCoverImage src={url} type="main" />
+  <CoverImageSetter src={url} type="main" />
   <TrendingList title={m.trending_now()} {type} />
   {#if isAuthorized}
     <RecommendedList title={m.your_recommendations()} {type} />

@@ -1,23 +1,15 @@
 <script lang="ts">
   import CrossOriginImage from "$lib/features/image/components/CrossOriginImage.svelte";
-  import type { MediaType } from "$lib/models/MediaType";
-  import { useCover } from "./useCover";
+  import { useCover } from "./_internal/useCover";
 
-  type ImageBackgroundProps = {
-    src: string;
-    type: MediaType | "main";
-  };
-
-  const { src, type }: ImageBackgroundProps = $props();
-
-  const cover = $derived(useCover());
-
-  $effect.pre(() => cover.set(src));
+  const { cover, state } = useCover();
 </script>
 
-<div class="background-cover-image">
-  <CrossOriginImage {src} alt={`Background for ${type}`} />
-</div>
+{#if $state === "ready"}
+  <div class="background-cover-image">
+    <CrossOriginImage src={$cover.src} alt={`Background for ${$cover.type}`} />
+  </div>
+{/if}
 
 <style>
   .background-cover-image {

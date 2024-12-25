@@ -1,15 +1,17 @@
 <script lang="ts">
-  import { useCover } from "$lib/components/background/useCover";
   import CrossOriginImage from "$lib/features/image/components/CrossOriginImage.svelte";
+  import { useCover } from "./_internal/useCover";
 
-  const cover = $derived(useCover());
+  const { cover, state } = useCover();
 </script>
 
-<div class="trakt-footer-bg">
-  <div class="trakt-footer-bg-overlay">
-    <CrossOriginImage src={$cover} alt={`Background for footer`} />
+{#if $state === "ready"}
+  <div class="trakt-footer-bg">
+    <div class="trakt-footer-bg-overlay">
+      <CrossOriginImage src={$cover.src} alt={`Background for footer`} />
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
   .trakt-footer-bg {
@@ -26,7 +28,7 @@
     .trakt-footer-bg-overlay {
       display: flex;
       mask-repeat: no-repeat;
-      mask-image: url("$lib/sections/footer/components/assets/text_logo.svg");
+      mask-image: url("$lib/components/background/assets/text_logo.svg");
       mask-size: 100% auto;
       mask-position: top center;
       position: relative;

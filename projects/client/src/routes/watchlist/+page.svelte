@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as m from "$lib/features/i18n/messages.ts";
 
-  import BackgroundCoverImage from "$lib/components/background/BackgroundCoverImage.svelte";
+  import CoverImageSetter from "$lib/components/background/CoverImageSetter.svelte";
   import TraktPage from "$lib/components/layout/TraktPage.svelte";
   import { useUser } from "$lib/features/auth/stores/useUser";
   import WatchlistList from "$lib/sections/lists/WatchlistList.svelte";
@@ -11,7 +11,7 @@
 </script>
 
 <TraktPage image={DEFAULT_SHARE_COVER} title={m.navbar_link_movies()}>
-  <BackgroundCoverImage src={current().cover.url} type="main" />
+  <CoverImageSetter src={current().cover.url} type="main" />
 
   <WatchlistList
     title={m.watchlist_movies()}

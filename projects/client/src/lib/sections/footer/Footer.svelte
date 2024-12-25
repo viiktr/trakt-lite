@@ -1,12 +1,12 @@
 <script lang="ts">
+  import TraktCoverImage from "$lib/components/background/TraktCoverImage.svelte";
   import RenderFor from "$lib/guards/RenderFor.svelte";
   import FooterContent from "./components/FooterContent.svelte";
-  import FooterImage from "./components/FooterImage.svelte";
 </script>
 
 <footer class="trakt-footer">
   <RenderFor device={["tablet-lg", "desktop"]} audience="all">
-    <FooterImage />
+    <TraktCoverImage />
   </RenderFor>
   <FooterContent />
 </footer>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import BackgroundCoverImage from "$lib/components/background/BackgroundCoverImage.svelte";
+  import CoverImageSetter from "$lib/components/background/CoverImageSetter.svelte";
   import MarkAsWatchedButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedButton.svelte";
   import type { MarkAsWatchedButtonProps } from "$lib/components/buttons/mark-as-watched/MarkAsWatchedButtonProps";
   import WatchNowButton from "$lib/components/buttons/watch-now/WatchNowButton.svelte";
@@ -91,7 +91,7 @@
   <MarkAsWatchedButton {...markWasWatchedProps} />
 {/snippet}
 
-<BackgroundCoverImage src={media.cover.url.medium} {type} />
+<CoverImageSetter src={media.cover.url.medium} {type} />
 
 <MediaSummaryContainer {contextualContent}>
   {#snippet poster()}
