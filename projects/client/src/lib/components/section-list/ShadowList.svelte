@@ -72,38 +72,40 @@
   use:whenInViewport={() => isVisible.set(true)}
   class="shadow-list-container"
 >
-  <div class="shadow-list-header">
-    <h4 class="shadow-list-title ellipsis">{title}</h4>
-    {#if actions != null}
-      <div class="shadow-list-actions">
-        {@render actions()}
-      </div>
-    {/if}
-  </div>
-  <div
-    class="shadow-list"
-    class:shadow-list-left-shadow={isLeftShadowVisible}
-    class:shadow-list-right-shadow={isRightShadowVisible}
-    style:--left-shadow-opacity={leftShadowIntensity}
-    style:--right-shadow-opacity={rightShadowIntensity}
-  >
-    {#if items.length > 0}
-      <div
-        bind:this={$scrollContainer}
-        use:scrollTracking={scrollX}
-        use:scrollHistory
-        class="shadow-list-horizontal-scroll"
-      >
-        {#each items as i (i.id)}
-          {@render item(i)}
-        {/each}
-      </div>
-    {:else if empty != null && $isMounted}
-      <div class="shadow-list-empty-state">
-        {@render empty()}
-      </div>
-    {/if}
-  </div>
+  {#if $isVisible}
+    <div class="shadow-list-header">
+      <h4 class="shadow-list-title ellipsis">{title}</h4>
+      {#if actions != null}
+        <div class="shadow-list-actions">
+          {@render actions()}
+        </div>
+      {/if}
+    </div>
+    <div
+      class="shadow-list"
+      class:shadow-list-left-shadow={isLeftShadowVisible}
+      class:shadow-list-right-shadow={isRightShadowVisible}
+      style:--left-shadow-opacity={leftShadowIntensity}
+      style:--right-shadow-opacity={rightShadowIntensity}
+    >
+      {#if items.length > 0}
+        <div
+          bind:this={$scrollContainer}
+          use:scrollTracking={scrollX}
+          use:scrollHistory
+          class="shadow-list-horizontal-scroll"
+        >
+          {#each items as i (i.id)}
+            {@render item(i)}
+          {/each}
+        </div>
+      {:else if empty != null && $isMounted}
+        <div class="shadow-list-empty-state">
+          {@render empty()}
+        </div>
+      {/if}
+    </div>
+  {/if}
 </section>
 
 <style lang="scss">
