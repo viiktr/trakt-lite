@@ -10,10 +10,18 @@ import { debounce } from '$lib/utils/timing/debounce.ts';
 import { time } from '$lib/utils/timing/time.ts';
 import { CancelledError, useQueryClient } from '@tanstack/svelte-query';
 import { onDestroy } from 'svelte';
-import { get, writable } from 'svelte/store';
+import { derived, get, writable } from 'svelte/store';
 
 export function useSearch() {
-  const results = writable([] as SearchResult[]);
+  type SearchResponse = {
+    items: SearchResult[];
+    reason: 'initial' | 'result' | 'cancelled';
+  };
+
+  const results = writable<SearchResponse>({
+    items: [] as SearchResult[],
+    reason: 'initial',
+  });
   const client = browser ? useQueryClient() : undefined;
   const isSearching = writable(false);
   const isDesktop = useMedia(WellKnownMediaQuery.desktop);
@@ -24,7 +32,10 @@ export function useSearch() {
     }
 
     if (!query.trim()) {
-      results.set([]);
+      results.set({
+        items: [],
+        reason: 'initial',
+      });
       return;
     }
 
@@ -33,23 +44,40 @@ export function useSearch() {
         query,
       }),
       staleTime: time.minutes(5),
-    }).catch((error) => {
-      if (error instanceof AbortError) {
-        return new Promise<SearchResult[]>((resolve) => resolve(get(results)));
-      }
+    })
+      .then((response) => ({
+        items: response,
+        reason: 'result',
+      } as SearchResponse))
+      .catch((error) => {
+        if (error instanceof AbortError) {
+          return new Promise<SearchResponse>((resolve) =>
+            resolve({ ...get(results), reason: 'cancelled' })
+          );
+        }
 
-      if (error instanceof CancelledError) {
-        return new Promise<SearchResult[]>((resolve) => resolve([]));
-      }
+        if (error instanceof CancelledError) {
+          return new Promise<SearchResponse>((resolve) =>
+            resolve({
+              items: [],
+              reason: 'cancelled',
+            })
+          );
+        }
 
-      return Promise.reject(error);
+        return Promise.reject(error);
+      });
+
+    results.set({
+      items: response
+        .items
+        .filter((result) => result.year != null),
+      reason: response.reason,
     });
-
-    results.set(response.filter((result) => result.year != null));
   }
 
   const unsubscribeFromResults = results
-    .subscribe(() => isSearching.set(false));
+    .subscribe(({ reason }) => isSearching.set(reason === 'cancelled'));
 
   onDestroy(() => unsubscribeFromResults());
 
@@ -58,7 +86,7 @@ export function useSearch() {
       (id) => id.includes(searchCancellationId()),
       new CancelledError(),
     );
-    results.set([]);
+    results.set({ items: [], reason: 'initial' });
   }
 
   return {
@@ -67,7 +95,7 @@ export function useSearch() {
       debounce(search, get(isDesktop) ? 150 : 250)(term);
     },
     clear,
-    results,
+    results: derived(results, ($results) => $results.items ?? []),
     isSearching,
   };
 }
