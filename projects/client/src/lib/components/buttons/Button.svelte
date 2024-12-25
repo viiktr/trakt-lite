@@ -3,6 +3,7 @@
   import { clickOutside } from "$lib/utils/actions/clickOutside";
   import { disableTransitionOn } from "$lib/utils/actions/disableTransitionOn";
   import { triggerWithKeyboard } from "$lib/utils/actions/triggerWithKeyboard";
+  import { triggerWithTouch } from "$lib/utils/actions/triggerWithTouch";
   import type { TraktButtonProps } from "./TraktButtonProps";
 
   type TraktButtonAnchorProps = HTMLAnchorProps &
@@ -49,6 +50,7 @@
     use:disableTransitionOn={"touch"}
     use:clickOutside
     use:triggerWithKeyboard
+    use:triggerWithTouch
     data-sveltekit-keepfocus
     class="trakt-button trakt-button-link"
     class:trakt-link-active={$isActive}

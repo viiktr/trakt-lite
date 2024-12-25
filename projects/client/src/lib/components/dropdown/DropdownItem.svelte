@@ -1,5 +1,6 @@
 <script lang="ts">
   import { triggerWithKeyboard } from "$lib/utils/actions/triggerWithKeyboard";
+  import { triggerWithTouch } from "$lib/utils/actions/triggerWithTouch";
   import Link from "../link/Link.svelte";
 
   type DropdownItemProps = {
@@ -29,7 +30,13 @@
 {/snippet}
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-<li use:triggerWithKeyboard tabindex={tabIndex} data-color={color} {...props}>
+<li
+  use:triggerWithKeyboard
+  use:triggerWithTouch
+  tabindex={tabIndex}
+  data-color={color}
+  {...props}
+>
   {#if href}
     <Link {href} {target} color="inherit">
       {@render text()}

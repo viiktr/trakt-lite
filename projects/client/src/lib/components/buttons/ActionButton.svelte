@@ -2,6 +2,7 @@
   import { useActiveLink } from "$lib/stores/useActiveLink";
   import { disableTransitionOn } from "$lib/utils/actions/disableTransitionOn";
   import { triggerWithKeyboard } from "$lib/utils/actions/triggerWithKeyboard";
+  import { triggerWithTouch } from "$lib/utils/actions/triggerWithTouch";
   import type { TraktActionButtonProps } from "./TraktActionButtonProps";
 
   type TraktActionButtonAnchorProps = HTMLAnchorProps & TraktActionButtonProps;
@@ -22,6 +23,7 @@
   <a
     use:disableTransitionOn={"touch"}
     use:triggerWithKeyboard
+    use:triggerWithTouch
     data-sveltekit-keepfocus
     class="trakt-action-button trakt-button-link"
     class:trakt-link-active={$isActive}

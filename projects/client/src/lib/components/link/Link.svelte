@@ -1,6 +1,7 @@
 <script lang="ts">
   import { useActiveLink } from "$lib/stores/useActiveLink";
   import { triggerWithKeyboard } from "$lib/utils/actions/triggerWithKeyboard";
+  import { triggerWithTouch } from "$lib/utils/actions/triggerWithTouch";
 
   const {
     children,
@@ -23,6 +24,7 @@
   <a
     {href}
     {target}
+    use:triggerWithTouch
     use:triggerWithKeyboard
     data-sveltekit-keepfocus
     tabindex={focusable ? 0 : -1}
