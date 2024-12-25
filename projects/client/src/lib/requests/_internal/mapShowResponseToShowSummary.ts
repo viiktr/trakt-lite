@@ -5,7 +5,9 @@ import type { ShowSummary } from '$lib/requests/models/ShowSummary.ts';
 import {
   DEFAULT_TRAILER,
   MAX_DATE,
-  MEDIA_POSTER_PLACEHOLDER,
+  MEDIA_COVER_LARGE_PLACEHOLDER,
+  MEDIA_COVER_THUMB_PLACEHOLDER,
+  MEDIA_POSTER_PLACEHOLDER
 } from '$lib/utils/constants.ts';
 import { findDefined } from '$lib/utils/string/findDefined.ts';
 import { prependHttps } from '$lib/utils/url/prependHttps.ts';
@@ -53,11 +55,11 @@ export function mapShowResponseToShowSummary(
       url: {
         medium: prependHttps(
           mediumUrl(coverCandidate),
-          MEDIA_POSTER_PLACEHOLDER,
+          MEDIA_COVER_LARGE_PLACEHOLDER,
         ),
         thumb: prependHttps(
           thumbUrl(coverCandidate),
-          MEDIA_POSTER_PLACEHOLDER,
+          MEDIA_COVER_THUMB_PLACEHOLDER,
         ),
       },
     },
@@ -67,7 +69,7 @@ export function mapShowResponseToShowSummary(
           thumbCandidate,
           thumbUrl(coverCandidate),
         ),
-        MEDIA_POSTER_PLACEHOLDER,
+        MEDIA_COVER_THUMB_PLACEHOLDER,
       ),
     },
     genres: show.genres ?? [],

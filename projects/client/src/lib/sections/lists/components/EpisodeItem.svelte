@@ -11,7 +11,7 @@
   import type { EpisodeEntry } from "$lib/models/EpisodeEntry";
   import type { MediaSummary } from "$lib/requests/models/MediaSummary";
   import { useMarkAsWatched } from "$lib/stores/useMarkAsWatched";
-  import { EPISODE_PLACEHOLDER } from "$lib/utils/constants";
+  import { EPISODE_COVER_PLACEHOLDER } from "$lib/utils/constants";
   import { toHumanDuration } from "$lib/utils/formatting/date/toHumanDuration";
 
   type EpisodeProps = {
@@ -36,7 +36,7 @@
 
 <EpisodeCard>
   <MediaCover
-    src={episode.poster.url ?? show.cover.url.thumb ?? EPISODE_PLACEHOLDER}
+    src={episode.poster.url ?? show.cover.url.thumb ?? EPISODE_COVER_PLACEHOLDER}
     alt={`${episode.title} poster`}
   >
     {#snippet tags()}
