@@ -35,7 +35,7 @@
     <Link href={UrlBuilder.watchlist()}>
       <div class="trakt-mobile-navbar-link">
         <WatchlistIcon />
-        <p class="meta-info">{m.navbar_link_watchlist()}</p>
+        <p class="meta-info ellipsis">{m.navbar_link_watchlist()}</p>
       </div>
     </Link>
   </RenderFor>
@@ -76,6 +76,10 @@
     flex-direction: column;
     align-items: center;
     gap: var(--ni-4);
+
+    .ellipsis {
+      max-width: 100%;
+    }
   }
 
   :global(.trakt-link.trakt-link-active) {
