@@ -95,7 +95,9 @@
   <div class="trakt-navbar-spacer"></div>
 </header>
 
-<style>
+<style lang="scss">
+  @use "$style/scss/mixins/index" as *;
+
   .trakt-navbar,
   .trakt-navbar-spacer {
     box-sizing: border-box;
@@ -115,6 +117,10 @@
 
     align-items: center;
     gap: var(--ni-24);
+
+    @include for-mobile {
+      gap: var(--ni-16);
+    }
 
     border-radius: var(--border-radius-l);
 

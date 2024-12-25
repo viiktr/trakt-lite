@@ -62,9 +62,14 @@
         --height="var(--ni-24)"
         --border-width="var(--border-thickness-xs)"
       />
-      {#if isVip}
-        <VipBadge />
-      {/if}
+      <RenderFor
+        audience="authenticated"
+        device={["tablet-sm", "tablet-lg", "desktop"]}
+      >
+        {#if isVip}
+          <VipBadge />
+        {/if}
+      </RenderFor>
     </div>
   {/snippet}
   {#snippet items()}

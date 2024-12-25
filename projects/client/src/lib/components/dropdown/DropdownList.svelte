@@ -65,7 +65,7 @@
 
     &[data-size="small"] {
       transform: scale(0.75);
-      margin-right: var(--ni-neg-24);
+      margin: var(--ni-neg-32);
 
       :global(li p) {
         font-size: var(--ni-16);

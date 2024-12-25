@@ -85,7 +85,7 @@
       border: var(--border-thickness-xs) solid var(--shade-800);
       background: rgba(25, 28, 30, 0.7);
       backdrop-filter: blur(var(--ni-8));
-      width: calc(var(--ni-120) + 10vw);
+      width: calc(var(--ni-104) + 10vw);
 
       transition: border-color var(--transition-increment) ease-in-out;
 
