@@ -39,6 +39,10 @@
     margin: 0 var(--ni-56);
 
     @include for-tablet-sm-and-below {
+      margin: 0 var(--layout-distance-side);
+    }
+
+    @include for-tablet-sm-and-below {
       grid-template-columns: 1fr;
 
       .trakt-summary-children {
