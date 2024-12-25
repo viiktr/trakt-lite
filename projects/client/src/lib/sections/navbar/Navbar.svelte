@@ -118,14 +118,13 @@
     align-items: center;
     gap: var(--ni-24);
 
+    border-radius: var(--border-radius-l);
+    transition: var(--transition-increment) cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: background-color, box-shadow;
+
     @include for-mobile {
       gap: var(--ni-16);
     }
-
-    border-radius: var(--border-radius-l);
-
-    transition: var(--transition-increment) cubic-bezier(0.4, 0, 0.2, 1);
-    transition-property: background-color, box-shadow;
 
     .trakt-navbar-links {
       display: flex;

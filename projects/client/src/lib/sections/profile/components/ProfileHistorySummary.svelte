@@ -40,21 +40,13 @@
   .trakt-profile-history-summary {
     height: var(--ni-104);
     border-radius: var(--ni-12);
+    color: var(--shade-10);
     background-color: var(--purple-900);
-    padding: var(--ni-24) var(--ni-16) var(--ni-24) var(--ni-16);
+    padding: var(--ni-24);
     display: flex;
     flex-direction: column;
-    gap: var(--ni-20);
+    gap: var(--ni-8);
     box-shadow: 0 var(--ni-4) var(--ni-8) 0 rgba(0, 0, 0, 0.24);
-
-    @include for-desktop {
-      height: var(--ni-176);
-
-      .trakt-profile-history-content {
-        flex-direction: column;
-        gap: var(--ni-24);
-      }
-    }
   }
 
   .trakt-profile-history-content {
