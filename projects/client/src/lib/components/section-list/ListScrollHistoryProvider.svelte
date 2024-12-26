@@ -8,7 +8,7 @@
 
   beforeNavigate((nav) => {
     const isNavigationToAnotherPage =
-      nav.type === "goto" && nav.willUnload === false;
+      ["link", "goto"].includes(nav.type) && nav.willUnload === false;
 
     isNavigationToAnotherPage && event.emit("snapshot", void 0);
   });

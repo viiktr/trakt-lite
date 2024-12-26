@@ -50,21 +50,26 @@
 
   const { readScrollState, writeScrollState, event } = useScrollHistory();
 
+  const scrollLeft = writable(0);
+
+  onMount(() => {
+    return event.on("restore", () => {
+      scrollLeft.set(readScrollState(id));
+    });
+  });
+
   function scrollHistory(container: HTMLDivElement) {
     onMount(() => {
-      const destroySnapshot = event.on("snapshot", () => {
+      return event.on("snapshot", () => {
         writeScrollState(id, container.scrollLeft);
       });
-
-      const destroyRestore = event.on("restore", () => {
-        container.scrollLeft = readScrollState(id);
-      });
-
-      return () => {
-        destroySnapshot();
-        destroyRestore();
-      };
     });
+
+    return {
+      destroy: scrollLeft.subscribe((left) => {
+        container.scrollLeft = left;
+      }),
+    };
   }
 </script>
 
