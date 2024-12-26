@@ -12,6 +12,7 @@
   import { writable } from "svelte/store";
   import EpisodeItem from "./components/EpisodeItem.svelte";
   import { useSeasonEpisodes } from "./stores/useSeasonEpisodes";
+  import { useUserSeason } from "./stores/useUserSeason";
   import { mediaListHeightResolver } from "./utils/mediaListHeightResolver";
 
   type SeasonListProps = {
@@ -21,6 +22,7 @@
 
   const { show, seasons }: SeasonListProps = $props();
 
+  const season = useUserSeason(show.id);
   const active = writable(seasons.at(0));
   const { list } = $derived(useSeasonEpisodes(show.slug, $active.number));
 
@@ -35,6 +37,18 @@
         show,
       }),
     );
+
+  const seasonUnsubscribe = season.subscribe((seasonNumber) => {
+    const season = seasons.find((s) => s.number === seasonNumber);
+
+    if (season) {
+      active.set(season);
+    }
+
+    if (seasonNumber !== -1) {
+      queueMicrotask(() => seasonUnsubscribe());
+    }
+  });
 </script>
 
 <ShadowList
