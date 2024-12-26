@@ -31,7 +31,11 @@
 
 {#snippet contents()}
   <div class="button-label">
-    <p class:small={subtitle != null} class:capitalize={text === "capitalize"}>
+    <p
+      class="ellipsis"
+      class:small={subtitle != null}
+      class:capitalize={text === "capitalize"}
+    >
       {@render children()}
     </p>
     {#if subtitle != null}

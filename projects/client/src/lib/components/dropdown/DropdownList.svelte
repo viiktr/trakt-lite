@@ -55,7 +55,9 @@
   {/if}
 </div>
 
-<style>
+<style lang="scss">
+  @use "$style/scss/mixins/index" as *;
+
   .trakt-dropdown-list-container {
     position: relative;
     padding: var(--ni-14);
@@ -102,6 +104,22 @@
 
     ul {
       all: unset;
+
+      display: block;
+      max-height: var(--ni-220);
+      overflow-y: auto;
+
+      @include for-mouse {
+        &::-webkit-scrollbar {
+          width: var(--ni-8);
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--shade-300);
+          border-radius: var(--border-radius-xs);
+          backdrop-filter: blur(var(--ni-4));
+        }
+      }
     }
 
     .trakt-list {
