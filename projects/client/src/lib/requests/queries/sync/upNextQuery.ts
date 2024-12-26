@@ -38,6 +38,13 @@ function mapResponseToUpNextEntry(item: UpNextResponse[0]): UpNextEntry {
 export function upNextRequest(
   { fetch, page = 1, limit, sort }: UpNextParams = {},
 ): Promise<Paginatable<UpNextEntry>> {
+  const sortQuery = sort?.by && sort?.direction
+    ? {
+      sort_by: sort.by,
+      sort_how: sort.direction,
+    }
+    : {};
+
   return api({ fetch })
     .sync
     .progress
@@ -46,9 +53,8 @@ export function upNextRequest(
         extended: 'full,cloud9',
         page,
         limit,
-        sort_by: sort?.by,
-        sort_how: sort?.direction,
         include_stats: true,
+        ...sortQuery,
       },
       extraHeaders: {
         ...authHeader(),
