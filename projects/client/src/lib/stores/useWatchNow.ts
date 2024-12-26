@@ -1,10 +1,11 @@
 import { useUser } from '$lib/features/auth/stores/useUser.ts';
+import { isAuthorized } from '$lib/features/auth/token/index.ts';
 import { getLanguageAndRegion } from '$lib/features/i18n/index.ts';
 import type { MediaType } from '$lib/models/MediaType.ts';
 import { showWatchNowQuery } from '$lib/requests/queries/shows/showWatchNowQuery.ts';
 import { findFavoriteWatchNowService } from '$lib/stores/_internal/findFavoriteWatchNowService.ts';
 import { createQuery, type CreateQueryOptions } from '@tanstack/svelte-query';
-import { derived } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 import type { WatchNowServices } from '../requests/models/WatchNowServices.ts';
 import { movieWatchNowQuery } from '../requests/queries/movies/movieWatchNowQuery.ts';
 
@@ -29,6 +30,13 @@ function typeToQuery(
 }
 
 export function useWatchNow({ type, id }: WatchNowStoreProps) {
+  if (!isAuthorized()) {
+    return {
+      watchNow: writable(undefined),
+      isLoading: writable(false),
+    };
+  }
+
   const { current } = useUser();
   const { region } = getLanguageAndRegion();
 
