@@ -26,6 +26,7 @@
       label={m.get_vip_label()}
       color="red"
       style="textured"
+      size="small"
     >
       {m.get_vip()}
       {#snippet icon()}

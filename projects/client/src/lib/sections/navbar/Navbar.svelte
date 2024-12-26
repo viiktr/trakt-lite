@@ -133,6 +133,10 @@
       width: 100%;
       justify-content: end;
 
+      @include for-tablet-sm-and-below {
+        gap: var(--ni-16);
+      }
+
       /** 
       * Navbar links have custom design,
       * to accommodate the custom cover background
