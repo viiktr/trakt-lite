@@ -5,6 +5,7 @@
   import DropdownItem from "$lib/components/dropdown/DropdownItem.svelte";
   import DropdownList from "$lib/components/dropdown/DropdownList.svelte";
   import ShadowList from "$lib/components/section-list/ShadowList.svelte";
+  import RenderFor from "$lib/guards/RenderFor.svelte";
   import type { Season } from "$lib/models/Season";
   import type { MediaSummary } from "$lib/requests/models/MediaSummary";
   import { useMarkAsWatchedList } from "$lib/stores/useMarkAsWatchedList";
@@ -46,13 +47,15 @@
     <EpisodeItem {episode} {show} />
   {/snippet}
   {#snippet actions()}
-    <MarkAsWatchedActionButton
-      isWatched={$isWatched}
-      isMarkingAsWatched={$isMarkingAsWatched}
-      title={m.season_number_label({ number: $active.number })}
-      onWatch={() => markAllAsWatched()}
-      onRemove={() => removeAllWatched()}
-    />
+    <RenderFor audience="authenticated">
+      <MarkAsWatchedActionButton
+        isWatched={$isWatched}
+        isMarkingAsWatched={$isMarkingAsWatched}
+        title={m.season_number_label({ number: $active.number })}
+        onWatch={() => markAllAsWatched()}
+        onRemove={() => removeAllWatched()}
+      />
+    </RenderFor>
     <DropdownList
       label="Seasons"
       style="flat"
