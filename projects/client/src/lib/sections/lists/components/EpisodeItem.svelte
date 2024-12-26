@@ -43,8 +43,11 @@
   </MediaCover>
 
   <CardFooter>
-    <p class="recommendation-title small ellipsis">
+    <p class="episode-title small ellipsis">
       {episode.title}
+    </p>
+    <p class="episode-subtitle small ellipsis">
+      {episode.season}x{episode.number}
     </p>
     {#snippet actions()}
       <RenderFor audience="authenticated">
@@ -59,3 +62,19 @@
     {/snippet}
   </CardFooter>
 </EpisodeCard>
+
+<style>
+  .episode-title {
+    color: var(--color-text-primary);
+    margin: 0;
+
+    font-weight: 600;
+  }
+
+  .episode-subtitle {
+    color: var(--color-text-secondary);
+    margin: 0;
+
+    font-weight: 500;
+  }
+</style>
