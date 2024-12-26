@@ -166,7 +166,8 @@
 
   .shadow-list-actions {
     display: flex;
-    gap: var(--ni-4);
+    gap: var(--ni-8);
+    align-items: center;
   }
 
   .shadow-list-title {

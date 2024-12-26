@@ -1,32 +1,12 @@
-import type { WatchAction } from '$lib/api.ts';
 import { useUser } from '$lib/features/auth/stores/useUser.ts';
-import * as m from '$lib/features/i18n/messages.ts';
 import type { MediaType } from '$lib/models/MediaType.ts';
 import { InvalidateAction } from '$lib/requests/models/InvalidateAction.ts';
 import { markAsWatchedRequest } from '$lib/requests/sync/markAsWatchedRequest.ts';
 import { removeWatchedRequest } from '$lib/requests/sync/removeWatchedRequest.ts';
 import { derived, writable } from 'svelte/store';
+import { resolveWatchDate } from './_internal/resolveWatchDate.ts';
 import { toMarkAsWatchedPayload } from './_internal/toMarkAsWatchedPayload.ts';
 import { useInvalidator } from './useInvalidator.ts';
-
-export function resolveWatchDate(
-  action: WatchAction | undefined,
-) {
-  const now = new Date().toISOString();
-
-  switch (action) {
-    case 'released':
-      return 'released';
-    case 'ask':
-      return prompt(
-        m.mark_as_watched_ask_prompt(),
-        now,
-      ) ?? undefined;
-    case 'now':
-    default:
-      return now;
-  }
-}
 
 type BaseProps = {
   type: MediaType | 'episode';
@@ -47,14 +27,16 @@ type NonEpisodeProps = {
   media: { id: number };
 };
 
-type MarkAsWatchedStoreProps = BaseProps & (EpisodeProps | NonEpisodeProps);
+export type MarkAsWatchedStoreProps =
+  & BaseProps
+  & (EpisodeProps | NonEpisodeProps);
 
 export function useMarkAsWatched(
   props: MarkAsWatchedStoreProps,
 ) {
   const { type, media } = props;
   const isMarkingAsWatched = writable(false);
-  const { history } = useUser();
+  const { current: user, history } = useUser();
   const { invalidate } = useInvalidator();
 
   /**
@@ -83,8 +65,6 @@ export function useMarkAsWatched(
       }
     },
   );
-
-  const { current: user } = useUser();
 
   const markAsWatched = async () => {
     const watchedAtDate = resolveWatchDate(

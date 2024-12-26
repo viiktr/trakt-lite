@@ -1,11 +1,13 @@
 <script lang="ts">
   import * as m from "$lib/features/i18n/messages";
 
+  import MarkAsWatchedActionButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedActionButton.svelte";
   import DropdownItem from "$lib/components/dropdown/DropdownItem.svelte";
   import DropdownList from "$lib/components/dropdown/DropdownList.svelte";
   import ShadowList from "$lib/components/section-list/ShadowList.svelte";
   import type { Season } from "$lib/models/Season";
   import type { MediaSummary } from "$lib/requests/models/MediaSummary";
+  import { useMarkAsWatchedList } from "$lib/stores/useMarkAsWatchedList";
   import { writable } from "svelte/store";
   import EpisodeItem from "./components/EpisodeItem.svelte";
   import { useSeasonEpisodes } from "./stores/useSeasonEpisodes";
@@ -22,6 +24,16 @@
   const { list } = $derived(useSeasonEpisodes(show.slug, $active.number));
 
   const title = $derived(m.season_number_label({ number: $active.number }));
+
+  const { markAllAsWatched, removeAllWatched, isMarkingAsWatched, isWatched } =
+    $derived(
+      useMarkAsWatchedList({
+        type: "episode",
+        media: $list,
+        episodes: $list,
+        show,
+      }),
+    );
 </script>
 
 <ShadowList
@@ -34,6 +46,13 @@
     <EpisodeItem {episode} {show} />
   {/snippet}
   {#snippet actions()}
+    <MarkAsWatchedActionButton
+      isWatched={$isWatched}
+      isMarkingAsWatched={$isMarkingAsWatched}
+      title={m.season_number_label({ number: $active.number })}
+      onWatch={() => markAllAsWatched()}
+      onRemove={() => removeAllWatched()}
+    />
     <DropdownList
       label="Seasons"
       style="flat"

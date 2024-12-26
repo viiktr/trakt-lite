@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { resolveWatchDate } from './useMarkAsWatched.ts';
+import { resolveWatchDate } from './resolveWatchDate.ts';
 
-describe('useMarkAsWatched', () => {
+describe('resolveWatchDate', () => {
   it('should resolve correct date for a given user action', () => {
     expect(resolveWatchDate('released')).toBe(
       'released',
