@@ -13,21 +13,21 @@
   <Link href={UrlBuilder.home()}>
     <div class="trakt-mobile-navbar-link">
       <HomeIcon />
-      <p class="meta-info">{m.navbar_link_home()}</p>
+      <p class="meta-info ellipsis">{m.navbar_link_home()}</p>
     </div>
   </Link>
 
   <Link href={UrlBuilder.shows()}>
     <div class="trakt-mobile-navbar-link">
       <ShowIcon />
-      <p class="meta-info">{m.navbar_link_shows()}</p>
+      <p class="meta-info ellipsis">{m.navbar_link_shows()}</p>
     </div>
   </Link>
 
   <Link href={UrlBuilder.movies()}>
     <div class="trakt-mobile-navbar-link">
       <MovieIcon />
-      <p class="meta-info">{m.navbar_link_movies()}</p>
+      <p class="meta-info ellipsis">{m.navbar_link_movies()}</p>
     </div>
   </Link>
 
