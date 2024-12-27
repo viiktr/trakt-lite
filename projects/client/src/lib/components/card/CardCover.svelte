@@ -2,7 +2,7 @@
   import CrossOriginImage from "$lib/features/image/components/CrossOriginImage.svelte";
   import type { CardCoverProps } from "./CardCoverProps";
 
-  const { src, alt, tags, isLoading }: CardCoverProps = $props();
+  const { src, alt, tags, isLoading, isGrayscale }: CardCoverProps = $props();
 
   let isImagePending = $state(true);
   $effect(() => {
@@ -18,7 +18,7 @@
   <div class="card-cover-tags">
     {@render tags?.()}
   </div>
-  <div class="card-cover-image">
+  <div class="card-cover-image" class:card-cover-grayscale={isGrayscale}>
     <CrossOriginImage
       animate={false}
       {src}
@@ -36,7 +36,7 @@
     position: absolute;
     padding: var(--padding-card-tag);
 
-    z-index: 1;
+    z-index: 2;
     bottom: 0;
     left: 0;
 
@@ -73,6 +73,12 @@
       object-fit: cover;
     }
 
+    &.card-cover-grayscale {
+      :global(img) {
+        filter: grayscale(1) contrast(1.1) brightness(1.5);
+      }
+    }
+
     &::before {
       content: "";
       position: absolute;
@@ -82,6 +88,7 @@
       width: var(--width-card);
       height: var(--ni-40);
       flex-shrink: 0;
+      z-index: 1;
 
       background: linear-gradient(
         180deg,

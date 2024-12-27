@@ -207,7 +207,7 @@
     &::before,
     &::after {
       content: "";
-      z-index: 2;
+      z-index: 3;
       pointer-events: none;
 
       position: absolute;

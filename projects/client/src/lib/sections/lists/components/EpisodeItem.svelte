@@ -2,6 +2,8 @@
   import MarkAsWatchedActionButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedActionButton.svelte";
   import CardFooter from "$lib/components/card/CardFooter.svelte";
   import EpisodeCard from "$lib/components/episode/card/EpisodeCard.svelte";
+  import { EpisodeIntlProvider } from "$lib/components/episode/EpisodeIntlProvider";
+  import EpisodeTimeTag from "$lib/components/episode/tags/EpisodeTimeTag.svelte";
   import MediaCover from "$lib/components/media/card/MediaCover.svelte";
   import DurationTag from "$lib/components/media/tags/DurationTag.svelte";
   import { languageTag } from "$lib/features/i18n";
@@ -28,17 +30,26 @@
         episode,
       }),
     );
+
+  const isFuture = $derived(episode.airedDate > new Date());
 </script>
 
 <EpisodeCard>
   <MediaCover
     src={episode.poster.url ?? EPISODE_PLACEHOLDER}
     alt={`${episode.title} poster`}
+    isGrayscale={isFuture}
   >
     {#snippet tags()}
-      <DurationTag>
-        {toHumanDuration({ minutes: episode.runtime }, languageTag())}
-      </DurationTag>
+      {#if isFuture}
+        <EpisodeTimeTag>
+          {EpisodeIntlProvider.timestampText(episode.airedDate)}
+        </EpisodeTimeTag>
+      {:else}
+        <DurationTag>
+          {toHumanDuration({ minutes: episode.runtime }, languageTag())}
+        </DurationTag>
+      {/if}
     {/snippet}
   </MediaCover>
 
