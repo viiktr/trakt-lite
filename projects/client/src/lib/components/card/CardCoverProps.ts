@@ -5,5 +5,4 @@ export type CardCoverProps = {
   alt: string;
   tags?: Snippet;
   isLoading?: boolean;
-  isGrayscale?: boolean;
 };
