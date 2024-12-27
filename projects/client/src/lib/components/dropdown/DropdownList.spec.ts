@@ -1,4 +1,3 @@
-// @ts-ignore TODO: (@seferturan): fix typings in vs code
 import DropdownList from './DropdownList.svelte';
 
 import type { TraktDropdownListProps } from '$lib/components/dropdown/TraktDropdownListProps.ts';

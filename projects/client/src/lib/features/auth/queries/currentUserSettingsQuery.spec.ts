@@ -1,4 +1,3 @@
-// @ts-ignore TODO: (@seferturan): fix typings in vs code
 import QueryTestBed from '$test/beds/query/QueryTestBed.svelte';
 
 import { ExtendedUserMappedMock } from '$mocks/data/users/ExtendedUserSettingsMappedMock.ts';

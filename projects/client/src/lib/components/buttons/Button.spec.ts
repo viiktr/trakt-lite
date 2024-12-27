@@ -1,4 +1,3 @@
-// @ts-ignore TODO: (@seferturan): fix typings in vs code
 import Button from './Button.svelte';
 
 import type { TraktButtonProps } from '$lib/components/buttons/TraktButtonProps.ts';

@@ -1,4 +1,3 @@
-// @ts-ignore TODO: (@seferturan): fix typings in vs code
 import DropdownItem from './DropdownItem.svelte';
 
 import { render, screen } from '@testing-library/svelte';

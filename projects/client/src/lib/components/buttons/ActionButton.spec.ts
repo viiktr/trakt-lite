@@ -1,4 +1,3 @@
-// @ts-ignore TODO: (@seferturan): fix typings in vs code
 import ActionButton from './ActionButton.svelte';
 
 import { fireEvent, render, screen } from '@testing-library/svelte';
