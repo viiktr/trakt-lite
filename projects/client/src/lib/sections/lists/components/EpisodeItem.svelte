@@ -36,7 +36,7 @@
 
 <EpisodeCard>
   <MediaCover
-    src={episode.poster.url ?? EPISODE_PLACEHOLDER}
+    src={episode.poster.url ?? show.cover.url.thumb ?? EPISODE_PLACEHOLDER}
     alt={`${episode.title} poster`}
     isGrayscale={isFuture}
   >
