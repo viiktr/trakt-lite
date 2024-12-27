@@ -37,6 +37,8 @@ function generatePromptText({
           *   When the JSON key starts with 'job_' it relates to a job one can have in the film and TV industry
           *   Refrain from making assumptions of where media content is consumed (e.g., theaters, streaming services) unless explicitly mentioned in the English text.
           *   Do not translate things between curly braces {like this}, they are placeholders for dynamic content.
+          *   If you cannot translate Watchlist short, try using the term "to watch" instead (contextually appropriate).
+          *   For navbar links try to keep text short and concise (max 10 characters).
 
           Examples in Trakt Lite:
 
