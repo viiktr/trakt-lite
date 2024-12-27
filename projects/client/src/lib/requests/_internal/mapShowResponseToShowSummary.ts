@@ -56,17 +56,17 @@ export function mapShowResponseToShowSummary(
           MEDIA_POSTER_PLACEHOLDER,
         ),
         thumb: prependHttps(
-          findDefined(
-            thumbCandidate,
-            thumbUrl(coverCandidate),
-          ),
+          thumbUrl(coverCandidate),
           MEDIA_POSTER_PLACEHOLDER,
         ),
       },
     },
     thumb: {
       url: prependHttps(
-        thumbCandidate,
+        findDefined(
+          thumbCandidate,
+          thumbUrl(coverCandidate),
+        ),
         MEDIA_POSTER_PLACEHOLDER,
       ),
     },

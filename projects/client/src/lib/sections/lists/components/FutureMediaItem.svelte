@@ -76,7 +76,7 @@
 
 {#if type === "show"}
   <EpisodeCard>
-    {@render content(media.cover.url.thumb)}
+    {@render content(media.thumb.url)}
   </EpisodeCard>
 {/if}
 

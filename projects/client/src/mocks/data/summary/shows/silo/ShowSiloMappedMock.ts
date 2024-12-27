@@ -4,7 +4,7 @@ export const ShowSiloMappedMock = {
       'medium':
         'https://walter-r2.trakt.tv/images/shows/000/180/770/fanarts/medium/80d39f8578.jpg.webp',
       'thumb':
-        'https://walter-r2.trakt.tv/images/shows/000/180/770/thumbs/medium/dddaaead2f.jpg.webp',
+        'https://walter-r2.trakt.tv/images/shows/000/180/770/fanarts/thumb/80d39f8578.jpg.webp',
     },
   },
   'genres': [
