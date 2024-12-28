@@ -2,6 +2,7 @@
   import { useMedia, WellKnownMediaQuery } from "$lib/stores/css/useMedia";
   import { writable } from "svelte/store";
   import MarkAsWatchedIcon from "../../icons/MarkAsWatchedIcon.svelte";
+  import ActionButton from "../ActionButton.svelte";
   import Button from "../Button.svelte";
   import { attachRemoveWarning } from "./attachRemoveWarning";
   import { MarkAsWatchedButtonIntlProvider } from "./MarkAsWatchedButtonIntlProvider";
@@ -14,6 +15,7 @@
     onRemove,
     isMarkingAsWatched,
     isWatched,
+    type,
     ...props
   }: MarkAsWatchedButtonProps = $props();
 
@@ -32,25 +34,34 @@
   const seedColor = $derived($isTouch ? stateToColor(isWatched) : "purple");
   const color = $derived(writable<"purple" | "red">(seedColor));
   const variant = $derived(isWatched ? "secondary" : "primary");
+
+  const commonProps: Omit<ButtonProps, "children"> = $derived({
+    label: i18n.label({ title, isWatched }),
+    color: $color,
+    variant,
+    onclick: handler,
+    disabled: isMarkingAsWatched,
+    onmouseover: () => color.set(stateToColor(isWatched)),
+    onfocusin: () => color.set(stateToColor(isWatched)),
+    onfocusout: () => color.set(seedColor),
+    onmouseout: () => color.set(seedColor),
+  });
 </script>
 
-<Button
-  label={i18n.label({ title, isWatched })}
-  color={$color}
-  variant="secondary"
-  onclick={handler}
-  disabled={isMarkingAsWatched}
-  onmouseover={() => color.set(stateToColor(isWatched))}
-  onfocusin={() => color.set(stateToColor(isWatched))}
-  onfocusout={() => color.set(seedColor)}
-  onmouseout={() => color.set(seedColor)}
-  {...props}
->
-  {i18n.text({ title, isWatched })}
-  {#snippet icon()}
-    <MarkAsWatchedIcon
-      state={isWatched ? "watched" : "unwatched"}
-      size="small"
-    />
-  {/snippet}
-</Button>
+{#if type === "normal"}
+  <Button {...commonProps} {...props}>
+    {i18n.text({ title, isWatched })}
+    {#snippet icon()}
+      <MarkAsWatchedIcon
+        state={isWatched ? "watched" : "unwatched"}
+        size="small"
+      />
+    {/snippet}
+  </Button>
+{/if}
+
+{#if type === "action"}
+  <ActionButton {...commonProps} {...props}>
+    <MarkAsWatchedIcon state={isWatched ? "watched" : "unwatched"} />
+  </ActionButton>
+{/if}

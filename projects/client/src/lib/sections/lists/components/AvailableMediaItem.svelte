@@ -1,5 +1,5 @@
 <script lang="ts">
-  import MarkAsWatchedActionButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedActionButton.svelte";
+  import MarkAsWatchedButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedButton.svelte";
   import WatchlistActionButton from "$lib/components/buttons/watchlist/WatchlistActionButton.svelte";
   import CardFooter from "$lib/components/card/CardFooter.svelte";
   import EpisodeCard from "$lib/components/episode/card/EpisodeCard.svelte";
@@ -80,7 +80,8 @@
           isWatchlisted={$isWatchlisted}
           isWatchlistUpdating={$isWatchlistUpdating}
         />
-        <MarkAsWatchedActionButton
+        <MarkAsWatchedButton
+          type="action"
           title={media.title}
           isWatched={$isWatched}
           isMarkingAsWatched={$isMarkingAsWatched}

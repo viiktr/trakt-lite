@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as m from "$lib/features/i18n/messages";
 
-  import MarkAsWatchedActionButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedActionButton.svelte";
+  import MarkAsWatchedButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedButton.svelte";
   import DropdownItem from "$lib/components/dropdown/DropdownItem.svelte";
   import DropdownList from "$lib/components/dropdown/DropdownList.svelte";
   import ShadowList from "$lib/components/section-list/ShadowList.svelte";
@@ -62,7 +62,8 @@
   {/snippet}
   {#snippet actions()}
     <RenderFor audience="authenticated">
-      <MarkAsWatchedActionButton
+      <MarkAsWatchedButton
+        type="action"
         isWatched={$isWatched}
         isMarkingAsWatched={$isMarkingAsWatched}
         title={m.season_number_label({ number: $active.number })}

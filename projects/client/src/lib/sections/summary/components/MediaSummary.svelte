@@ -71,6 +71,7 @@
   });
 
   const markWasWatchedProps: MarkAsWatchedButtonProps = $derived({
+    type: "normal",
     title: intl.title,
     isMarkingAsWatched: $isMarkingAsWatched,
     isWatched: $isWatched,

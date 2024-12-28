@@ -1,5 +1,5 @@
 <script lang="ts">
-  import MarkAsWatchedActionButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedActionButton.svelte";
+  import MarkAsWatchedButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedButton.svelte";
   import CardFooter from "$lib/components/card/CardFooter.svelte";
   import EpisodeCard from "$lib/components/episode/card/EpisodeCard.svelte";
   import { EpisodeIntlProvider } from "$lib/components/episode/EpisodeIntlProvider";
@@ -64,7 +64,8 @@
     {#snippet actions()}
       {#if isFuture === false}
         <RenderFor audience="authenticated">
-          <MarkAsWatchedActionButton
+          <MarkAsWatchedButton
+            type="action"
             title={episode.title}
             isWatched={$isWatched}
             isMarkingAsWatched={$isMarkingAsWatched}
