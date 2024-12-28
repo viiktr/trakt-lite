@@ -36,7 +36,9 @@
 
 <EpisodeCard>
   <MediaCover
-    src={episode.poster.url ?? show.cover.url.thumb ?? EPISODE_COVER_PLACEHOLDER}
+    src={episode.poster.url ??
+      show.cover.url.thumb ??
+      EPISODE_COVER_PLACEHOLDER}
     alt={`${episode.title} poster`}
   >
     {#snippet tags()}
@@ -60,15 +62,17 @@
       {episode.season}x{episode.number}
     </p>
     {#snippet actions()}
-      <RenderFor audience="authenticated">
-        <MarkAsWatchedActionButton
-          title={episode.title}
-          isWatched={$isWatched}
-          isMarkingAsWatched={$isMarkingAsWatched}
-          onWatch={markAsWatched}
-          onRemove={removeWatched}
-        />
-      </RenderFor>
+      {#if isFuture === false}
+        <RenderFor audience="authenticated">
+          <MarkAsWatchedActionButton
+            title={episode.title}
+            isWatched={$isWatched}
+            isMarkingAsWatched={$isMarkingAsWatched}
+            onWatch={markAsWatched}
+            onRemove={removeWatched}
+          />
+        </RenderFor>
+      {/if}
     {/snippet}
   </CardFooter>
 </EpisodeCard>
