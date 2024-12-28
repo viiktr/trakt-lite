@@ -27,6 +27,7 @@ h1 {
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.18rem;
+  word-spacing: var(--ni-4);
 }
 
 h2 {
@@ -34,6 +35,7 @@ h2 {
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.14rem;
+  word-spacing: var(--ni-4);
 }
 
 h3 {
@@ -41,6 +43,7 @@ h3 {
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.12rem;
+  word-spacing: var(--ni-2);
 }
 
 h4 {
@@ -48,6 +51,7 @@ h4 {
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.1rem;
+  word-spacing: var(--ni-2);
 }
 
 h5 {
