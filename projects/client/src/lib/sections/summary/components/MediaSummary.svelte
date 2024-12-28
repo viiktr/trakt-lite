@@ -63,6 +63,7 @@
   );
 
   const watchlistProps: WatchlistButtonProps = $derived({
+    type: "normal",
     title: intl.title,
     isWatchlistUpdating: $isWatchlistUpdating,
     isWatchlisted: $isWatchlisted,

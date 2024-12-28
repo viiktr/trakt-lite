@@ -5,6 +5,7 @@ export type WatchlistButtonProps = {
   title: string;
   isWatchlistUpdating: boolean;
   isWatchlisted: boolean;
+  type: 'action' | 'normal';
   onAdd: () => void;
   onRemove: () => void;
 } & Omit<ButtonProps, 'children' | 'onclick' | 'label'>;

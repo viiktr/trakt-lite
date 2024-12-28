@@ -1,6 +1,6 @@
 <script lang="ts">
   import MarkAsWatchedButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedButton.svelte";
-  import WatchlistActionButton from "$lib/components/buttons/watchlist/WatchlistActionButton.svelte";
+  import WatchlistButton from "$lib/components/buttons/watchlist/WatchlistButton.svelte";
   import CardFooter from "$lib/components/card/CardFooter.svelte";
   import EpisodeCard from "$lib/components/episode/card/EpisodeCard.svelte";
   import Link from "$lib/components/link/Link.svelte";
@@ -73,7 +73,8 @@
     </Link>
     {#snippet actions()}
       <RenderFor audience="authenticated">
-        <WatchlistActionButton
+        <WatchlistButton
+          type="action"
           title={media.title}
           onAdd={addToWatchlist}
           onRemove={removeFromWatchlist}
