@@ -1,7 +1,7 @@
 <script lang="ts">
+  import MediaItem from "$lib/sections/lists/components/MediaItem.svelte";
   import { useTrendingItems } from "../useTrendingItems";
   import Phones from "./Phones.svelte";
-  import TrendingMedia from "./TrendingMedia.svelte";
 
   const { shows, movie, show } = $derived(useTrendingItems());
 </script>
@@ -9,15 +9,19 @@
 <div class="trakt-landing-preview">
   <div class="trakt-landing-media-wrapper">
     {#each $shows as show}
-      <TrendingMedia type="show" trendingItem={show} />
+      <MediaItem type="show" media={show} />
     {/each}
   </div>
   <div class="trakt-landing-phones">
     <Phones />
   </div>
   <div class="trakt-landing-media-wrapper">
-    <TrendingMedia type="show" trendingItem={$show} />
-    <TrendingMedia type="movie" trendingItem={$movie} />
+    {#if $show}
+      <MediaItem type="show" media={$show} />
+    {/if}
+    {#if $movie}
+      <MediaItem type="movie" media={$movie} />
+    {/if}
   </div>
 </div>
 
