@@ -26,14 +26,21 @@
   );
 
   const stateToColor = (isWatched: boolean) => (isWatched ? "red" : "purple");
+  const interactionToColor = (isTouch: boolean, isWatched: boolean) =>
+    isTouch ? stateToColor(isWatched) : "purple";
   /**
    * TODO: extact this logic as danger mode for buttons in general
    * we need to have something like mode="action" | "danger"
    */
   const isTouch = useMedia(WellKnownMediaQuery.touch);
-  const seedColor = $derived($isTouch ? stateToColor(isWatched) : "purple");
-  const color = $derived(writable<"purple" | "red">(seedColor));
+  const color = $derived(
+    writable<"purple" | "red">(interactionToColor($isTouch, isWatched)),
+  );
   const variant = $derived(isWatched ? "secondary" : "primary");
+
+  $effect(() => {
+    color.set(interactionToColor($isTouch, isWatched));
+  });
 
   const commonProps: Omit<ButtonProps, "children"> = $derived({
     label: i18n.label({ title, isWatched }),
@@ -43,8 +50,8 @@
     disabled: isMarkingAsWatched,
     onmouseover: () => color.set(stateToColor(isWatched)),
     onfocusin: () => color.set(stateToColor(isWatched)),
-    onfocusout: () => color.set(seedColor),
-    onmouseout: () => color.set(seedColor),
+    onfocusout: () => color.set(interactionToColor($isTouch, isWatched)),
+    onmouseout: () => color.set(interactionToColor($isTouch, isWatched)),
   });
 </script>
 
