@@ -17,14 +17,14 @@ type DirectionCompareProps = CompareProps & {
   direction: Direction;
 };
 
-const compareYear = ({
+const compareDate = ({
   left,
   right,
   direction,
 }: DirectionCompareProps) =>
   direction === 'asc'
-    ? left.airedDate.getFullYear() - right.airedDate.getFullYear()
-    : right.airedDate.getFullYear() - left.airedDate.getFullYear();
+    ? left.airedDate.getTime() - right.airedDate.getTime()
+    : right.airedDate.getTime() - left.airedDate.getTime();
 
 const compareGenre = ({
   left,
@@ -55,10 +55,10 @@ const genreSorter = ({
   if (priority === 'genre') {
     const genreDifference = compareGenre({ left, right, genres });
     if (genreDifference !== 0) return genreDifference;
-    return compareYear({ left, right, direction });
+    return compareDate({ left, right, direction });
   }
 
-  const yearDifference = compareYear({ left, right, direction });
+  const yearDifference = compareDate({ left, right, direction });
   if (yearDifference !== 0) return yearDifference;
   return compareGenre({ left, right, genres });
 };

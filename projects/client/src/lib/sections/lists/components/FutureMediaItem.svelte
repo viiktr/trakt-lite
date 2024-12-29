@@ -10,11 +10,13 @@
   import DurationTag from "$lib/components/media/tags/DurationTag.svelte";
   import RenderFor from "$lib/guards/RenderFor.svelte";
 
+  import { getLocale } from "$lib/features/i18n";
   import type { MediaType } from "$lib/models/MediaType";
   import type { EpisodeCount } from "$lib/requests/models/EpisodeCount";
   import type { MovieSummary } from "$lib/requests/models/MovieSummary";
   import type { ShowSummary } from "$lib/requests/models/ShowSummary";
   import { useWatchlist } from "$lib/stores/useWatchlist";
+  import { toHumanETA } from "$lib/utils/formatting/date/toHumanETA";
   import { UrlBuilder } from "$lib/utils/url/UrlBuilder";
 
   type MediaItemProps = {
@@ -42,7 +44,11 @@
     <MediaCover src={mediaCoverImageUrl} alt={`${media.title} poster`}>
       {#snippet tags()}
         <DurationTag>
-          {media.year ?? m.tba_label()}
+          {#if media.year == null}
+            {m.tba_label()}
+          {:else}
+            {toHumanETA(new Date(), media.airedDate, getLocale())}
+          {/if}
         </DurationTag>
       {/snippet}
     </MediaCover>
