@@ -20,7 +20,6 @@
   import MediaSummaryContainer from "./MediaSummaryContainer.svelte";
   import MediaSummaryInfo from "./MediaSummaryInfo.svelte";
   import type { MediaSummaryProps } from "./MediaSummaryProps";
-  import YoutubeButton from "./YoutubeButton.svelte";
 
   const {
     media,
@@ -111,7 +110,6 @@
       <RenderFor device={["mobile", "tablet-sm"]} audience="authenticated">
         {@render mediaActions()}
       </RenderFor>
-      <YoutubeButton trailer={media.trailer} />
     {/snippet}
   </MediaSummaryInfo>
 </MediaSummaryContainer>

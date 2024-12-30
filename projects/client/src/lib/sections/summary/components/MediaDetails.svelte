@@ -12,6 +12,7 @@
   import { toLanguageName } from "$lib/utils/formatting/intl/toLanguageName";
   import { toTranslatedValue } from "$lib/utils/formatting/string/toTranslatedValue";
   import MediaCollapsableValues from "./MediaCollapsableValues.svelte";
+  import YoutubeButton from "./YoutubeButton.svelte";
 
   type MediaDetailsProps = {
     media: MediaSummary;
@@ -84,11 +85,21 @@
         </div>
       {/if}
     {/each}
+    <div class="trakt-summary-trailers">
+      <p class="meta-info secondary">{m.watch_the_trailer()}</p>
+      <YoutubeButton trailer={media.trailer} />
+    </div>
   </div>
 </div>
 
 <style lang="scss">
   @use "$style/scss/mixins/index" as *;
+
+  .trakt-summary-trailers {
+    display: flex;
+    gap: var(--ni-8);
+    flex-direction: column;
+  }
 
   .trakt-summary-details {
     display: flex;
