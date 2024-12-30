@@ -4,10 +4,12 @@ import { vi } from 'vitest';
 export const urlProxy = writable(new URL('https://example.com'));
 
 vi.mock('$style/scss/variables/index.module.scss', () => ({
-  breakpointDesktop: '1337px',
-  breakpointMobile: '1337px',
-  breakpointTabletLgMax: '1337px',
-  breakpointTabletLgMin: '1337px',
-  breakpointTabletSmMax: '1337px',
-  breakpointTabletSmMin: '1337px',
+  default: {
+    'breakpoint-desktop': '1337px',
+    'breakpoint-mobile': '1337px',
+    'breakpoint-tablet-lg-max': '1337px',
+    'breakpoint-tablet-lg-min': '1337px',
+    'breakpoint-tablet-sm-max': '1337px',
+    'breakpoint-tablet-sm-min': '1337px',
+  },
 }));
