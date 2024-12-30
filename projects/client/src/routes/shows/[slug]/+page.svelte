@@ -19,6 +19,7 @@
 </script>
 
 <TraktPage
+  audience="all"
   title={$show?.title}
   info={$show}
   image={$show?.cover.url.thumb}

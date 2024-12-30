@@ -115,6 +115,10 @@ declare global {
     target?: '_blank' | '_self' | '_parent' | '_top';
   };
 
+  type AudienceProps = {
+    audience: 'authenticated' | 'public' | 'all';
+  };
+
   export type ButtonProps =
     & {
       label: string;

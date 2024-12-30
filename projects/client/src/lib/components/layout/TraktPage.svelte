@@ -1,7 +1,10 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import RenderFor from "$lib/guards/RenderFor.svelte";
   import type { MediaType } from "$lib/models/MediaType";
   import { DEFAULT_SHARE_COVER } from "$lib/utils/constants";
+  import { UrlBuilder } from "$lib/utils/url/UrlBuilder";
+  import Redirect from "../router/Redirect.svelte";
 
   type TraktPageProps = {
     title: string | undefined;
@@ -13,13 +16,15 @@
       runtime: number;
     };
   };
+
   const {
     children,
     title,
+    audience,
     type = "webpage",
     image = DEFAULT_SHARE_COVER,
     info: _info,
-  }: ChildrenProps & TraktPageProps = $props();
+  }: ChildrenProps & TraktPageProps & AudienceProps = $props();
 
   const websiteName = "Trakt Lite";
   const twitterHandle = "@trakt";
@@ -77,33 +82,41 @@
   <meta name="twitter:creator" content={twitterHandle} />
 </svelte:head>
 
-<div class="trakt-content">
-  {@render children()}
-</div>
+<RenderFor {audience}>
+  <div class="trakt-content">
+    {@render children()}
+  </div>
 
-<style lang="scss">
-  @use "$style/scss/mixins/index" as *;
+  <style lang="scss">
+    @use "$style/scss/mixins/index" as *;
 
-  .trakt-content {
-    --content-gap: var(--ni-48);
+    .trakt-content {
+      --content-gap: var(--ni-48);
 
-    transition: var(--transition-increment) ease-in-out;
-    transition-property: gap margin;
+      transition: var(--transition-increment) ease-in-out;
+      transition-property: gap margin;
 
-    display: flex;
-    flex-direction: column;
-    gap: var(--content-gap);
-
-    &:first-child {
-      margin-top: var(--content-gap);
-    }
-
-    @include for-mobile {
-      --content-gap: var(--ni-18);
+      display: flex;
+      flex-direction: column;
+      gap: var(--content-gap);
 
       &:first-child {
-        margin-top: 0;
+        margin-top: var(--content-gap);
+      }
+
+      @include for-mobile {
+        --content-gap: var(--ni-18);
+
+        &:first-child {
+          margin-top: 0;
+        }
       }
     }
-  }
-</style>
+  </style>
+</RenderFor>
+
+{#if audience === "authenticated"}
+  <RenderFor audience="public">
+    <Redirect to={UrlBuilder.home()} />
+  </RenderFor>
+{/if}

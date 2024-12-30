@@ -10,6 +10,7 @@
 </script>
 
 <TraktPage
+  audience="all"
   title={$movie?.title}
   info={$movie}
   image={$movie?.cover.url.thumb}

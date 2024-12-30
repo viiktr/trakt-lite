@@ -9,7 +9,11 @@
   const { current } = useUser();
 </script>
 
-<TraktPage image={DEFAULT_SHARE_COVER} title={m.profile()}>
+<TraktPage
+  audience="authenticated"
+  image={DEFAULT_SHARE_COVER}
+  title={m.profile()}
+>
   {#if current() != null}
     <CoverImageSetter src={current().cover.url} type="main" />
     <Profile />

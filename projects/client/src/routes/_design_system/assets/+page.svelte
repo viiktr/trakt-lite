@@ -64,7 +64,7 @@
   {/if}
 {/snippet}
 
-<TraktPage image={DEFAULT_SHARE_COVER} title="Assets">
+<TraktPage audience="authenticated" image={DEFAULT_SHARE_COVER} title="Assets">
   <div class="asset-navigation">
     <Button
       href="/_design_system/assets?type=movie"

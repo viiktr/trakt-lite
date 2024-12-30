@@ -10,7 +10,11 @@
   const { current } = useUser();
 </script>
 
-<TraktPage image={DEFAULT_SHARE_COVER} title={m.navbar_link_movies()}>
+<TraktPage
+  audience="authenticated"
+  image={DEFAULT_SHARE_COVER}
+  title={m.navbar_link_movies()}
+>
   <CoverImageSetter src={current().cover.url} type="main" />
 
   <WatchlistList

@@ -15,7 +15,11 @@
   const { current } = useUser();
 </script>
 
-<TraktPage image={DEFAULT_SHARE_COVER} title={m.navbar_link_home()}>
+<TraktPage
+  audience="all"
+  image={DEFAULT_SHARE_COVER}
+  title={m.navbar_link_home()}
+>
   <RenderFor audience="authenticated">
     <CoverImageSetter src={current().cover.url} type="main" />
     <ProfileBanner />

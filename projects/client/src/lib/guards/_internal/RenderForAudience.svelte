@@ -1,7 +1,6 @@
 <script lang="ts">
   import { useAuth } from "$lib/features/auth/stores/useAuth";
   import { useUser } from "$lib/features/auth/stores/useUser";
-  import type { AudienceProps } from "./AudienceProps";
 
   const { children, audience }: ChildrenProps & AudienceProps = $props();
 

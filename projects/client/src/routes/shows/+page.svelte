@@ -35,7 +35,11 @@
   <PopularList title={m.most_popular()} {type} />
 {/snippet}
 
-<TraktPage image={DEFAULT_SHARE_SHOW_COVER} title={m.navbar_link_shows()}>
+<TraktPage
+  audience="all"
+  image={DEFAULT_SHARE_SHOW_COVER}
+  title={m.navbar_link_shows()}
+>
   <RenderFor audience="authenticated">
     {@render content({
       ...current(),

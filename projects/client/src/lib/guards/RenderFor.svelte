@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { AudienceProps } from "./_internal/AudienceProps";
   import type { DeviceProps } from "./_internal/DeviceProps";
   import type { InputProps } from "./_internal/InputProps";
   import RenderForAudience from "./_internal/RenderForAudience.svelte";
