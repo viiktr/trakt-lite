@@ -11,7 +11,9 @@
   </div>
 {/if}
 
-<style>
+<style lang="scss">
+  @use "$style/scss/mixins/index" as *;
+
   .background-cover-image {
     z-index: -1;
     position: absolute;
@@ -59,6 +61,14 @@
       );
 
       pointer-events: none;
+
+      @include for-tablet-sm-and-below {
+        background: linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--color-background) 15%, transparent 85%) 0%,
+          var(--color-background) 100%
+        );
+      }
     }
   }
 </style>
