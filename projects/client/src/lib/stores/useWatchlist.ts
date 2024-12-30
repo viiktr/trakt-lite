@@ -7,7 +7,7 @@ import { derived, writable } from 'svelte/store';
 import { toWatchlistPayload } from './_internal/toWatchlistPayload.ts';
 import { useInvalidator } from './useInvalidator.ts';
 
-type WatchlistStoreProps = {
+export type WatchlistStoreProps = {
   type: MediaType;
   media: { id: number };
 };

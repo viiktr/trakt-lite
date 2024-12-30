@@ -15,9 +15,9 @@ const config = {
       resolve: {
         alias: {
           $style: join(__dirname, 'src/style'),
-        }
-      }
-    }
+        },
+      },
+    },
   }),
 
   kit: {
@@ -34,13 +34,12 @@ const config = {
         experimentalJsonConfig: false,
         persist: false,
       },
-
     }),
     alias: {
       '@trakt/api': './src/lib/api.ts',
       '$mocks': './src/mocks',
       '$test': './test',
-      '$style': 'src/style'
+      '$style': 'src/style',
     },
   },
 };

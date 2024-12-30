@@ -7,7 +7,7 @@ import {
   MAX_DATE,
   MEDIA_COVER_LARGE_PLACEHOLDER,
   MEDIA_COVER_THUMB_PLACEHOLDER,
-  MEDIA_POSTER_PLACEHOLDER
+  MEDIA_POSTER_PLACEHOLDER,
 } from '$lib/utils/constants.ts';
 import { findDefined } from '$lib/utils/string/findDefined.ts';
 import { prependHttps } from '$lib/utils/url/prependHttps.ts';

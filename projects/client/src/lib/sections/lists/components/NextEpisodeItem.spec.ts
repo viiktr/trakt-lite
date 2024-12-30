@@ -94,7 +94,7 @@ describe('NextEpisodeItem', () => {
     );
 
     const button = screen.getByRole('button');
-    waitFor(() => expect(button.getAttribute('disabled')).toBe(''));
+    await waitFor(() => expect(button.hasAttribute('disabled')));
   });
 
   test('it renders the season finale tag', () => {

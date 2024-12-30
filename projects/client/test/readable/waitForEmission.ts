@@ -1,6 +1,6 @@
 import { type Readable } from 'svelte/store';
 
-export async function waitForEmission<T>(
+export function waitForEmission<T>(
   store: Readable<T>,
   emission: number,
   timeout = 15,

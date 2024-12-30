@@ -58,7 +58,7 @@ export function useMarkAsWatched(
       switch (type) {
         case 'movie':
           return media.every((m) => $history.movies.has(m.id));
-        case 'episode':
+        case 'episode': {
           const episodes = Array.isArray(props.episode)
             ? props.episode
             : [props.episode];
@@ -71,6 +71,7 @@ export function useMarkAsWatched(
               e.season === episode.season && e.episode === episode.number
             )
           );
+        }
         case 'show': {
           return media.every((m) => !!$history.shows.get(m.id)?.isWatched);
         }

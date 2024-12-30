@@ -8,7 +8,7 @@ import { waitFor } from '@testing-library/svelte';
 import { get } from 'svelte/store';
 import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 import { useInvalidator } from './useInvalidator';
-import { useWatchlist } from './useWatchlist';
+import { useWatchlist, type WatchlistStoreProps } from './useWatchlist';
 
 vi.mock('./useInvalidator.ts');
 
@@ -23,7 +23,7 @@ describe('useWatchlist', () => {
     });
   });
 
-  const runCommonTests = (props: any, invalidation: string) => {
+  const runCommonTests = (props: WatchlistStoreProps, invalidation: string) => {
     it('should NOT be updating watchlist when first requested', async () => {
       const { isWatchlistUpdating } = await renderStore(() =>
         useWatchlist(props)

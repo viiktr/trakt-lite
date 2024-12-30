@@ -117,7 +117,7 @@ describe('ActionButton', () => {
       expect(link).not.toHaveClass('trakt-link-active');
     });
 
-    it('should stay focused when clicked', async () => {
+    it('should stay focused when clicked', () => {
       render(
         ActionButton,
         {

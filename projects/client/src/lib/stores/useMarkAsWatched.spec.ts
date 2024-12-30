@@ -8,7 +8,10 @@ import { waitFor } from '@testing-library/svelte';
 import { get } from 'svelte/store';
 import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 import { useInvalidator } from './useInvalidator';
-import { useMarkAsWatched } from './useMarkAsWatched';
+import {
+  type MarkAsWatchedStoreProps,
+  useMarkAsWatched,
+} from './useMarkAsWatched';
 
 vi.mock('./useInvalidator.ts');
 
@@ -23,7 +26,10 @@ describe('useMarkAsWatched', () => {
     });
   });
 
-  const runCommonTests = (props: any, invalidation: string) => {
+  const runCommonTests = (
+    props: MarkAsWatchedStoreProps,
+    invalidation: string,
+  ) => {
     it('should NOT be marking as watched when first requested', async () => {
       const { isMarkingAsWatched } = await renderStore(() =>
         useMarkAsWatched(props)
