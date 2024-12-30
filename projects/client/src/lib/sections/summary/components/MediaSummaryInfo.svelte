@@ -18,7 +18,7 @@
 </script>
 
 <div class="trakt-summary-header">
-  <h3>{intl.title}</h3>
+  <h3 class:long-title={media.title.length > 25}>{intl.title}</h3>
   <GenreList genres={media.genres.slice(0, genreCount)} />
 </div>
 
@@ -44,5 +44,15 @@
   .trakt-info-actions {
     display: flex;
     gap: var(--ni-8);
+  }
+
+  h3 {
+    --text-size: 3cqi;
+
+    &.long-title {
+      --text-size: 2.5cqi;
+    }
+
+    font-size: clamp(var(--ni-24), var(--text-size), var(--ni-48));
   }
 </style>
