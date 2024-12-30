@@ -18,7 +18,12 @@
 </script>
 
 <div class="trakt-summary-header">
-  <h3 class:long-title={media.title.length > 25}>{intl.title}</h3>
+  <h3
+    class:short-title={media.title.length < 15}
+    class:long-title={media.title.length > 25}
+  >
+    {intl.title}
+  </h3>
   <GenreList genres={media.genres.slice(0, genreCount)} />
 </div>
 
@@ -47,7 +52,11 @@
   }
 
   h3 {
-    --text-size: 3cqi;
+    --text-size: 7cqi;
+
+    &.short-title {
+      --text-size: 10cqi;
+    }
 
     &.long-title {
       --text-size: 2.5cqi;
