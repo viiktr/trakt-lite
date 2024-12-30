@@ -266,7 +266,7 @@
       margin: 0 var(--ni-neg-6);
       transform: scale(calc(var(--scale-factor-button) * 0.9));
       background: transparent;
-      color: inherit;
+      color: color(var(--color-foreground));
 
       &[disabled] {
         color: var(--color-foreground-button-disabled);
@@ -275,6 +275,11 @@
       @include for-mouse {
         &:hover:not([disabled]) {
           color: var(--color-foreground-button);
+
+          &[data-size="tag"] {
+            outline: var(--border-thickness-xs) solid
+              var(--color-background-button);
+          }
 
           &[data-variant="primary"] {
             background: color-mix(
@@ -296,6 +301,10 @@
 
       &:active:not([disabled]) {
         transform: scale(calc(var(--scale-factor-button) * 0.87));
+      }
+
+      &[data-size="tag"] {
+        outline: var(--border-thickness-xxs) solid var(--color-foreground);
       }
     }
 

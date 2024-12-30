@@ -26,7 +26,7 @@
     <Button
       onclick={() => expanded.update((state) => !state)}
       label="{m.expand_category({ category })}}"
-      style="flat"
+      style="ghost"
       size="tag"
       color="purple"
     >
