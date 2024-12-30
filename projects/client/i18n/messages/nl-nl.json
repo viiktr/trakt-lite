@@ -224,5 +224,6 @@
   "remove_from_watched_label": "Verwijder {title} van je Bekijkt lijst",
   "remove_from_watched_warning": "Weet je zeker dat je {title} wilt verwijderen van je Bekijkt lijst?",
   "season_number_label": "Seizoen {number}",
-  "expand_media_overview": "Bekijk {title} overzicht"
+  "expand_media_overview": "Bekijk {title} overzicht",
+  "season_episode_number_label": "Seizoen {season} • Aflevering {number}"
 }

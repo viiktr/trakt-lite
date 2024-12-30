@@ -1,22 +1,37 @@
 <script lang="ts">
   import * as m from "$lib/features/i18n/messages";
 
+  import Link from "$lib/components/link/Link.svelte";
   import GenreList from "$lib/components/summary/GenreList.svelte";
   import ClampedText from "$lib/components/text/ClampedText.svelte";
+  import type { ActiveWatcher } from "$lib/models/ActiveWatcher";
   import type { EpisodeEntry } from "$lib/models/EpisodeEntry";
+  import type { EpisodeIntl } from "$lib/models/EpisodeIntl";
+  import type { MediaRating } from "$lib/models/MediaRating";
+  import type { MediaStats } from "$lib/models/MediaStats";
   import { useMedia, WellKnownMediaQuery } from "$lib/stores/css/useMedia";
+  import { UrlBuilder } from "$lib/utils/url/UrlBuilder";
+  import type { Snippet } from "svelte";
   import MediaMetaInfo from "./MediaMetaInfo.svelte";
   import type { MediaSummary } from "./MediaSummary";
-  import type { MediaSummaryProps } from "./MediaSummaryProps";
 
   const {
-    media,
+    episode,
+    show,
     ratings,
     watchers,
     stats,
     intl,
     actions,
-  }: MediaSummaryProps<MediaSummary | EpisodeEntry> = $props();
+  }: {
+    episode: EpisodeEntry;
+    show: MediaSummary;
+    ratings: MediaRating;
+    watchers: ActiveWatcher[];
+    stats: MediaStats;
+    intl: EpisodeIntl;
+    actions?: Snippet;
+  } = $props();
 
   const isLargeDisplay = useMedia(WellKnownMediaQuery.desktop);
   const genreCount = $derived($isLargeDisplay ? undefined : 3);
@@ -24,19 +39,23 @@
 
 <div class="trakt-summary-header">
   <h3
-    class:short-title={media.title.length < 15}
-    class:long-title={media.title.length > 25}
+    class:short-title={episode.title.length < 15}
+    class:long-title={episode.title.length > 25}
   >
     {intl.title}
   </h3>
-  <GenreList genres={media.genres.slice(0, genreCount)} />
+  <Link href={UrlBuilder.show(show.slug)}>
+    <h6>{show.title}</h6>
+  </Link>
+  <p class="meta-info">{m.season_episode_number_label(episode)}</p>
+  <GenreList genres={show.genres.slice(0, genreCount)} />
 </div>
 
-<MediaMetaInfo {media} {ratings} {stats} {watchers} />
+<MediaMetaInfo media={episode} {ratings} {stats} {watchers} />
 
 <ClampedText
   classList="trakt-media-overview secondary"
-  label={m.expand_media_overview({ title: media.title })}
+  label={m.expand_media_overview({ title: episode.title })}
 >
   {intl.overview}
 </ClampedText>

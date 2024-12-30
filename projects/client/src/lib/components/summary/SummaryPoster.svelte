@@ -1,18 +1,22 @@
 <script lang="ts">
   import CrossOriginImage from "$lib/features/image/components/CrossOriginImage.svelte";
   import type { Snippet } from "svelte";
+  import Link from "../link/Link.svelte";
 
   type SummaryPosterProps = {
     src: string;
     alt: string;
+    href?: string;
     actions?: Snippet;
   };
 
-  const { src, alt, actions }: SummaryPosterProps = $props();
+  const { src, alt, href, actions }: SummaryPosterProps = $props();
 </script>
 
 <div class="trakt-summary-poster">
-  <CrossOriginImage {src} {alt} />
+  <Link {href}>
+    <CrossOriginImage {src} {alt} />
+  </Link>
 
   {@render actions?.()}
 </div>

@@ -5,6 +5,7 @@ import {
   type EpisodeType,
   EpisodeUnknownType,
 } from '$lib/models/EpisodeType.ts';
+import { InvalidateAction } from '$lib/requests/models/InvalidateAction.ts';
 import { prependHttps } from '$lib/utils/url/prependHttps.ts';
 import { api, type ApiParams } from '../../_internal/api.ts';
 
@@ -24,7 +25,7 @@ export function mapResponseToShowProgress(
     season: episode.season,
     number: episode.number,
     runtime: episode.runtime,
-    poster: {
+    cover: {
       url: prependHttps(posterCandidate),
     },
     airedDate: new Date(episode.first_aired),
@@ -34,6 +35,9 @@ export function mapResponseToShowProgress(
     minutesLeft: item.stats?.minutes_left ?? 0,
     type: episode.episode_type as EpisodeType ??
       EpisodeUnknownType.Unknown,
+    genres: [],
+    overview: episode.overview,
+    year: new Date(episode.first_aired).getFullYear(),
   };
 }
 
@@ -60,14 +64,19 @@ export function showProgressRequest(
     })
     .then(({ status, body }) => {
       if (status !== 200) {
-        throw new Error('Failed to fetch up next');
+        throw new Error('Failed to fetch show progress');
       }
       return mapResponseToShowProgress(body);
     });
 }
 
 export const showProgressQueryKey = (id: string) =>
-  ['showProgress', id] as const;
+  [
+    'showProgress',
+    id,
+    InvalidateAction.MarkAsWatched('show'),
+    InvalidateAction.MarkAsWatched('episode'),
+  ] as const;
 export const showProgressQuery = (
   params: ShowProgressParams,
 ) => ({

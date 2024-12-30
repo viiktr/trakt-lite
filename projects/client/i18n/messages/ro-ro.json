@@ -224,5 +224,6 @@
   "remove_from_watched_label": "Eliminare {title} din lista ta de Vizionate",
   "remove_from_watched_warning": "Esti sigur că vrei să elimini {title} din lista ta de Vizionate?",
   "season_number_label": "Sezonul {number}",
-  "expand_media_overview": "Detaliază prezentarea {title}"
+  "expand_media_overview": "Detaliază prezentarea {title}",
+  "season_episode_number_label": "Sezon {season} • Episod {number}"
 }

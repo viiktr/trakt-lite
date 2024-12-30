@@ -224,5 +224,6 @@
   "remove_from_watched_label": "Supprimer {title} de votre liste Vue",
   "remove_from_watched_warning": "Êtes-vous certain de vouloir supprimer {title} de votre liste Vue ?",
   "season_number_label": "Saison {number}",
-  "expand_media_overview": "Développer la description de {title}"
+  "expand_media_overview": "Développer la description de {title}",
+  "season_episode_number_label": "Saison {season} • Épisode {number}"
 }

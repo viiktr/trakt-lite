@@ -224,5 +224,6 @@
   "remove_from_watched_label": "視聴済みリストから{title}を削除",
   "remove_from_watched_warning": "{title}を視聴済みリストから削除してもよろしいですか？",
   "season_number_label": "第{number}シーズン",
-  "expand_media_overview": "{title} の概要を表示"
+  "expand_media_overview": "{title} の概要を表示",
+  "season_episode_number_label": "シーズン{season}・エピソード{number}"
 }
