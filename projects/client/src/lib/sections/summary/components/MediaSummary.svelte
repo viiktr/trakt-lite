@@ -5,6 +5,7 @@
   import WatchNowButton from "$lib/components/buttons/watch-now/WatchNowButton.svelte";
   import WatchlistButton from "$lib/components/buttons/watchlist/WatchlistButton.svelte";
   import type { WatchlistButtonProps } from "$lib/components/buttons/watchlist/WatchlistButtonProps";
+  import GenreList from "$lib/components/summary/GenreList.svelte";
   import SummaryPoster from "$lib/components/summary/SummaryPoster.svelte";
   import RenderFor from "$lib/guards/RenderFor.svelte";
   import type { MediaStats } from "$lib/models/MediaStats";
@@ -16,10 +17,14 @@
   import { useWatchNow } from "$lib/stores/useWatchNow";
   import type { Snippet } from "svelte";
   import MediaDetails from "./MediaDetails.svelte";
+  import MediaMetaInfo from "./MediaMetaInfo.svelte";
+  import MediaOverview from "./MediaOverview.svelte";
   import type { MediaSummary } from "./MediaSummary";
+  import MediaSummaryActions from "./MediaSummaryActions.svelte";
   import MediaSummaryContainer from "./MediaSummaryContainer.svelte";
-  import MediaSummaryInfo from "./MediaSummaryInfo.svelte";
+  import MediaSummaryHeader from "./MediaSummaryHeader.svelte";
   import type { MediaSummaryProps } from "./MediaSummaryProps";
+  import MediaTitle from "./MediaTitle.svelte";
 
   const {
     media,
@@ -105,30 +110,28 @@
     </SummaryPoster>
   {/snippet}
 
-  <MediaSummaryInfo {media} {ratings} {stats} {watchers} {intl}>
-    {#snippet actions()}
-      <RenderFor device={["mobile", "tablet-sm"]} audience="authenticated">
-        {@render mediaActions()}
-      </RenderFor>
-    {/snippet}
-  </MediaSummaryInfo>
+  <MediaSummaryHeader>
+    <MediaTitle title={intl.title ?? title} />
+    <GenreList genres={media.genres} />
+  </MediaSummaryHeader>
+
+  <MediaMetaInfo
+    certification={media.certification}
+    year={media.year}
+    {ratings}
+    {stats}
+    {watchers}
+  />
+
+  <MediaOverview {title} overview={intl.overview ?? media.overview} />
+
+  <RenderFor device={["mobile", "tablet-sm"]} audience="authenticated">
+    <MediaSummaryActions>
+      {@render mediaActions()}
+    </MediaSummaryActions>
+  </RenderFor>
 </MediaSummaryContainer>
 
 <MediaSummaryContainer>
   <MediaDetails {media} {studios} {crew} />
 </MediaSummaryContainer>
-
-<style lang="scss">
-  @use "$style/scss/mixins/index" as *;
-
-  :global(.trakt-info-actions) {
-    @include for-tablet-sm-and-below {
-      display: flex;
-      flex-flow: column;
-
-      gap: var(--ni-24);
-
-      padding: var(--ni-16);
-    }
-  }
-</style>

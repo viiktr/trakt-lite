@@ -1,37 +1,25 @@
 <script lang="ts">
+  import * as m from "$lib/features/i18n/messages";
+
   import CoverImageSetter from "$lib/components/background/CoverImageSetter.svelte";
   import MarkAsWatchedButton from "$lib/components/buttons/mark-as-watched/MarkAsWatchedButton.svelte";
   import type { MarkAsWatchedButtonProps } from "$lib/components/buttons/mark-as-watched/MarkAsWatchedButtonProps";
+  import Link from "$lib/components/link/Link.svelte";
+  import GenreList from "$lib/components/summary/GenreList.svelte";
   import SummaryPoster from "$lib/components/summary/SummaryPoster.svelte";
   import RenderFor from "$lib/guards/RenderFor.svelte";
-  import type { ActiveWatcher } from "$lib/models/ActiveWatcher";
-  import type { EpisodeEntry } from "$lib/models/EpisodeEntry";
-  import type { EpisodeIntl } from "$lib/models/EpisodeIntl";
-  import type { MediaRating } from "$lib/models/MediaRating";
-  import type { MediaStats } from "$lib/models/MediaStats";
-  import type { MediaSummary } from "$lib/requests/models/MediaSummary";
   import { useMarkAsWatched } from "$lib/stores/useMarkAsWatched";
   import { UrlBuilder } from "$lib/utils/url/UrlBuilder";
-  import type { Snippet } from "svelte";
-  import EpisodeSummaryInfo from "./components/EpisodeSummaryInfo.svelte";
+  import type { EpisodeSummaryProps } from "./components/EpisodeSummaryProps";
+  import MediaMetaInfo from "./components/MediaMetaInfo.svelte";
+  import MediaOverview from "./components/MediaOverview.svelte";
+  import MediaSummaryActions from "./components/MediaSummaryActions.svelte";
   import MediaSummaryContainer from "./components/MediaSummaryContainer.svelte";
+  import MediaSummaryHeader from "./components/MediaSummaryHeader.svelte";
+  import MediaTitle from "./components/MediaTitle.svelte";
 
-  const {
-    episode,
-    show,
-    ratings,
-    intl,
-    stats,
-    watchers,
-  }: {
-    episode: EpisodeEntry;
-    show: MediaSummary;
-    ratings: MediaRating;
-    watchers: ActiveWatcher[];
-    stats: MediaStats;
-    intl: EpisodeIntl;
-    actions?: Snippet;
-  } = $props();
+  const { episode, show, ratings, intl, stats, watchers }: EpisodeSummaryProps =
+    $props();
   const type = "episode";
 
   const { markAsWatched, removeWatched, isMarkingAsWatched, isWatched } =
@@ -77,26 +65,28 @@
     </SummaryPoster>
   {/snippet}
 
-  <EpisodeSummaryInfo {episode} {show} {ratings} {stats} {watchers} {intl}>
-    {#snippet actions()}
-      <RenderFor device={["mobile", "tablet-sm"]} audience="authenticated">
-        {@render mediaActions()}
-      </RenderFor>
-    {/snippet}
-  </EpisodeSummaryInfo>
+  <MediaSummaryHeader>
+    <MediaTitle title={intl.title ?? title} />
+    <Link href={UrlBuilder.show(show.slug)}>
+      <h6>{show.title}</h6>
+    </Link>
+    <p class="meta-info">{m.season_episode_number_label(episode)}</p>
+    <GenreList genres={show.genres} />
+  </MediaSummaryHeader>
+
+  <MediaMetaInfo
+    certification={show.certification}
+    year={episode.year}
+    {ratings}
+    {stats}
+    {watchers}
+  />
+
+  <MediaOverview {title} overview={intl.overview ?? episode.overview} />
+
+  <RenderFor device={["mobile", "tablet-sm"]} audience="authenticated">
+    <MediaSummaryActions>
+      {@render mediaActions()}
+    </MediaSummaryActions>
+  </RenderFor>
 </MediaSummaryContainer>
-
-<style lang="scss">
-  @use "$style/scss/mixins/index" as *;
-
-  :global(.trakt-info-actions) {
-    @include for-tablet-sm-and-below {
-      display: flex;
-      flex-flow: column;
-
-      gap: var(--ni-24);
-
-      padding: var(--ni-16);
-    }
-  }
-</style>

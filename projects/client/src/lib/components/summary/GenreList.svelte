@@ -1,5 +1,6 @@
 <script lang="ts">
   import ActionIcon from "$lib/components/icons/ActionIcon.svelte";
+  import { useMedia, WellKnownMediaQuery } from "$lib/stores/css/useMedia";
   import type { GenreIntl } from "./GenreIntl";
   import { GenreIntlProvider } from "./GenreIntlProvider";
 
@@ -13,11 +14,15 @@
     genres,
     separator = "/",
   }: GenreListProps = $props();
+
+  const isLargeDisplay = useMedia(WellKnownMediaQuery.desktop);
+  const genreCount = $derived($isLargeDisplay ? undefined : 3);
+  const visibleGenre = $derived(genres.slice(0, genreCount));
 </script>
 
 <div class="trakt-summary-genre">
   <ActionIcon />
-  {#each genres as genre}
+  {#each visibleGenre as genre}
     <span class="trakt-genre capitalize">{i18n.genre(genre)}</span>
     {#if genre !== genres.at(-1)}
       <span>{separator}</span>
