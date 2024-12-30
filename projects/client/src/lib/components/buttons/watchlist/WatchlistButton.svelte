@@ -18,7 +18,7 @@
 
   const handler = $derived(isWatchlisted ? onRemove : onAdd);
   const state = $derived(isWatchlisted ? "added" : "missing");
-  const variant = $derived(isWatchlisted ? "secondary" : "primary");
+  const variant = $derived(isWatchlisted ? "primary" : "secondary");
 
   const commonProps: Omit<ButtonProps, "children"> = $derived({
     label: i18n.label({ isWatchlisted, title }),

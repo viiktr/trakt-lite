@@ -36,7 +36,7 @@
   const color = $derived(
     writable<"purple" | "red">(interactionToColor($isTouch, isWatched)),
   );
-  const variant = $derived(isWatched ? "secondary" : "primary");
+  const variant = $derived(isWatched ? "primary" : "secondary");
 
   $effect(() => {
     color.set(interactionToColor($isTouch, isWatched));
