@@ -39,9 +39,11 @@
         </RenderFor>
       </Link>
     </div>
-    <RenderFor audience="authenticated">
-      <SearchInput />
-    </RenderFor>
+    <div class="trakt-navbar-content">
+      <RenderFor audience="authenticated">
+        <SearchInput />
+      </RenderFor>
+    </div>
     <div class="trakt-navbar-links">
       <RenderFor audience="all" device={["tablet-lg", "desktop"]}>
         <Button
@@ -126,11 +128,14 @@
       gap: var(--ni-16);
     }
 
+    .trakt-navbar-content {
+      width: 100%;
+    }
+
     .trakt-navbar-links {
       display: flex;
       gap: var(--ni-8);
       align-items: center;
-      width: 100%;
       justify-content: end;
 
       @include for-tablet-sm-and-below {

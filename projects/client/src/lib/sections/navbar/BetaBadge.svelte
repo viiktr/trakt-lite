@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="53" height="32" fill="none">
-  <g filter="url(#a)">
+  <g>
     <rect
       width="36"
       height="16"

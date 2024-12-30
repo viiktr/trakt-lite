@@ -68,6 +68,14 @@
     }
   }
 
+  :global(.trakt-navbar-scroll) {
+    .trakt-search {
+      .trakt-search-input {
+        background: color-mix(in srgb, var(--shade-940) 90%, transparent 10%);
+      }
+    }
+  }
+
   .trakt-search {
     position: relative;
 
@@ -83,11 +91,16 @@
 
       border-radius: var(--border-radius-s);
       border: var(--border-thickness-xs) solid var(--shade-800);
-      background: rgba(25, 28, 30, 0.7);
+      background: color-mix(
+        in srgb,
+        var(--color-background) 90%,
+        transparent 10%
+      );
       backdrop-filter: blur(var(--ni-8));
-      width: calc(var(--ni-80) + 10vw);
+      width: clamp(var(--ni-80), 100%, var(--ni-320));
 
-      transition: border-color var(--transition-increment) ease-in-out;
+      transition: var(--transition-increment) ease-in-out;
+      transition-property: border-color, background-color;
 
       &:focus-within {
         border-color: var(--purple-600);
