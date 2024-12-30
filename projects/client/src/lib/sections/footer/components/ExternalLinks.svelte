@@ -1,12 +1,16 @@
 <script>
   import AndroidIcon from "$lib/components/icons/AndroidIcon.svelte";
   import AppleIcon from "$lib/components/icons/AppleIcon.svelte";
+  import GithubIcon from "$lib/components/icons/GithubIcon.svelte";
 
   import Link from "$lib/components/link/Link.svelte";
   import { UrlBuilder } from "$lib/utils/url/UrlBuilder";
 </script>
 
 <div class="trakt-external-links">
+  <Link href={UrlBuilder.github()} target="_blank">
+    <GithubIcon />
+  </Link>
   <Link href={UrlBuilder.app.ios()} target="_blank">
     <AppleIcon />
   </Link>
