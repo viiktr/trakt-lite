@@ -14,6 +14,7 @@
     studios,
     crew,
     seasons,
+    isLoading,
   } = $derived(useShow($page.params.slug));
 </script>
 
@@ -23,17 +24,17 @@
   image={$show?.cover.url.thumb}
   type="show"
 >
-  {#if $show != null && $ratings != null && $stats != null && $intl != null && $studios != null && $crew != null && $seasons != null && $watchers != null}
+  {#if !$isLoading}
     <ShowSummary
-      media={$show}
-      ratings={$ratings}
-      watchers={$watchers}
-      stats={$stats}
-      intl={$intl}
-      progress={$progress}
-      studios={$studios}
-      crew={$crew}
-      seasons={$seasons}
+      media={$show!}
+      ratings={$ratings!}
+      watchers={$watchers!}
+      stats={$stats!}
+      intl={$intl!}
+      progress={$progress!}
+      studios={$studios!}
+      crew={$crew!}
+      seasons={$seasons!}
     />
   {:else}
     <!-- TODO: remove this when we have empty state, currently prevents content jumps -->

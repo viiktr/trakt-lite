@@ -14,7 +14,7 @@ export function mapPeopleResponseToMediaCrew(
   response: PeopleResponse,
 ): MediaCrew {
   return {
-    directors: mapCrewPosition(response.crew.directing ?? []),
-    writers: mapCrewPosition(response.crew.writing ?? []),
+    directors: mapCrewPosition(response.crew?.directing ?? []),
+    writers: mapCrewPosition(response.crew?.writing ?? []),
   };
 }

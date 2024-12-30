@@ -8,7 +8,6 @@ import { movieSummaryQuery } from '$lib/requests/queries/movies/movieSummaryQuer
 import { movieWatchersQuery } from '$lib/requests/queries/movies/movieWatchersQuery.ts';
 import { time } from '$lib/utils/timing/time.ts';
 import { createQuery } from '@tanstack/svelte-query';
-import { onMount } from 'svelte';
 import { derived } from 'svelte/store';
 
 export function useMovie(slug: string) {
@@ -58,14 +57,15 @@ export function useMovie(slug: string) {
     staleTime: time.days(7),
   });
 
-  // TODO: remove this when we have empty state, make sure requests fire in parallel
   const queries = [movie, ratings, stats, watchers, studios, crew, intl];
 
-  onMount(() => {
-    queries.forEach((query) => query.subscribe(() => {}));
-  });
+  const isLoading = derived(
+    queries,
+    ($queries) => $queries.some((query) => query.isPending),
+  );
 
   return {
+    isLoading,
     movie: derived(movie, ($movie) => $movie.data),
     ratings: derived(ratings, ($rating) => $rating.data),
     stats: derived(stats, ($stats) => $stats.data),

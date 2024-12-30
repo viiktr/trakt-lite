@@ -77,7 +77,7 @@
   <h5>{m.details()}</h5>
   <div class="trakt-summary-details-content">
     {#each mediaDetails as { title, values }}
-      {#if values}
+      {#if values && values.length > 0}
         <div class="trakt-summary-detail">
           <p class="meta-info secondary">{title}</p>
           <MediaCollapsableValues category={title} {values} />

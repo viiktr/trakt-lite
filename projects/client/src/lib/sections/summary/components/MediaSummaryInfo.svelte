@@ -14,7 +14,7 @@
     actions,
   }: MediaSummaryProps<MediaSummary> = $props();
   const isLargeDisplay = useMedia(WellKnownMediaQuery.desktop);
-  const genreCount = $derived($isLargeDisplay ? -1 : 3);
+  const genreCount = $derived($isLargeDisplay ? undefined : 3);
 </script>
 
 <div class="trakt-summary-header">
