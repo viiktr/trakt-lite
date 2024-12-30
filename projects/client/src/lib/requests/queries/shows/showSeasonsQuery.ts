@@ -32,7 +32,8 @@ function showSeasonsRequest(
         throw new Error('Failed to fetch up seasons');
       }
 
-      return body.map(mapSeasonResponseToSeason);
+      return body.map(mapSeasonResponseToSeason)
+        .filter((season) => season.episodes.count > 0 && season.number !== 0);
     });
 }
 

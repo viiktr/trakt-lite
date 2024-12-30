@@ -89,10 +89,7 @@ export function useShow(slug: string) {
     crew: derived(crew, ($crew) => $crew.data),
     seasons: derived(
       seasons,
-      ($seasons) =>
-        $seasons.data?.filter((season) =>
-          season.episodes.count > 0 && season.number !== 0
-        ),
+      ($seasons) => $seasons.data,
     ),
     intl: derived(
       [show, intl],

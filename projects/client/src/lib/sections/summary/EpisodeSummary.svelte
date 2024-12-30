@@ -10,6 +10,7 @@
   import RenderFor from "$lib/guards/RenderFor.svelte";
   import { useMarkAsWatched } from "$lib/stores/useMarkAsWatched";
   import { UrlBuilder } from "$lib/utils/url/UrlBuilder";
+  import SeasonList from "../lists/SeasonList.svelte";
   import type { EpisodeSummaryProps } from "./components/EpisodeSummaryProps";
   import MediaMetaInfo from "./components/MediaMetaInfo.svelte";
   import MediaOverview from "./components/MediaOverview.svelte";
@@ -18,8 +19,15 @@
   import MediaSummaryHeader from "./components/MediaSummaryHeader.svelte";
   import MediaTitle from "./components/MediaTitle.svelte";
 
-  const { episode, show, ratings, intl, stats, watchers }: EpisodeSummaryProps =
-    $props();
+  const {
+    episode,
+    show,
+    seasons,
+    ratings,
+    intl,
+    stats,
+    watchers,
+  }: EpisodeSummaryProps = $props();
   const type = "episode";
 
   const { markAsWatched, removeWatched, isMarkingAsWatched, isWatched } =
@@ -90,3 +98,5 @@
     </MediaSummaryActions>
   </RenderFor>
 </MediaSummaryContainer>
+
+<SeasonList {show} {seasons} />

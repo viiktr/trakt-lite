@@ -71,23 +71,25 @@
         onRemove={() => removeWatched()}
       />
     </RenderFor>
-    <DropdownList
-      label="Seasons"
-      style="flat"
-      variant="primary"
-      color="blue"
-      text="capitalize"
-      size="small"
-    >
-      {title}
-      {#snippet items()}
-        {#each seasons as season}
-          <DropdownItem color="blue" onclick={() => active.set(season)}>
-            {m.season_number_label({ number: season.number })}
-          </DropdownItem>
-        {/each}
-      {/snippet}
-    </DropdownList>
+    {#if seasons.length > 1}
+      <DropdownList
+        label="Seasons"
+        style="flat"
+        variant="primary"
+        color="blue"
+        text="capitalize"
+        size="small"
+      >
+        {title}
+        {#snippet items()}
+          {#each seasons as season}
+            <DropdownItem color="blue" onclick={() => active.set(season)}>
+              {m.season_number_label({ number: season.number })}
+            </DropdownItem>
+          {/each}
+        {/snippet}
+      </DropdownList>
+    {/if}
   {/snippet}
 </ShadowList>
 

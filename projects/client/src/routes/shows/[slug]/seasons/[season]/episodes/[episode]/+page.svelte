@@ -5,13 +5,14 @@
   import EpisodeSummary from "$lib/sections/summary/EpisodeSummary.svelte";
   import { useEpisode } from "./useEpisode";
 
-  const { show, episode, ratings, stats, watchers, intl, isLoading } = $derived(
-    useEpisode({
-      slug: $page.params.slug,
-      season: parseInt($page.params.season),
-      episode: parseInt($page.params.episode),
-    }),
-  );
+  const { show, episode, seasons, ratings, stats, watchers, intl, isLoading } =
+    $derived(
+      useEpisode({
+        slug: $page.params.slug,
+        season: parseInt($page.params.season),
+        episode: parseInt($page.params.episode),
+      }),
+    );
 </script>
 
 <TraktPage
@@ -25,6 +26,7 @@
     <EpisodeSummary
       show={$show!}
       episode={$episode!}
+      seasons={$seasons!}
       ratings={$ratings!}
       stats={$stats!}
       watchers={$watchers!}

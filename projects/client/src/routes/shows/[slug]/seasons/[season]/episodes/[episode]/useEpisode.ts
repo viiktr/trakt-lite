@@ -6,6 +6,7 @@ import { episodeSummaryQuery } from '$lib/requests/queries/episode/episodeSummar
 import {
   episodeWatchersQuery,
 } from '$lib/requests/queries/episode/episodeWatchersQuery';
+import { showSeasonsQuery } from '$lib/requests/queries/shows/showSeasonsQuery';
 import { showSummaryQuery } from '$lib/requests/queries/shows/showSummaryQuery';
 import { time } from '$lib/utils/timing/time.ts';
 import { createQuery } from '@tanstack/svelte-query';
@@ -27,6 +28,11 @@ export function useEpisode(
 
   const episode = createQuery({
     ...episodeSummaryQuery(params),
+    staleTime: time.days(1),
+  });
+
+  const seasons = createQuery({
+    ...showSeasonsQuery(params),
     staleTime: time.days(1),
   });
 
@@ -53,7 +59,7 @@ export function useEpisode(
     staleTime: time.days(7),
   });
 
-  const queries = [show, episode, ratings, stats, watchers, intl];
+  const queries = [show, episode, seasons, ratings, stats, watchers, intl];
 
   const isLoading = derived(
     queries,
@@ -64,6 +70,16 @@ export function useEpisode(
     isLoading,
     show: derived(show, ($show) => $show.data),
     episode: derived(episode, ($movie) => $movie.data),
+    seasons: derived(
+      [
+        seasons,
+        episode,
+      ],
+      ([$seasons, $episode]) =>
+        $seasons.data?.filter((season) =>
+          season.number === $episode.data?.season
+        ),
+    ),
     ratings: derived(ratings, ($rating) => $rating.data),
     stats: derived(stats, ($stats) => $stats.data),
     watchers: derived(watchers, ($watchers) => $watchers.data ?? []),
