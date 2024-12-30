@@ -105,7 +105,7 @@
     ul {
       all: unset;
 
-      display: block;
+      display: grid;
       max-height: var(--ni-220);
       overflow-y: auto;
 
