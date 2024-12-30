@@ -16,7 +16,6 @@
   import { useWatchNow } from "$lib/stores/useWatchNow";
   import type { Snippet } from "svelte";
   import MediaDetails from "./MediaDetails.svelte";
-  import MediaStatsList from "./MediaStatsList.svelte";
   import type { MediaSummary } from "./MediaSummary";
   import MediaSummaryContainer from "./MediaSummaryContainer.svelte";
   import MediaSummaryInfo from "./MediaSummaryInfo.svelte";
@@ -107,7 +106,7 @@
     </SummaryPoster>
   {/snippet}
 
-  <MediaSummaryInfo {media} {ratings} {watchers} {intl}>
+  <MediaSummaryInfo {media} {ratings} {stats} {watchers} {intl}>
     {#snippet actions()}
       <RenderFor device={["mobile", "tablet-sm"]} audience="authenticated">
         {@render mediaActions()}
@@ -118,7 +117,6 @@
 </MediaSummaryContainer>
 
 <MediaSummaryContainer>
-  <MediaStatsList {stats} />
   <MediaDetails {media} {studios} {crew} />
 </MediaSummaryContainer>
 

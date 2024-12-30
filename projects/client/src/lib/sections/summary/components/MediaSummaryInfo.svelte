@@ -9,6 +9,7 @@
     media,
     ratings,
     watchers,
+    stats,
     intl,
     actions,
   }: MediaSummaryProps<MediaSummary> = $props();
@@ -21,7 +22,7 @@
   <GenreList genres={media.genres.slice(0, genreCount)} />
 </div>
 
-<MediaMetaInfo {media} {ratings} {watchers} />
+<MediaMetaInfo {media} {ratings} {stats} {watchers} />
 
 <p class="trakt-media-overview secondary">{intl.overview}</p>
 
