@@ -223,5 +223,6 @@
   "remove_from_watched": "Remover de Assistidos",
   "remove_from_watched_label": "Remover {title} da sua lista de Assistidos",
   "remove_from_watched_warning": "Tem certeza que deseja remover {title} da sua lista de Assistidos?",
-  "season_number_label": "Temporada {number}"
+  "season_number_label": "Temporada {number}",
+  "expand_media_overview": "Expandir a visão geral de {title}"
 }

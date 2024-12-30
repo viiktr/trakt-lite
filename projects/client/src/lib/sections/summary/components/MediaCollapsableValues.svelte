@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Button from "$lib/components/buttons/Button.svelte";
+  import MoreButton from "$lib/components/buttons/more/MoreButton.svelte";
+  import { MoreButtonIntlProvider } from "$lib/components/buttons/more/MoreButtonIntlProvider";
   import * as m from "$lib/features/i18n/messages.ts";
   import { writable } from "svelte/store";
 
@@ -23,16 +24,13 @@
 <div class="trakt-summary-detail-values">
   <p class="small capitalize">{displayableValues}</p>
   {#if omittedValueCount > 0}
-    <Button
-      onclick={() => expanded.update((state) => !state)}
+    <MoreButton
+      i18n={MoreButtonIntlProvider}
       label="{m.expand_category({ category })}}"
-      style="ghost"
-      size="tag"
-      color="purple"
-    >
-      {$expanded ? "-" : "+"}
-      {m.and_more({ count: omittedValueCount })}
-    </Button>
+      count={omittedValueCount}
+      onExpand={() => expanded.set(true)}
+      onCollapse={() => expanded.set(false)}
+    />
     <div class="media-collapsable-detail-contents" hidden={!$expanded}>
       <p class="small capitalize">{omittedValues}</p>
     </div>

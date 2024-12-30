@@ -1,6 +1,10 @@
 <script lang="ts">
+  import * as m from "$lib/features/i18n/messages";
+
   import GenreList from "$lib/components/summary/GenreList.svelte";
+  import ClampedText from "$lib/components/text/ClampedText.svelte";
   import { useMedia, WellKnownMediaQuery } from "$lib/stores/css/useMedia";
+  import { writable } from "svelte/store";
   import MediaMetaInfo from "./MediaMetaInfo.svelte";
   import type { MediaSummary } from "./MediaSummary";
   import type { MediaSummaryProps } from "./MediaSummaryProps";
@@ -15,6 +19,8 @@
   }: MediaSummaryProps<MediaSummary> = $props();
   const isLargeDisplay = useMedia(WellKnownMediaQuery.desktop);
   const genreCount = $derived($isLargeDisplay ? undefined : 3);
+  const isClamped = writable(false);
+  const lines = writable(3);
 </script>
 
 <div class="trakt-summary-header">
@@ -29,7 +35,12 @@
 
 <MediaMetaInfo {media} {ratings} {stats} {watchers} />
 
-<p class="trakt-media-overview secondary">{intl.overview}</p>
+<ClampedText
+  classList="trakt-media-overview secondary"
+  label={m.expand_media_overview({ title: media.title })}
+>
+  {intl.overview}
+</ClampedText>
 
 <div class="trakt-info-actions">
   {@render actions?.()}
@@ -42,7 +53,7 @@
     gap: var(--ni-8);
   }
 
-  .trakt-media-overview {
+  :global(.trakt-media-overview) {
     line-height: 150%;
   }
 

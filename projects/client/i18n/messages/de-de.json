@@ -223,5 +223,6 @@
   "remove_from_watched": "Aus der Favoritenliste entfernen",
   "remove_from_watched_label": "{title} aus Ihrer Favoritenliste entfernen",
   "remove_from_watched_warning": "Sind Sie sicher, dass Sie {title} von Ihrer Favoritenliste entfernen möchten?",
-  "season_number_label": "Staffel {number}"
+  "season_number_label": "Staffel {number}",
+  "expand_media_overview": "Übersicht über {title} erweitern"
 }
