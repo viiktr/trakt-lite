@@ -49,10 +49,11 @@ export function movieIntlRequest(
     });
 }
 
-export const movieIntlQueryKey = (id: string) => ['movieIntl', id] as const;
+export const movieIntlQueryKey = (params: MovieIntlParams) =>
+  ['movieIntl', params.slug, params.language, params.region] as const;
 export const movieIntlQuery = (
   params: MovieIntlParams,
 ) => ({
-  queryKey: movieIntlQueryKey(params.slug),
+  queryKey: movieIntlQueryKey(params),
   queryFn: () => movieIntlRequest(params),
 });

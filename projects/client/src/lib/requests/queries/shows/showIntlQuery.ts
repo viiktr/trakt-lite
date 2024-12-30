@@ -49,10 +49,11 @@ export function showIntlRequest(
     });
 }
 
-export const showIntlQueryKey = (id: string) => ['showIntl', id] as const;
+export const showIntlQueryKey = (params: ShowIntlParams) =>
+  ['showIntl', params.slug, params.language, params.region] as const;
 export const showIntlQuery = (
   params: ShowIntlParams,
 ) => ({
-  queryKey: showIntlQueryKey(params.slug),
+  queryKey: showIntlQueryKey(params),
   queryFn: () => showIntlRequest(params),
 });
