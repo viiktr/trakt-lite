@@ -2,14 +2,16 @@
   "name": "Trakt Lite",
   "icons": [
     {
-      "src": "logo_512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "android/icon_monochrome.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "monochrome"
     },
     {
-      "src": "logo_192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "android/icon_maskable.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "maskable"
     }
   ],
   "start_url": "/",
