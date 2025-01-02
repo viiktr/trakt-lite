@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { MediaType } from "$lib/models/MediaType";
-  import { get } from "svelte/store";
   import { useCover } from "./_internal/useCover";
 
   type ImageBackgroundProps = {
@@ -13,9 +12,9 @@
   const { cover, state } = useCover();
 
   $effect.pre(() => {
-    const current = get(cover);
+    const current = $cover;
 
-    if (current.src === src) {
+    if (current.src === src && $state !== "loading") {
       return;
     }
 

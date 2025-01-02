@@ -11,7 +11,7 @@ type CoverData = {
 
 type CoverContextData = {
   cover: Writable<CoverData>;
-  state: Writable<'change' | 'ready'>;
+  state: Writable<'change' | 'ready' | 'loading'>;
 };
 
 export function useCover(initial?: CoverData) {
@@ -20,8 +20,8 @@ export function useCover(initial?: CoverData) {
       COVER_CONTEXT_KEY,
       getContext<CoverContextData>(COVER_CONTEXT_KEY) ??
         {
-          cover: writable<CoverData>(initial),
-          state: writable<boolean>(false),
+          cover: writable(initial),
+          state: writable('loading'),
         },
     );
 
