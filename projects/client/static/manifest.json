@@ -1,19 +1,87 @@
 {
   "name": "Trakt Lite",
+  "short_name": "Trakt",
+  "description": "A lightweight Trakt.tv client",
   "icons": [
     {
-      "src": "android/icon_monochrome.svg",
+      "src": "pwa/android/icon_monochrome.svg",
       "type": "image/svg+xml",
       "sizes": "any",
       "purpose": "monochrome"
     },
     {
-      "src": "android/icon_maskable.svg",
+      "src": "pwa/android/icon_maskable.svg",
       "type": "image/svg+xml",
       "sizes": "any",
       "purpose": "maskable"
+    },
+    {
+      "src": "pwa/android/icon_512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
     }
   ],
   "start_url": "/",
-  "display": "standalone"
+  "display": "standalone",
+  "theme_color": "#131517",
+  "background_color": "#131517",
+  "orientation": "any",
+  "screenshots": [
+    {
+      "type": "image/webp",
+      "src": "pwa/screenshots/1_welcome.webp",
+      "sizes": "778x1738"
+    },
+    {
+      "type": "image/webp",
+      "src": "pwa/screenshots/2_shows.webp",
+      "sizes": "778x1738"
+    },
+    {
+      "type": "image/webp",
+      "src": "pwa/screenshots/3_show.webp",
+      "sizes": "778x1738"
+    },
+    {
+      "type": "image/webp",
+      "src": "pwa/screenshots/4_movies.webp",
+      "sizes": "778x1738"
+    },
+    {
+      "type": "image/webp",
+      "src": "pwa/screenshots/5_movie.webp",
+      "sizes": "778x1738"
+    },
+    {
+      "type": "image/webp",
+      "src": "pwa/screenshots/1_wide_welcome.webp",
+      "form_factor": "wide",
+      "sizes": "1298x902"
+    },
+    {
+      "type": "image/webp",
+      "src": "pwa/screenshots/2_wide_shows.webp",
+      "form_factor": "wide",
+      "sizes": "1298x902"
+    },
+    {
+      "type": "image/webp",
+      "src": "pwa/screenshots/3_wide_show.webp",
+      "form_factor": "wide",
+      "sizes": "1298x902"
+    },
+    {
+      "type": "image/webp",
+      "src": "pwa/screenshots/4_wide_movies.webp",
+      "form_factor": "wide",
+      "sizes": "1298x902"
+    },
+    {
+      "type": "image/webp",
+      "src": "pwa/screenshots/5_wide_movie.webp",
+      "form_factor": "wide",
+      "sizes": "1298x902"
+    }
+  ]
 }
