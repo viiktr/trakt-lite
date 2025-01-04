@@ -16,6 +16,7 @@
     - Push Notifications: https://microsoft.github.io/win-student-devs/#/30DaysOfPWA/advanced-capabilities/07?id=push-notifications-on-the-web
     - Badges: https://microsoft.github.io/win-student-devs/#/30DaysOfPWA/advanced-capabilities/07?id=application-badges
 */
+const isLocalhost = self.location.hostname === 'localhost';
 
 const DOMAINS = {
     fonts: [
@@ -25,11 +26,19 @@ const DOMAINS = {
     styles: [
         'cdn.jsdelivr.net'
     ],
+    images: isLocalhost
+        ? []
+        : [
+            'walter-r2.trakt.tv',
+            'walter.trakt.tv',
+        ]
 }
 
 const HOSTNAME_WHITELIST = [
     ...DOMAINS.fonts,
     ...DOMAINS.styles,
+    ...DOMAINS.images,
+    self.location.hostname,
 ]
 
 // The Util Function to hack URLs of intercepted requests
@@ -81,6 +90,11 @@ self.addEventListener('install', event => {
  */
 self.addEventListener('fetch', event => {
     const url = new URL(event.request.url);
+
+    // Exclude dev server requests
+    if (isLocalhost) {
+        return;
+    }
 
     // Skip some of cross-origin requests, like those for Google Analytics.
     if (!HOSTNAME_WHITELIST.includes(url.hostname)) {
