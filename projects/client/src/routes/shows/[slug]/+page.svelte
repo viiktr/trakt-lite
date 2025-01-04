@@ -22,7 +22,7 @@
   audience="all"
   title={$show?.title}
   info={$show}
-  image={$show?.cover.url.thumb}
+  image={$show?.poster.url.thumb ?? $show?.cover.url.thumb}
   type="show"
 >
   {#if !$isLoading}

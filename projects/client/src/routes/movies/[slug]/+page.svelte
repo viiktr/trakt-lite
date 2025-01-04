@@ -13,7 +13,7 @@
   audience="all"
   title={$movie?.title}
   info={$movie}
-  image={$movie?.cover.url.thumb}
+  image={$movie?.poster.url.thumb ?? $movie?.cover.url.thumb}
   type="movie"
 >
   {#if !$isLoading}
