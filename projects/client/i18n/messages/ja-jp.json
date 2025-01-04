@@ -225,5 +225,7 @@
   "remove_from_watched_warning": "{title}を視聴済みリストから削除してもよろしいですか？",
   "season_number_label": "第{number}シーズン",
   "expand_media_overview": "{title} の概要を表示",
-  "season_episode_number_label": "シーズン{season}・エピソード{number}"
+  "season_episode_number_label": "シーズン{season}・エピソード{number}",
+  "share_title": "{title}を共有する",
+  "where_to_watch_on_trakt": "Traktで{title}を視聴できる場所をチェック！"
 }

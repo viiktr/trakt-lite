@@ -73,8 +73,8 @@
     </SummaryPoster>
   {/snippet}
 
-  <MediaSummaryHeader>
-    <MediaTitle title={intl.title ?? title} />
+  <MediaSummaryHeader {title}>
+    <MediaTitle {title} />
     <Link href={UrlBuilder.show(show.slug)}>
       <h6>{show.title}</h6>
     </Link>

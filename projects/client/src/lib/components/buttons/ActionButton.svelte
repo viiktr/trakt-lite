@@ -12,6 +12,7 @@
     label,
     variant = "primary",
     color = "default",
+    size = "normal",
     ...props
   }: TraktActionButtonProps | TraktActionButtonAnchorProps = $props();
 
@@ -41,6 +42,7 @@
     aria-label={label}
     data-color={color}
     data-variant={variant}
+    data-size={size}
     {...props}
   >
     {@render children()}
@@ -132,6 +134,11 @@
         animation: jiggle-wiggle var(--animation-duration-jiggle-wiggle)
           infinite;
       }
+    }
+
+    &[data-size="small"] {
+      scale: 0.75;
+      margin: var(--ni-neg-4);
     }
   }
 </style>

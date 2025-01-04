@@ -110,8 +110,8 @@
     </SummaryPoster>
   {/snippet}
 
-  <MediaSummaryHeader>
-    <MediaTitle title={intl.title ?? title} />
+  <MediaSummaryHeader {title}>
+    <MediaTitle {title} />
     <GenreList genres={media.genres} />
   </MediaSummaryHeader>
 

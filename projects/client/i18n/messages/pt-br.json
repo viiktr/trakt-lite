@@ -225,5 +225,7 @@
   "remove_from_watched_warning": "Tem certeza que deseja remover {title} da sua lista de Assistidos?",
   "season_number_label": "Temporada {number}",
   "expand_media_overview": "Expandir a visão geral de {title}",
-  "season_episode_number_label": "Temporada {season} • Episódio {number}"
+  "season_episode_number_label": "Temporada {season} • Episódio {number}",
+  "share_title": "Compartilhar {title}",
+  "where_to_watch_on_trakt": "Onde assistir {title} no Trakt!"
 }
