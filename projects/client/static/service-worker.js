@@ -17,6 +17,20 @@
     - Badges: https://microsoft.github.io/win-student-devs/#/30DaysOfPWA/advanced-capabilities/07?id=application-badges
 */
 const isLocalhost = self.location.hostname === 'localhost';
+const isSelf = (url) => url.origin === self.location.origin;
+
+const ASSET_PATTERNS = {
+    static: /\.(css|js|json|map)$/i,
+    media: /\.(png|jpg|jpeg|gif|svg|webp|ico|woff2?|ttf|eot)$/i,
+    documents: /\.(html|htm)$/i
+};
+
+function isAssetRequest(url) {
+    return Object.values(ASSET_PATTERNS).some(pattern =>
+        pattern.test(url.pathname)
+    );
+}
+
 
 const DOMAINS = {
     fonts: [
@@ -91,6 +105,11 @@ self.addEventListener('fetch', event => {
 
     // Skip some of cross-origin requests, like those for Google Analytics.
     if (!HOSTNAME_WHITELIST.includes(url.hostname)) {
+        return;
+    }
+
+    // Allow only asset requests for self.
+    if (isSelf(url) && !isAssetRequest(url)) {
         return;
     }
 
