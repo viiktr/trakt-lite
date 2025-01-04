@@ -1,9 +1,9 @@
 if ('serviceWorker' in navigator) {
-  globalThis.addEventListener('beforeinstallprompt', (event) => {
-    globalThis.install = event;
-  });
-
   globalThis.addEventListener('load', () => {
+    globalThis.addEventListener('beforeinstallprompt', (event) => {
+      globalThis.install = event;
+    });
+
     navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
   })
 }

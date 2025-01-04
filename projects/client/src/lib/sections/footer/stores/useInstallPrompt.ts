@@ -5,6 +5,15 @@ export function useInstallPrompt() {
     globalThis.install,
   );
 
+  const interval = setInterval(() => {
+    if (globalThis.install) {
+      set(globalThis.install);
+      clearInterval(interval);
+    }
+  }, 50);
+
+  setTimeout(() => clearInterval(interval), 1000);
+
   return {
     subscribe,
     prompt: async () => {
