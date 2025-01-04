@@ -40,10 +40,14 @@
       "purpose": "maskable"
     },
     {
+      "src": "pwa/android/icon_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
       "src": "pwa/android/icon_512.png",
       "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "any"
+      "sizes": "512x512"
     }
   ],
   "start_url": "/",
