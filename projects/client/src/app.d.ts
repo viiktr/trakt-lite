@@ -144,7 +144,12 @@ declare global {
 
   namespace App {
     // interface Error {}
-    // interface Locals {}
+    interface Locals {
+      theme: import('$lib/features/theme/models/Theme').Theme;
+      auth:
+        | import('$lib/features/auth/models/SerializedAuthResponse').SerializedAuthResponse
+        | Nil;
+    }
     // interface PageData {}
     // interface PageState {}
     // interface Platform {}

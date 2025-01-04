@@ -1,6 +1,7 @@
 import { AUTH_COOKIE_NAME } from '$lib/features/auth/constants.ts';
 import { type Handle } from '@sveltejs/kit';
 import { AuthEndpoint } from './AuthEndpoint.ts';
+import type { SerializedAuthResponse } from './models/SerializedAuthResponse.ts';
 import { authorize } from './requests/authorize.ts';
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -8,12 +9,23 @@ export const handle: Handle = async ({ event, resolve }) => {
    * TODO: refresh exchange flow here
    * https://trakt.docs.apiary.io/#reference/authentication-oauth/get-token/exchange-refresh_token-for-access_token
    */
+  const setAuth = (auth: SerializedAuthResponse | Nil) => {
+    event.locals.auth = auth;
+  };
+
+  try {
+    const serializedToken = event.cookies.get(AUTH_COOKIE_NAME) ?? '';
+    setAuth(JSON.parse(serializedToken) as SerializedAuthResponse);
+  } catch {
+    setAuth(null);
+  }
 
   if (event.url.pathname.startsWith(AuthEndpoint.Exchange)) {
     const { code } = await event.request.json() as { code: string };
     const referrer = event.request.headers.get('referer') ?? '';
 
     const result = await authorize({ code, referrer });
+    setAuth(result);
 
     const cookieHeader = result.isAuthorized
       ? {

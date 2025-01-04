@@ -1,14 +1,11 @@
-import { AUTH_COOKIE_NAME } from '$lib/features/auth/constants.ts';
-import type { SerializedAuthResponse } from '$lib/features/auth/models/SerializedAuthResponse.ts';
-import { THEME_STORE_NAME } from '$lib/features/theme/constants.ts';
-import { coerceTheme } from '$lib/features/theme/utils/coerceTheme.ts';
+import { AUTH_COOKIE_NAME } from '$lib/features/auth/constants';
 import { buildOAuthUrl } from '$lib/utils/url/buildOAuthLink.ts';
 import { isBotAgent } from '$lib/utils/url/isBotAgent';
 import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = ({ cookies, request }) => {
-  const theme = coerceTheme(cookies.get(THEME_STORE_NAME));
-  const serializedToken = cookies.get(AUTH_COOKIE_NAME);
+export const load: LayoutServerLoad = (
+  { cookies, request, locals: { theme, auth } },
+) => {
   const requestUrl = new URL(request.url);
 
   const defaultResponse = {
@@ -20,16 +17,12 @@ export const load: LayoutServerLoad = ({ cookies, request }) => {
     isBot: isBotAgent(request.headers.get('user-agent')),
   };
 
-  if (!serializedToken) {
+  if (!auth) {
+    cookies.delete(AUTH_COOKIE_NAME, { path: '/' });
     return defaultResponse;
   }
 
-  try {
-    const auth = JSON.parse(serializedToken) as SerializedAuthResponse;
-    defaultResponse.auth.token = auth.token.access;
-  } catch {
-    cookies.delete(AUTH_COOKIE_NAME, { path: '/' });
-  }
+  defaultResponse.auth.token = auth.token.access;
 
   return defaultResponse;
 };
