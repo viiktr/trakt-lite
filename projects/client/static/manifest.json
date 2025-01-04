@@ -1,7 +1,31 @@
 {
+  "id": "trakt-lite-pwa",
   "name": "Trakt Lite",
   "short_name": "Trakt",
   "description": "A lightweight Trakt.tv client",
+  "dir": "ltr",
+  "lang": "en",
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=tv.trakt.trakt",
+      "id": "tv.trakt.trakt"
+    }
+  ],
+  "scope": "/",
+  "scope_extensions": [
+    {
+      "origin": "https://app.trakt.tv"
+    }
+  ],
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "background_sync": {
+    "sync_intervals": ["1d", "7d", "30d"],
+    "sync_when": "periodic"
+  },
   "icons": [
     {
       "src": "pwa/android/icon_monochrome.svg",
@@ -27,6 +51,9 @@
   "theme_color": "#131517",
   "background_color": "#131517",
   "orientation": "any",
+  "categories": [
+    "entertainment"
+  ],
   "screenshots": [
     {
       "type": "image/webp",
