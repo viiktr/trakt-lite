@@ -24,9 +24,14 @@ export function useInstallPrompt() {
       }
 
       const result = await event.prompt();
-      set(null);
 
-      return result.outcome === 'accepted';
+      const isAccepted = result.outcome === 'accepted';
+
+      if (isAccepted) {
+        set(null);
+      }
+
+      return isAccepted;
     },
   };
 }
