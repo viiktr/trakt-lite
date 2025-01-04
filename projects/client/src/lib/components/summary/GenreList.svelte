@@ -24,7 +24,7 @@
   <ActionIcon />
   {#each visibleGenre as genre}
     <span class="trakt-genre capitalize">{i18n.genre(genre)}</span>
-    {#if genre !== genres.at(-1)}
+    {#if genre !== visibleGenre.at(-1)}
       <span>{separator}</span>
     {/if}
   {/each}
