@@ -56,6 +56,15 @@ self.addEventListener('activate', event => {
 })
 
 /**
+ * @Functional Install
+ * First time installing Service Worker.
+ */
+self.addEventListener('install', event => {
+    // The promise that skipWaiting() returns can be safely ignored.
+    self.skipWaiting()
+})
+
+/**
  *  @Functional Fetch
  *  All network requests are being intercepted here.
  *
