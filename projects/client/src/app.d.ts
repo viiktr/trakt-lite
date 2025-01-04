@@ -5,6 +5,14 @@
 import { Environment } from '$lib/api.ts';
 
 declare global {
+  /**
+   * Global This
+   */
+  var install: BeforeInstallPromptEvent | Nil;
+
+  /**
+   * VITE environment variables
+   */
   const TRAKT_CLIENT_ID: string;
   const TRAKT_MODE: 'development' | 'production' | 'test';
   const TRAKT_TARGET_ENVIRONMENT: Environment;
@@ -14,6 +22,13 @@ declare global {
   const FIREBASE_APP_ID: string;
   const FIREBASE_MEASUREMENT_ID: string;
   const FIREBASE_MESSAGING_SENDER_ID: string;
+
+  /**
+   * Types
+   */
+  type BeforeInstallPromptEvent = Event & {
+    prompt: () => Promise<{ outcome: 'accepted' | 'dismissed' }>;
+  };
 
   type Nil = null | undefined;
 
