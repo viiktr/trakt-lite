@@ -6,6 +6,7 @@
 >
   <head>
     <meta charset="utf-8" />
+    <!-- CSP -->
     <meta
       http-equiv="Content-Security-Policy"
       content="
@@ -18,27 +19,32 @@
         style-src 'self' 'unsafe-inline' https://*.googleapis.com https://*.jsdelivr.net;
       "
     >
-    <link rel="icon" href="%sveltekit.assets%/favicon.svg" />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="%sveltekit.assets%/pwa/ios/apple-touch-icon.png"
-    />
+
+    <!-- PWA -->
     <!-- TODO: generate manifest for each lang and translate json properties, then serve correct one according to user language -->
     <link rel="manifest" href="%sveltekit.assets%/manifest.json" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
+    <script src="%sveltekit.assets%/register-worker.js?v=%cache.timestamp%">
+    </script>
     <meta name="mobile-web-app-capable" content="yes">
     <meta
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     >
     <meta name="application-name" content="Trakt Lite" />
-    <script
-      src="%sveltekit.assets%/register-worker.js?v=%cache.timestamp%"
-    ></script>
+
+    <!-- Viewport -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+
+    <!-- Icons -->
+    <link rel="icon" href="%sveltekit.assets%/favicon.svg" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="%sveltekit.assets%/pwa/ios/apple-touch-icon.png"
+    />
 
     %sveltekit.head%
   </head>
