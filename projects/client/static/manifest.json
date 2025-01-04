@@ -54,6 +54,47 @@
   "categories": [
     "entertainment"
   ],
+  "shortcuts": [
+    {
+      "name": "Shows",
+      "short_name": "Shows",
+      "description": "Browse TV Shows",
+      "url": "/shows",
+      "icons": [
+        {
+          "src": "pwa/shortcuts/shows.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Movies",
+      "short_name": "Movies",
+      "description": "Browse Movies",
+      "url": "/movies",
+      "icons": [
+        {
+          "src": "pwa/shortcuts/movies.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "short_name": "Profile",
+      "description": "View Profile",
+      "url": "/profile/me",
+      "icons": [
+        {
+          "src": "pwa/shortcuts/profile.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
   "screenshots": [
     {
       "type": "image/webp",
