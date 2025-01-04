@@ -32,11 +32,24 @@ export const handleCacheControl: Handle = async ({ event, resolve }) => {
   return response;
 };
 
+const TIMESTAMP_PLACEHOLDER = '%cache.timestamp%';
+
+export const handleCacheTimestamp: Handle = async ({ event, resolve }) => {
+  return resolve(event, {
+    transformPageChunk({ html, done }) {
+      if (!done) return html;
+      return html
+        .replace(TIMESTAMP_PLACEHOLDER, new Date().getTime().toString());
+    },
+  });
+};
+
 export const handle: Handle = sequence(
   handleLocale,
   handleTheme,
   handleAuth,
   handleImage,
+  handleCacheTimestamp,
   ({ event, resolve }) => {
     return resolve(event, {
       filterSerializedResponseHeaders: (name) => WHITELISTED_HEADERS.has(name),

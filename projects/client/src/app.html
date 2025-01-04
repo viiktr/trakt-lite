@@ -36,7 +36,9 @@
       content="black-translucent"
     >
     <meta name="application-name" content="Trakt Lite" />
-    <script src="%sveltekit.assets%/register-worker.js"></script>
+    <script
+      src="%sveltekit.assets%/register-worker.js?v=%cache.timestamp%"
+    ></script>
 
     %sveltekit.head%
   </head>
