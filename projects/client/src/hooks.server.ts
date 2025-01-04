@@ -39,7 +39,7 @@ export const handleCacheTimestamp: Handle = async ({ event, resolve }) => {
     transformPageChunk({ html, done }) {
       if (!done) return html;
       return html
-        .replace(TIMESTAMP_PLACEHOLDER, new Date().getTime().toString());
+        .replace(TIMESTAMP_PLACEHOLDER, Date.now().toString());
     },
   });
 };

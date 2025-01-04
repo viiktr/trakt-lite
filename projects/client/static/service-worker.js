@@ -26,18 +26,11 @@ const DOMAINS = {
     styles: [
         'cdn.jsdelivr.net'
     ],
-    images: isLocalhost
-        ? []
-        : [
-            'walter-r2.trakt.tv',
-            'walter.trakt.tv',
-        ]
 }
 
 const HOSTNAME_WHITELIST = [
     ...DOMAINS.fonts,
     ...DOMAINS.styles,
-    ...DOMAINS.images,
     self.location.hostname,
 ]
 
