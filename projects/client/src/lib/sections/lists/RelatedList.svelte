@@ -13,7 +13,7 @@
 
   const { title, type, slug }: RelatedListProps = $props();
 
-  const { list } = useRelatedList({ type, slug });
+  const { list } = $derived(useRelatedList({ type, slug }));
 </script>
 
 <SectionList
