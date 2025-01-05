@@ -1,3 +1,4 @@
+import { time } from '$lib/utils/timing/time';
 import { get, writable } from 'svelte/store';
 
 export function useInstallPrompt() {
@@ -10,9 +11,9 @@ export function useInstallPrompt() {
       set(globalThis.install);
       clearInterval(interval);
     }
-  }, 50);
+  }, time.seconds(1) / 30);
 
-  setTimeout(() => clearInterval(interval), 1000);
+  setTimeout(() => clearInterval(interval), time.seconds(2.5));
 
   return {
     subscribe,
