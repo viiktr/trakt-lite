@@ -1,7 +1,9 @@
 import { handle as handleAuth } from '$lib/features/auth/handle.ts';
+import { handle as handleCacheBust } from '$lib/features/cache-bust/handle.ts';
 import { handle as handleLocale } from '$lib/features/i18n/handle.ts';
 import { handle as handleImage } from '$lib/features/image/handle.ts';
 import { handle as handleTheme } from '$lib/features/theme/handle.ts';
+
 import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
@@ -32,24 +34,12 @@ export const handleCacheControl: Handle = async ({ event, resolve }) => {
   return response;
 };
 
-const TIMESTAMP_PLACEHOLDER = '%cache.timestamp%';
-
-export const handleCacheTimestamp: Handle = async ({ event, resolve }) => {
-  return resolve(event, {
-    transformPageChunk({ html, done }) {
-      if (!done) return html;
-      return html
-        .replace(TIMESTAMP_PLACEHOLDER, Date.now().toString());
-    },
-  });
-};
-
 export const handle: Handle = sequence(
   handleLocale,
   handleTheme,
   handleAuth,
   handleImage,
-  handleCacheTimestamp,
+  handleCacheBust,
   ({ event, resolve }) => {
     return resolve(event, {
       filterSerializedResponseHeaders: (name) => WHITELISTED_HEADERS.has(name),
