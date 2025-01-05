@@ -77,8 +77,9 @@
   }
 
   .trakt-search {
-    position: relative;
+    --search-input-width: clamp(var(--ni-80), 100%, var(--ni-320));
 
+    position: relative;
     .trakt-search-input {
       all: unset;
 
@@ -97,7 +98,7 @@
         transparent 10%
       );
       backdrop-filter: blur(var(--ni-8));
-      width: clamp(var(--ni-80), 100%, var(--ni-320));
+      width: var(--search-input-width);
 
       transition: var(--transition-increment) ease-in-out;
       transition-property: border-color, background-color;
@@ -128,11 +129,13 @@
 
     &.search-is-loading {
       &::after {
+        --search-side-distance: var(--ni-32);
+
         content: "";
-        width: 90%;
+        width: calc(var(--search-input-width) - var(--search-side-distance));
         position: absolute;
         bottom: 0;
-        left: 5%;
+        left: calc(var(--search-side-distance) / 2);
         right: 0;
         height: var(--ni-2);
         border-radius: 50%;
@@ -160,8 +163,8 @@
       min-height: calc(var(--height-result-item) * 7);
       height: 100vh;
       max-height: 80vh;
-      max-width: var(--ni-480);
       min-width: var(--ni-280);
+      max-width: var(--ni-480);
       padding: var(--ni-8);
 
       overflow: hidden;
