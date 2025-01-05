@@ -160,6 +160,7 @@
       min-height: calc(var(--height-result-item) * 7);
       height: 100vh;
       max-height: 80vh;
+      max-width: var(--ni-480);
       min-width: var(--ni-280);
       padding: var(--ni-8);
 
