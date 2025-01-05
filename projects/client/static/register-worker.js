@@ -4,6 +4,8 @@ if ('serviceWorker' in navigator) {
       globalThis.install = event;
     });
 
-    navigator.serviceWorker.register(`/service-worker.js?v=${Date.now()}`, { scope: '/' })
-  })
+    navigator.serviceWorker.register(`/service-worker.js?v=${Date.now()}`, {
+      scope: '/',
+    });
+  });
 }
