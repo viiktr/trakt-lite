@@ -1,4 +1,4 @@
-import { IS_DEV, IS_PREVIEW, IS_TEST } from '$lib/utils/env/index.ts';
+import { IS_TEST } from '$lib/utils/env/index.ts';
 import { traktApi, type TraktApiOptions } from '@trakt/api';
 
 export type ApiParams = Omit<TraktApiOptions, 'apiKey' | 'environment'> & {
@@ -11,15 +11,11 @@ enum ClientEnvironment {
 }
 
 const ENV = (() => {
-  if (IS_DEV || IS_PREVIEW) {
-    return ClientEnvironment.svelte as unknown as HttpsUrl;
-  }
-
   if (IS_TEST) {
     return ClientEnvironment.test as unknown as HttpsUrl;
   }
 
-  return TRAKT_TARGET_ENVIRONMENT;
+  return ClientEnvironment.svelte as unknown as HttpsUrl;
 })();
 
 export const api = ({
