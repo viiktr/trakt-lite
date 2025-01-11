@@ -1,0 +1,41 @@
+version = 1
+
+[[analyzers]]
+name = "javascript"
+enabled = true
+
+  [analyzers.meta]
+  environment = ["browser", "nodejs"]
+  dialect = "typescript"
+  style_guide = "standard"
+
+[[transformers]]
+name = "prettier"
+enabled = true
+
+[[exclude]]
+paths = [
+  "dist/**",
+  "build/**",
+  "node_modules/**",
+  "**/*.test.ts",
+  "**/*.spec.ts",
+  "coverage/**",
+  ".github/**",
+  ".vscode/**",
+  "projects/plaground/**",
+  "projects/swagger/**",
+  "projects/client/.scripts/**",
+  "projects/client/.vite/**",
+  "**/node_modules/**",
+  "**/*.spec.ts",
+  "**/*.test.ts",
+  "**/*.d.ts",
+  "**/test/**",
+  "**/tests/**",
+  "**/mock/**",
+  "**/mocks/**",
+  "**/e2e/**",
+  "**/i18n/**",
+  "**/static/**"
+]
