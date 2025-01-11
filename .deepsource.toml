@@ -1,5 +1,11 @@
 version = 1
 
+test_patterns = [
+  "**/*.spec.ts",
+  "**/*.mock.ts",
+  "**/*.test.ts"
+]
+
 [[analyzers]]
 name = "javascript"
 enabled = true
@@ -12,12 +18,6 @@ enabled = true
 [[analyzers]]
 name = "test-coverage"
 enabled = true
-
-test_patterns = [
-  "**/*.spec.ts",
-  "**/*.mock.ts",
-  "**/*.test.ts"
-]
 
 [[exclude]]
 paths = [
