@@ -2,8 +2,8 @@ import type { Genre } from '$lib/api.ts';
 import type { MediaStatus } from './MediaStatus';
 
 type ImageUrls = {
-  medium: string;
-  thumb: string;
+  medium: HttpsUrl;
+  thumb: HttpsUrl;
 };
 
 export type MediaSummary = {

@@ -1,10 +1,6 @@
 import { type ShowResponse } from '$lib/api.ts';
 import type { ShowSummary } from '$lib/requests/models/ShowSummary.ts';
-import {
-  DEFAULT_TRAILER,
-  MAX_DATE,
-  MEDIA_COVER_THUMB_PLACEHOLDER,
-} from '$lib/utils/constants.ts';
+import { DEFAULT_TRAILER, MAX_DATE } from '$lib/utils/constants.ts';
 import { findDefined } from '$lib/utils/string/findDefined.ts';
 import { prependHttps } from '$lib/utils/url/prependHttps.ts';
 import { mapCover } from './mapCover.ts';
@@ -36,9 +32,8 @@ export function mapShowResponseToShowSummary(
       url: prependHttps(
         findDefined(
           thumbCandidate,
-          cover.url.thumb,
         ),
-        MEDIA_COVER_THUMB_PLACEHOLDER,
+        cover.url.thumb,
       ),
     },
     genres: show.genres ?? [],
