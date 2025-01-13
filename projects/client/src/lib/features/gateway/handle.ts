@@ -1,11 +1,12 @@
+import { ClientEnvironment } from '$lib/requests/ClientEnvironment.ts';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
   const url = new URL(event.request.url);
 
-  if (url.pathname.startsWith('/_api/trakt')) {
+  if (url.pathname.startsWith(ClientEnvironment.svelte)) {
     const traktUrl = new URL(
-      url.pathname.replace('/_api/trakt', ''),
+      url.pathname.replace(ClientEnvironment.svelte, ''),
       TRAKT_TARGET_ENVIRONMENT,
     );
 
