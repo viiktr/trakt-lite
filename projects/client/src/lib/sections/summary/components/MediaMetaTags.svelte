@@ -1,7 +1,6 @@
 <script lang="ts">
   import CertificationTag from "$lib/components/media/tags/CertificationTag.svelte";
   import PlaysTag from "$lib/components/media/tags/PlaysTag.svelte";
-  import WatchingTag from "$lib/components/media/tags/WatchingTag.svelte";
   import YearTag from "$lib/components/media/tags/YearTag.svelte";
   import * as m from "$lib/features/i18n/messages";
   import type { ActiveWatcher } from "$lib/models/ActiveWatcher";
@@ -32,9 +31,7 @@
     </YearTag>
   {/if}
 
-  <WatchingTag>
-    {m.active_watchers({ count: watchers.length })}
-  </WatchingTag>
+  <!-- FIXME: re-enable once we have better watching stats -->
 
   <PlaysTag>
     {toHumanNumber(stats.plays, languageTag())}
