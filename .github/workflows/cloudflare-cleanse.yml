@@ -1,4 +1,6 @@
 name: The Cloudflare Purgation Ritual
+permissions:
+  contents: read
 
 on:
   schedule:
