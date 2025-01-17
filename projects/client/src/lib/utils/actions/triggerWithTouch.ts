@@ -1,4 +1,4 @@
-const MOVE_THRESHOLD_PIXELS = 15;
+const MOVE_THRESHOLD_PIXELS = 0;
 
 /**
  * This function is needed to handle touch events on iOS devices.
