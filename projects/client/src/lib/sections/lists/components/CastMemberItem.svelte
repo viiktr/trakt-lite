@@ -20,9 +20,9 @@
         src={castMember.headShotUrl}
         alt={`${m.person_headshot({ person: castMember.name })}`}
         style="flat"
-      ></CardCover>
+      />
     </PersonCard>
-    <div>
+    <div class="trakt-cast-member-footer">
       <p class="secondary ellipsis actor-name">{castMember.name}</p>
       <p class="small secondary ellipsis">{castMember.characterName}</p>
     </div>
@@ -30,6 +30,9 @@
 </Link>
 
 <style>
+  .trakt-cast-member-footer {
+    height: var(--height-person-footer);
+  }
   .trakt-cast-member {
     display: flex;
     flex-direction: column;

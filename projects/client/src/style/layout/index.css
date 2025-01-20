@@ -16,7 +16,7 @@
 
   --width-person-card: var(--ni-120);
   --height-person-card: var(--ni-176);
-  --height-person-summary: var(--ni-32);
+  --height-person-footer: var(--ni-32);
   --height-person-card-cover: var(--ni-176);
 
   /**
@@ -33,7 +33,7 @@
   --height-person-list: calc(
     var(--height-person-card) + var(--layout-distance-scroll-card)
       + var(--layout-scrollbar-width)
-      + var(--height-person-summary)
+      + var(--height-person-footer)
   );
   --height-poster-list: calc(
     var(--height-poster-card) + var(--layout-distance-scroll-card)
