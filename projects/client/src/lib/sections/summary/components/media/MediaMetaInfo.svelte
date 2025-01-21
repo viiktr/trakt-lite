@@ -1,5 +1,5 @@
 <script lang="ts">
-  import AirTag from "$lib/components/media/tags/AirTag.svelte";
+  import AirDate from "$lib/components/media/tags/AirDateTag.svelte";
   import InfoTag from "$lib/components/media/tags/InfoTag.svelte";
   import PlaysTag from "$lib/components/media/tags/PlaysTag.svelte";
   import { TagIntlProvider } from "$lib/components/media/tags/TagIntlProvider";
@@ -31,7 +31,7 @@
     {/if}
 
     {#if year}
-      <AirTag i18n={TagIntlProvider} {year} {airDate} />
+      <AirDate i18n={TagIntlProvider} {year} {airDate} />
     {/if}
 
     <!-- FIXME: re-enable watchers once we have better watching stats -->

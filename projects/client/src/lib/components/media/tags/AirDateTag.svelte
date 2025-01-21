@@ -29,8 +29,8 @@
 <style>
   .trakt-air-tag {
     :global(.trakt-tag) {
-      background: var(--color-background-year-tag);
-      color: var(--color-text-year-tag);
+      background: var(--color-background-air-date-tag);
+      color: var(--color-text-air-date-tag);
     }
   }
 </style>
