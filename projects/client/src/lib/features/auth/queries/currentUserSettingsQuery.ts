@@ -89,7 +89,8 @@ function mapUserSettingsResponse(response: SettingsResponse): UserSettings {
           direction: browsing?.progress.on_deck.sort_how,
         },
       },
-      isSpoilerHidden: Object.values(browsing?.spoilers ?? {}).some(Boolean),
+      isSpoilerHidden: false &&
+        Object.values(browsing?.spoilers ?? {}).some(Boolean),
     },
     genres: browsing?.genres.favorites ?? [],
     watchNow: {

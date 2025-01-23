@@ -28,7 +28,7 @@ export const ExtendedUserMappedMock: UserSettings = {
     'watch': {
       'action': 'now',
     },
-    'isSpoilerHidden': true,
+    'isSpoilerHidden': false,
   },
   'watchNow': {
     'country': 'us',
