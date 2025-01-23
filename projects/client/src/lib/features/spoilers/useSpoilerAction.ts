@@ -16,14 +16,16 @@ export function useSpoilerAction() {
       node.classList.remove('trakt-spoiler');
     };
 
-    const unsubscribe = isSpoilerHidden
-      .subscribe((isHidden) => {
-        if (isDisabled) {
-          return remove();
-        }
+    function applySpoilerStyle(isHidden: boolean, isDisabled: boolean) {
+      if (isDisabled || !isHidden) {
+        return remove();
+      }
 
-        (isHidden ? add : remove)();
-      });
+      (isHidden ? add : remove)();
+    }
+
+    const unsubscribe = isSpoilerHidden
+      .subscribe((isHidden) => applySpoilerStyle(isHidden, isDisabled));
 
     return {
       destroy() {
@@ -31,11 +33,9 @@ export function useSpoilerAction() {
         node.classList.remove('trakt-spoiler');
       },
       update(isDisabled: boolean) {
-        if (isDisabled) {
-          return remove();
-        }
-
-        add();
+        isSpoilerHidden.subscribe((isHidden) =>
+          applySpoilerStyle(isHidden, isDisabled)
+        )();
       },
     };
   }
