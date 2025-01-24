@@ -1,7 +1,11 @@
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute } from 'workbox-precaching';
 import { NavigationRoute, registerRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import {
+  CacheFirst,
+  NetworkFirst,
+  StaleWhileRevalidate,
+} from 'workbox-strategies';
 import { time } from './lib/utils/timing/time';
 
 declare let self: ServiceWorkerGlobalScope;
@@ -57,6 +61,19 @@ registerRoute(
     }
 
     return navigationHandler.handle(context);
+  }),
+);
+
+// Manifest route - always try network first
+registerRoute(
+  ({ url }) => url.pathname.endsWith('manifest.webmanifest'),
+  new NetworkFirst({
+    cacheName: `${CACHE_PREFIX}-manifest`,
+    plugins: [
+      new ExpirationPlugin({
+        maxAgeSeconds: time.hours(1) / time.seconds(1),
+      }),
+    ],
   }),
 );
 
