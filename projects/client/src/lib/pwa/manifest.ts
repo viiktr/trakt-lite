@@ -41,11 +41,13 @@ export const manifest: Partial<ManifestOptions> = {
       src: 'pwa/android/icon_192.png',
       type: 'image/png',
       sizes: '192x192',
+      purpose: 'any',
     },
     {
       src: 'pwa/android/icon_512.png',
       type: 'image/png',
       sizes: '512x512',
+      purpose: 'any',
     },
   ],
   start_url: '/',
