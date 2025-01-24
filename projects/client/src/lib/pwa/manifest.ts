@@ -1,6 +1,6 @@
 import type { ManifestOptions } from 'vite-plugin-pwa';
 
-export const manifest: ManifestOptions = {
+export const manifest: Partial<ManifestOptions> = {
   id: 'trakt-lite-pwa',
   name: 'Trakt Lite',
   short_name: 'Trakt',
@@ -152,20 +152,4 @@ export const manifest: ManifestOptions = {
       sizes: '1298x902',
     },
   ],
-  file_handlers: [],
-  display_override: [],
-  publicPath: '',
-  protocol_handlers: [],
-  iarc_rating_id: '',
-  share_target: {
-    action: '',
-    method: undefined,
-    enctype: undefined,
-    params: {
-      title: undefined,
-      text: undefined,
-      url: undefined,
-      files: undefined,
-    },
-  },
 };
