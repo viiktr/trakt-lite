@@ -169,7 +169,7 @@
     );
 
     --scale-factor-button: 1;
-    --button-height: var(--ni-52);
+    --button-height: var(--ni-48);
 
     --color-background-button-light: color-mix(
       in srgb,
