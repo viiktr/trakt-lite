@@ -46,6 +46,7 @@ export function useSearch() {
         reason: 'result',
       } as SearchResponse))
       .catch((error) => {
+        console.error('----- ', error);
         if (error instanceof AbortError) {
           return Promise.resolve<SearchResponse>({
             ...get(results),
@@ -84,9 +85,9 @@ export function useSearch() {
   }
 
   return {
-    search: (term: string) => {
+    search: async (term: string) => {
       isSearching.set(true);
-      debounce(search, get(isDesktop) ? 150 : 250)(term);
+      await debounce(search, get(isDesktop) ? 150 : 250)(term);
     },
     clear,
     results: derived(results, ($results) => $results.items ?? []),

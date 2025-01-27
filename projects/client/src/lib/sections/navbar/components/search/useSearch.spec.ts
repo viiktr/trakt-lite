@@ -24,7 +24,10 @@ describe('useSearch', () => {
     expect(get(results)).toEqual([]);
   });
 
-  /**
-   * TODO: add more scenarios here once I figure out the AbortSignal error in testing
-   */
+  it('should handle successful search', async () => {
+    const { search, results } = await renderStore(() => useSearch());
+    await search('test query');
+
+    expect(get(results)).toEqual([]);
+  });
 });
