@@ -81,6 +81,7 @@ function createCancellationHandler(cancellable: boolean, id: string) {
   return {
     signal: () => {
       const controller = new AbortController();
+      console.log('controller', controller.signal);
       controllers.set(id, controller);
       return controller.signal;
     },
