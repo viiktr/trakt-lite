@@ -7,20 +7,24 @@
   const { media, tags, action }: MediaCardProps = $props();
 </script>
 
-<Card
-  --height-card="var(--height-summary-card)"
-  --width-card="var(--width-summary-card)"
->
-  <MediaSummaryItem {media} {tags} />
-  <CardFooter {action} />
-</Card>
+<trakt-media-summary-card>
+  <Card
+    --height-card="var(--height-summary-card)"
+    --width-card="var(--width-summary-card)"
+  >
+    <MediaSummaryItem {media} {tags} />
+    <CardFooter {action} />
+  </Card>
+</trakt-media-summary-card>
 
 <style>
-  :global(.trakt-card .trakt-card-footer) {
-    padding: 0;
-  }
+  trakt-media-summary-card {
+    :global(.trakt-card .trakt-card-footer) {
+      padding: 0;
+    }
 
-  :global(.trakt-card .trakt-summary-item) {
-    padding: var(--ni-12);
+    :global(.trakt-card .trakt-summary-item) {
+      padding: var(--ni-12);
+    }
   }
 </style>
