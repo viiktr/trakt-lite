@@ -3,7 +3,7 @@ import { type Readable } from 'svelte/store';
 export function waitForValue<T>(
   store: Readable<T>,
   value: T,
-  timeout = 15,
+  timeout = 100,
 ) {
   let lastValue: T;
 

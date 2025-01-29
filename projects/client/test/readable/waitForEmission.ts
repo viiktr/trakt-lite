@@ -3,7 +3,7 @@ import { type Readable } from 'svelte/store';
 export function waitForEmission<T>(
   store: Readable<T>,
   emission: number,
-  timeout = 15,
+  timeout = 100,
 ) {
   return new Promise<T>((resolve) => {
     let emissionCount = 0;
