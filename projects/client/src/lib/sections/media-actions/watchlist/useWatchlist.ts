@@ -17,10 +17,6 @@ export function useWatchlist({ type, media }: WatchlistStoreProps) {
   const { watchlist } = useUser();
   const { invalidate } = useInvalidator();
 
-  /**
-   *  TODO: implement some sort of in-memory cache for result of action response
-   *  that will allow to show optimistic UI updates while history is being updated
-   */
   const isWatchlisted = derived(
     watchlist,
     ($watchlist) => {

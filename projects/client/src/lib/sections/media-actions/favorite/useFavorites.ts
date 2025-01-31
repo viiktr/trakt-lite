@@ -41,10 +41,6 @@ export function useFavorites({ type, id }: FavoritesStoreProps) {
     },
   );
 
-  /**
-   *  TODO: implement some sort of in-memory cache for result of action response
-   *  that will allow to show optimistic UI updates while history is being updated
-   */
   const addOrRemoveFavorite = async (action: 'add' | 'remove') => {
     isUpdatingFavorite.set(true);
 

@@ -95,10 +95,6 @@ export function useRatings({ type, id }: WatchlistStoreProps) {
     },
   );
 
-  /**
-   *  TODO: implement some sort of in-memory cache for result of action response
-   *  that will allow to show optimistic UI updates while history is being updated
-   */
   const addRating = async (simpleRating: SimpleRating, isFavorited = false) => {
     isRating.set(true);
     await addRatingRequest({
