@@ -124,11 +124,25 @@ async function cleanseDeployments(
         continue;
       }
 
+      /** TODO: add retry if we determine it's just flaky network or something along those lines */
       await deleteDeployment({
         apiToken,
         accountId,
         projectName,
         deploymentId: deployment.id,
+      }).catch((error) => {
+        console.error(
+          [
+            'The deployment, like a stubborn stain,',
+            'refuses to be erased, clinging to the fabric of the server',
+            'with grim determination.',
+          ].join(' '),
+          error,
+          {
+            id: deployment.id,
+            created_on: deployment.created_on,
+          },
+        );
       });
     }
 
