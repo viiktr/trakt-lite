@@ -9,6 +9,7 @@
 type Deployment = {
   id: string;
   created_on: string;
+  environment: 'production' | 'preview';
 };
 
 type DeploymentResponse = {
@@ -105,6 +106,7 @@ async function cleanseDeployments(
 
     const sorted = deployments
       .filter((deployment) => deployment.created_on != null)
+      .filter((deployment) => deployment.environment === 'production')
       .sort((a, b) =>
         new Date(b.created_on ?? 0).getTime() -
         new Date(a.created_on ?? 0).getTime()
@@ -124,7 +126,6 @@ async function cleanseDeployments(
         continue;
       }
 
-      /** TODO: add retry if we determine it's just flaky network or something along those lines */
       await deleteDeployment({
         apiToken,
         accountId,
@@ -141,6 +142,7 @@ async function cleanseDeployments(
           {
             id: deployment.id,
             created_on: deployment.created_on,
+            environment: deployment.environment,
           },
         );
       });
