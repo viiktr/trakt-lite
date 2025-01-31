@@ -24,4 +24,5 @@ jobs:
           deno-version: v2.x
 
       - name: Performing the Sacred Cleanse
+        working-directory: projects/client
         run: deno task cloudflare:cleanse
