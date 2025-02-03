@@ -41,7 +41,8 @@
     height: var(--ni-104);
     border-radius: var(--ni-12);
     color: var(--shade-10);
-    background-color: var(--purple-900);
+    background-color: color-mix(in srgb, var(--purple-500), transparent 85%);
+    backdrop-filter: blur(var(--ni-16));
     padding: var(--ni-24);
     display: flex;
     flex-direction: column;
