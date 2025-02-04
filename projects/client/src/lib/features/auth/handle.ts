@@ -12,7 +12,7 @@ import { decrypt } from './utils/decrypt.ts';
 import { encrypt } from './utils/encrypt.ts';
 
 export const AUTH_COOKIE_NAME = 'trakt-auth';
-const REFRESH_THRESHOLD_WEEKS = 1;
+const REFRESH_THRESHOLD_MINUTES = 15;
 
 function getLegacyAuthCookie(event: RequestEvent) {
   try {
@@ -115,11 +115,11 @@ export const handle: Handle = async ({ event, resolve }) => {
   const decrypted = await decrypt<SerializedAuthResponse>(key, encrypted);
   const isDecryptionFailed = decrypted == null && encrypted != null;
 
-  const weeksToExpiry = Math.floor(
+  const minutesToExpiry = Math.floor(
     (new Date(decrypted?.expiresAt ?? 0).getTime() - Date.now()) /
-      time.weeks(1),
+      time.minutes(1),
   );
-  const shouldRefresh = weeksToExpiry <= REFRESH_THRESHOLD_WEEKS;
+  const shouldRefresh = minutesToExpiry <= REFRESH_THRESHOLD_MINUTES;
 
   if (shouldRefresh && decrypted?.token.refresh != null) {
     const result = await authorize({
