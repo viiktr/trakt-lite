@@ -8,6 +8,7 @@ import { movieStudiosQuery } from '$lib/requests/queries/movies/movieStudiosQuer
 import { movieSummaryQuery } from '$lib/requests/queries/movies/movieSummaryQuery.ts';
 import { movieWatchersQuery } from '$lib/requests/queries/movies/movieWatchersQuery.ts';
 import { derived } from 'svelte/store';
+import { movieListsQuery } from '../../../lib/requests/queries/movies/movieListsQuery.ts';
 
 export function useMovie(slug: string) {
   const movie = useQuery(movieSummaryQuery({
@@ -28,6 +29,7 @@ export function useMovie(slug: string) {
 
   const studios = useQuery(movieStudiosQuery({ slug }));
   const crew = useQuery(moviePeopleQuery({ slug }));
+  const lists = useQuery(movieListsQuery({ slug }));
 
   const locale = languageTag();
 
@@ -36,7 +38,7 @@ export function useMovie(slug: string) {
     ? movie
     : useQuery(movieIntlQuery({ slug, ...getLanguageAndRegion() }));
 
-  const queries = [movie, ratings, stats, watchers, studios, crew, intl];
+  const queries = [movie, ratings, stats, watchers, studios, crew, intl, lists];
 
   const isLoading = derived(
     queries,
@@ -51,6 +53,7 @@ export function useMovie(slug: string) {
     watchers: derived(watchers, ($watchers) => $watchers.data),
     studios: derived(studios, ($studios) => $studios.data),
     crew: derived(crew, ($crew) => $crew.data),
+    lists: derived(lists, ($lists) => $lists.data),
     intl: derived(
       [movie, intl],
       ([$movie, $intl]) => {

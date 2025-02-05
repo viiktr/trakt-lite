@@ -2,10 +2,13 @@ import { builder } from '../_internal/builder.ts';
 import { extendedQuerySchemaFactory } from '../_internal/request/extendedQuerySchemaFactory.ts';
 import { idParamsSchema } from '../_internal/request/idParamsSchema.ts';
 import { languageParamsSchema } from '../_internal/request/languageParamsSchema.ts';
+import { listSortSchema } from '../_internal/request/listSortSchema.ts';
+import { listTypeSchema } from '../_internal/request/listTypeSchema.ts';
 import { pageQuerySchema } from '../_internal/request/pageQuerySchema.ts';
 import { watchNowParamsSchema } from '../_internal/request/watchNowParamsSchema.ts';
 import type { genreResponseSchema } from '../_internal/response/genreResponseSchema.ts';
 import type { jobResponseSchema } from '../_internal/response/jobResponseSchema.ts';
+import { listResponseSchema } from '../_internal/response/listResponseSchema.ts';
 import { movieAnticipatedResponseSchema } from '../_internal/response/movieAnticipatedResponseSchema.ts';
 import type { movieCertificationResponseSchema } from '../_internal/response/movieCertificationResponseSchema.ts';
 import { movieResponseSchema } from '../_internal/response/movieResponseSchema.ts';
@@ -104,6 +107,17 @@ const ENTITY_LEVEL = builder.router({
       200: peopleResponseSchema,
     },
   },
+  lists: {
+    path: '/lists/:type/:sort',
+    method: 'GET',
+    query: extendedQuerySchemaFactory<['full', 'images']>(),
+    pathParams: idParamsSchema
+      .merge(listSortSchema)
+      .merge(listTypeSchema),
+    responses: {
+      200: listResponseSchema.array(),
+    },
+  },
 }, {
   pathPrefix: '/:id',
 });
@@ -160,6 +174,7 @@ export type MovieStatsResponse = z.infer<typeof movieStatsResponseSchema>;
 export type PeopleResponse = z.infer<typeof peopleResponseSchema>;
 export type CrewResponse = z.infer<typeof crewSchema>;
 export type CastResponse = z.infer<typeof castSchema>;
+export type ListResponse = z.infer<typeof listResponseSchema>;
 
 export type MovieTranslationResponse = z.infer<
   typeof translationResponseSchema

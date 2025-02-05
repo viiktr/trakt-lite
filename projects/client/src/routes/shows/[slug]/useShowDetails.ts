@@ -1,4 +1,5 @@
 import { useQuery } from '$lib/features/query/useQuery.ts';
+import { showListsQuery } from '$lib/requests/queries/shows/showListsQuery.ts';
 import { showPeopleQuery } from '$lib/requests/queries/shows/showPeopleQuery.ts';
 import { showRatingQuery } from '$lib/requests/queries/shows/showRatingQuery.ts';
 import { showSeasonsQuery } from '$lib/requests/queries/shows/showSeasonsQuery.ts';
@@ -14,6 +15,7 @@ export function useShowDetails(slug: string) {
   const crew = useQuery(showPeopleQuery({ slug }));
   const stats = useQuery(showStatsQuery({ slug }));
   const watchers = useQuery(showWatchersQuery({ slug }));
+  const lists = useQuery(showListsQuery({ slug }));
 
   const queries = [
     ratings,
@@ -22,6 +24,7 @@ export function useShowDetails(slug: string) {
     studios,
     crew,
     seasons,
+    lists,
   ];
 
   const isLoading = derived(
@@ -36,6 +39,7 @@ export function useShowDetails(slug: string) {
     watchers: derived(watchers, ($watchers) => $watchers.data),
     studios: derived(studios, ($studios) => $studios.data),
     crew: derived(crew, ($crew) => $crew.data),
+    lists: derived(lists, ($lists) => $lists.data),
     seasons: derived(
       seasons,
       ($seasons) => $seasons.data,

@@ -18,6 +18,7 @@
     studios,
     crew,
     seasons,
+    lists,
     isLoading: isLoadingDetails,
   } = $derived(useShowDetails(page.params.slug));
 
@@ -41,6 +42,7 @@
       studios={$studios!}
       crew={$crew!}
       seasons={$seasons!}
+      lists={$lists!}
     />
   {:else}
     <!-- TODO: remove this when we have empty state, currently prevents content jumps -->

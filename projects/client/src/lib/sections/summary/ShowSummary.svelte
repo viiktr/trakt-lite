@@ -3,6 +3,7 @@
 
   import RenderFor from "$lib/guards/RenderFor.svelte";
   import type { MediaCrew } from "$lib/requests/models/MediaCrew";
+  import type { MediaListSummary } from "$lib/requests/models/MediaListSummary";
   import type { MediaStats } from "$lib/requests/models/MediaStats";
   import type { MediaStudio } from "$lib/requests/models/MediaStudio";
   import type { Season } from "$lib/requests/models/Season";
@@ -12,6 +13,7 @@
   import CastList from "../lists/CastList.svelte";
   import RelatedList from "../lists/RelatedList.svelte";
   import SeasonList from "../lists/SeasonList.svelte";
+  import Lists from "./components/lists/Lists.svelte";
   import MediaSummary from "./components/media/MediaSummary.svelte";
   import type { MediaSummaryProps } from "./components/media/MediaSummaryProps";
 
@@ -20,6 +22,7 @@
     studios: MediaStudio[];
     crew: MediaCrew;
     seasons: Season[];
+    lists: MediaListSummary[];
   };
 
   const {
@@ -31,6 +34,7 @@
     intl,
     crew,
     seasons,
+    lists,
   }: ShowSummaryProps = $props();
 
   const { progress } = $derived(useShowProgress(media.slug));
@@ -60,5 +64,7 @@
 <CastList title={m.actors()} cast={crew.cast} />
 
 <SeasonList show={media} {seasons} />
+
+<Lists {lists} />
 
 <RelatedList title={m.related_shows_title()} slug={media.slug} type="show" />

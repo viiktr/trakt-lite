@@ -5,8 +5,17 @@
   import MovieSummary from "$lib/sections/summary/MovieSummary.svelte";
   import { useMovie } from "./useMovie";
 
-  const { movie, ratings, stats, intl, watchers, studios, crew, isLoading } =
-    $derived(useMovie(page.params.slug));
+  const {
+    movie,
+    ratings,
+    stats,
+    intl,
+    watchers,
+    studios,
+    crew,
+    isLoading,
+    lists,
+  } = $derived(useMovie(page.params.slug));
 </script>
 
 <TraktPage
@@ -25,6 +34,7 @@
       studios={$studios!}
       crew={$crew!}
       intl={$intl!}
+      lists={$lists!}
     />
   {:else}
     <!-- TODO: remove this when we have empty state, currently prevents content jumps -->
