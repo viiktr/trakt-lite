@@ -15,7 +15,14 @@
     />
   </div>
   <div>
-    <p class="secondary bold">{list.name}</p>
+    <p class="secondary bold ellipsis">
+      <Link
+        href={UrlBuilder.lists.userList(list.user.slug, list.slug)}
+        target="_blank"
+      >
+        {list.name}
+      </Link>
+    </p>
     <p class="secondary small list-creator">
       by
       <Link href={UrlBuilder.og.user(list.user.slug)} target="_blank">

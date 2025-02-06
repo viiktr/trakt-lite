@@ -18,9 +18,11 @@
 <style lang="scss">
   @use "$style/scss/mixins/index" as *;
 
+  //TODO fix ellipsis
   .trakt-list-summary {
     display: flex;
     gap: var(--gap-s);
+    overflow: hidden;
 
     border-radius: var(--border-radius-m);
 
@@ -39,10 +41,6 @@
   }
 
   .trakt-details-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
     flex-grow: 1;
     padding: var(--ni-12);
   }
