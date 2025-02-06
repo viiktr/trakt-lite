@@ -32,7 +32,22 @@
     :global(img) {
       width: 100%;
       height: 100%;
+      left: 0;
       position: relative;
+
+      transition: var(--transition-increment) ease-in-out;
+      transition-property: opacity, width, left;
+
+      @include for-tablet-sm-and-below {
+        width: 150%;
+        left: -25%;
+        object-fit: cover;
+      }
+
+      @include for-mobile {
+        width: 180%;
+        left: -40%;
+      }
     }
 
     &::after {
