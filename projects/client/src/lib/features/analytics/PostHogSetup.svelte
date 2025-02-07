@@ -27,7 +27,7 @@
       return;
     }
 
-    posthog.identify(userId);
+    posthog.identify(userId, { id: userId });
   }}
 />
 {@render children()}
