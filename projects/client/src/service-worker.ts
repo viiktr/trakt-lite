@@ -92,6 +92,10 @@ registerRoute(
 // Static assets with auth-aware cache
 registerRoute(
   ({ url }) => {
+    // Skip caching for localhost
+    if (url.hostname === 'localhost') {
+      return false;
+    }
     return ASSET_PATTERNS.static.test(url.pathname) ||
       ASSET_PATTERNS.media.test(url.pathname) ||
       ASSET_PATTERNS.documents.test(url.pathname);
