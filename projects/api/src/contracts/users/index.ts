@@ -53,6 +53,7 @@ export const users = builder.router({
     shows: {
       path: '/shows',
       method: 'GET',
+      pathParams: profileParamsSchema,
       query: extendedQuerySchemaFactory<['noseasons']>(),
       responses: {
         200: watchedShowsResponseSchema,
@@ -76,6 +77,7 @@ export const users = builder.router({
     shows: {
       path: '/shows',
       method: 'GET',
+      pathParams: profileParamsSchema,
       query: extendedQuerySchemaFactory<['full', 'images']>()
         .merge(dateRangeParamsSchema)
         .merge(pageQuerySchema),
@@ -86,6 +88,7 @@ export const users = builder.router({
     episodes: {
       path: '/episodes',
       method: 'GET',
+      pathParams: profileParamsSchema,
       query: extendedQuerySchemaFactory<['full', 'images']>()
         .merge(dateRangeParamsSchema)
         .merge(pageQuerySchema),

@@ -14,4 +14,6 @@ export const sortEnumSchema = z.enum([
 
 export const sortParamsSchema = z.object({
   sort: sortEnumSchema,
+}).openapi({
+  description: 'How to sort',
 });
