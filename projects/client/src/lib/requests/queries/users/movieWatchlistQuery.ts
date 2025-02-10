@@ -56,7 +56,10 @@ const mapResponseToWatchlist = (watchlistMovie: WatchlistedMoviesResponse) => ({
 
 export const movieWatchlistQuery = defineQuery({
   key: 'movieWatchlist',
-  invalidations: [InvalidateAction.Watchlisted('movie')],
+  invalidations: [
+    InvalidateAction.Watchlisted('movie'),
+    InvalidateAction.MarkAsWatched('movie'),
+  ],
   dependencies: (
     params: MovieWatchlistParams,
   ) => [params.sort, params.limit, params.page],
