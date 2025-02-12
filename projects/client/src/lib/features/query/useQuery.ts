@@ -1,5 +1,5 @@
 import { browser } from '$app/environment';
-import { invalidationId } from '$lib/requests/models/InvalidateAction.ts';
+import { invalidationPredicate } from '$lib/features/query/_internal/invalidationPredicate.ts';
 import { time } from '$lib/utils/timing/time.ts';
 import {
   createQuery,
@@ -7,7 +7,8 @@ import {
   useQueryClient,
 } from '@tanstack/svelte-query';
 import { onMount } from 'svelte';
-import { queryId } from './defineQuery.ts';
+import { findInvalidationId } from './_internal/findInvalidationId.ts';
+import { findQueryId } from './_internal/findQueryId.ts';
 
 const INVALIDATION_MAP = new Map<string, number>();
 
@@ -24,17 +25,13 @@ export function useQuery<
       return;
     }
 
-    const id = props.queryKey.find((key) =>
-      typeof key === 'string' && key.includes(queryId(''))
-    ) as string | Nil;
+    const id = findQueryId(props.queryKey);
 
     if (id == null) {
       return;
     }
 
-    const hasInvalidationMarker = props.queryKey.some((key) =>
-      typeof key === 'string' && key.includes(invalidationId(''))
-    );
+    const hasInvalidationMarker = findInvalidationId(props.queryKey) != null;
 
     if (!hasInvalidationMarker) {
       return;
@@ -50,7 +47,7 @@ export function useQuery<
 
     const timeoutId = setTimeout(() => {
       client.invalidateQueries({
-        predicate: (query) => query.queryKey.includes(id),
+        predicate: (query) => invalidationPredicate(query.queryKey, id),
       });
     }, time.seconds(1));
 
