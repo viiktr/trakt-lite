@@ -45,15 +45,11 @@ export function useQuery<
 
     INVALIDATION_MAP.set(id, Date.now());
 
-    const timeoutId = setTimeout(() => {
+    setTimeout(() => {
       client.invalidateQueries({
         predicate: (query) => invalidationPredicate(query.queryKey, id),
       });
     }, time.seconds(1));
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
   });
 
   return createQuery(props);
