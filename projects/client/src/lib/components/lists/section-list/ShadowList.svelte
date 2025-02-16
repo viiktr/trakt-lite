@@ -185,14 +185,10 @@
   .shadow-list-horizontal-scroll {
     height: var(--height-list);
     display: flex;
-    overflow-x: hidden;
+    overflow-x: auto;
     scroll-snap-type: x proximity;
     transition: gap var(--transition-increment) ease-in-out;
     @include adaptive-gap(gap);
-
-    &:hover {
-      overflow-x: auto;
-    }
 
     & > :global(:not(svelte-css-wrapper)) {
       scroll-snap-align: start;
