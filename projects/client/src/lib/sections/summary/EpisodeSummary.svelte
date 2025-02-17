@@ -80,7 +80,7 @@
     {#snippet headerActions()}
       <ShareButton
         {title}
-        textFactory={(title) =>
+        textFactory={({ title }) =>
           m.share_episode({
             title,
             show: showTitle,

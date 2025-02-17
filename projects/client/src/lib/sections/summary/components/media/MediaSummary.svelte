@@ -114,7 +114,7 @@
       {/if}
       <ShareButton
         {title}
-        textFactory={(title) => {
+        textFactory={({ title }) => {
           switch (type) {
             case "movie":
               return m.share_movie({ title });
