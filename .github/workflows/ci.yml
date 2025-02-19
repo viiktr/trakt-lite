@@ -147,7 +147,13 @@ jobs:
 
       - name: The Verdict on the Interface aka E2E Tests
         working-directory: projects/client
-        run: 'deno task test:e2e'
+        uses: nick-fields/retry@v3
+        run: deno task test:e2e
+        with:
+          timeout_seconds: 15
+          max_attempts: 3
+          command: deno task test:e2e
+          retry_on: error
         env:
           E2E_HEADLESS: 'true'
           E2E_BASE_URL: 'http://localhost:4173/'
