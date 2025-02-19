@@ -146,13 +146,13 @@ jobs:
           TRAKT_SESSION_SECRET: ${{ secrets.TRAKT_SESSION_SECRET }}
 
       - name: The Verdict on the Interface aka E2E Tests
-        working-directory: projects/client
         uses: nick-fields/retry@v3
-        run: deno task test:e2e
         with:
           timeout_seconds: 15
           max_attempts: 3
-          command: deno task test:e2e
+          command: |
+            cd projects/client
+            deno task test:e2e
           retry_on: error
         env:
           E2E_HEADLESS: 'true'
