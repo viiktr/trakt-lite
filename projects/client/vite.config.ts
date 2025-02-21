@@ -57,6 +57,7 @@ export default defineConfig(({ mode }) => ({
         rewrite: (path) => path.replace(/^\/api\/trakt/, ''),
       },
     },
+    host: '0.0.0.0',
   },
 
   plugins: [
