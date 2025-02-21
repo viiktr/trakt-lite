@@ -39,7 +39,8 @@ export function mobileAppleDeviceTriggerHack(
 
     event.preventDefault();
     event.stopPropagation();
-    event.target.click();
+    //TODO why?
+    // event.target.click();
   };
 
   node.addEventListener('pointerup', handleTouchEnd);
