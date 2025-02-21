@@ -163,7 +163,7 @@ export function traktApiFactory({
 }
 
 export function traktApi({
-  environment = Environment.production,
+  environment = Environment.staging,
   apiKey,
   fetch,
   cancellable,

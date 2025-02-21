@@ -13,7 +13,7 @@ export function createAuthenticatedFetch<
 
     try {
       const token = getToken();
-
+      console.log('---- token', token);
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
