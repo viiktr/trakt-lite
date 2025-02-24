@@ -3,7 +3,8 @@ import { setToken } from '$lib/features/auth/token/index.ts';
 import { InvalidateAction } from '$lib/requests/models/InvalidateAction.ts';
 import { useInvalidator } from '$lib/stores/useInvalidator.ts';
 import { assertDefined } from '$lib/utils/assert/assertDefined.ts';
-import { setCacheBuster } from '$lib/utils/url/setCacheBuster.ts';
+import { WorkerMessage } from '$worker/WorkerMessage.ts';
+import { workerRequest } from '$worker/workerRequest.ts';
 import { getContext, setContext } from 'svelte';
 import { type Writable, writable } from 'svelte/store';
 
@@ -43,10 +44,7 @@ export function useAuth() {
     setToken(null);
     isAuthorized.set(false);
     await invalidate(InvalidateAction.Auth);
-    globalThis.location.href = setCacheBuster(
-      new URL(globalThis.location.origin),
-    )
-      .toString();
+    await workerRequest(WorkerMessage.CacheBust);
   };
 
   return {
