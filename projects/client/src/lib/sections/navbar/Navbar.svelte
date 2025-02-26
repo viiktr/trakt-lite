@@ -29,7 +29,7 @@
     return GlobalEventBus.getInstance().register("scroll", handleScroll);
   });
 
-  const { track } = useTrack(AnalyticsEvent.LeaveLite, {});
+  const { track } = useTrack(AnalyticsEvent.LeaveLite);
 </script>
 
 {#snippet traktSwitch()}

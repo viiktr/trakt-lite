@@ -10,7 +10,7 @@ const AUTO_SIGNIN_REF = 'trakt-og-switch';
 
 export function useAutoSignin() {
   const { isAuthorized, url: authUrl } = useAuth();
-  const { track } = useTrack(AnalyticsEvent.EnterLite, {});
+  const { track } = useTrack(AnalyticsEvent.EnterLite);
 
   const ref = page.url.searchParams.get(PARAM_NAME);
   const isAutoSignin = ref === AUTO_SIGNIN_REF;

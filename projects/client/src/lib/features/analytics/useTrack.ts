@@ -6,12 +6,12 @@ import { useUser } from '$lib/features/auth/stores/useUser.ts';
 import { get } from 'svelte/store';
 
 /** TODO: define TrackMap to correlate data contracts with action keys */
-export function useTrack(key: AnalyticsEvent, data: AnalyticsData) {
+export function useTrack(key: AnalyticsEvent) {
   const { isAuthorized } = useAuth();
   const { current } = useUser();
   const { record, setUser } = useAnalytics();
 
-  function track() {
+  function track(data: AnalyticsData = {}) {
     const userId = get(isAuthorized) ? current().id.toString() : null;
     setUser(userId);
     record(key, data);

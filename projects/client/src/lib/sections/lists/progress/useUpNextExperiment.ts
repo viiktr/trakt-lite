@@ -1,4 +1,6 @@
 import { browser } from '$app/environment';
+import { AnalyticsEvent } from '$lib/features/analytics/events/AnalyticsEvent.ts';
+import { useTrack } from '$lib/features/analytics/useTrack.ts';
 import { NOOP_FN } from '$lib/utils/constants.ts';
 import { GlobalEventBus } from '$lib/utils/events/GlobalEventBus.ts';
 import { onDestroy } from 'svelte';
@@ -45,6 +47,7 @@ function updateCachedUpNextType(
 
 export function useUpNextExperiment() {
   const type = writable(getCachedUpNextType());
+  const { track } = useTrack(AnalyticsEvent.NitroExperiment);
 
   onDestroy(updateCachedUpNextType(UP_NEXT_STORAGE_KEY, type.set));
 
@@ -55,6 +58,7 @@ export function useUpNextExperiment() {
       const oldType = get(type);
       const newType = oldType === 'standard' ? 'nitro' : 'standard';
 
+      track({ type: newType });
       /**
        * Storage events fire only when changed from other tabs.
        * We need to manually dispatch the event to update the UI, within the same tab.
