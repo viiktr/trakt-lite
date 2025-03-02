@@ -13,6 +13,7 @@ export function usePaginatedListQuery<
   const query = useQuery(props);
 
   const isLoading = derived(query, toLoadingState);
+  const updatedAt = derived(query, ($query) => $query.dataUpdatedAt);
 
   const list = derived(query, ($query) => $query.data?.entries ?? []);
 
@@ -21,5 +22,5 @@ export function usePaginatedListQuery<
     ($query) => $query.data?.page ?? { page: 0, total: 0 },
   );
 
-  return { list, page, isLoading };
+  return { list, page, isLoading, updatedAt };
 }

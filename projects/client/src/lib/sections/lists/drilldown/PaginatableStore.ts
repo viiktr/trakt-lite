@@ -7,4 +7,5 @@ export type PaginatableStore<T, M = MediaType> = (
   list: Readable<T[]>;
   page: Readable<{ total?: number }>;
   isLoading: Readable<boolean>;
+  updatedAt: Readable<number>;
 };
