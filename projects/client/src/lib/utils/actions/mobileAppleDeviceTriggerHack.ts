@@ -1,4 +1,4 @@
-import { beforeNavigate } from '$app/navigation';
+import { afterNavigate } from '$app/navigation';
 import { NOOP_FN } from '../constants.ts';
 import { getMobileAppleDeviceType } from '../devices/getMobileAppleDeviceType.ts';
 
@@ -20,7 +20,7 @@ export function mobileAppleDeviceTriggerHack(
 ) {
   // TODO(@seferturan): investigate why we need to disable for search items
   // relates to https://github.com/trakt/trakt-lite/issues/291
-  if (!enabled) {
+  if (!enabled || !isMobileAppleDevice()) {
     return {
       destroy: NOOP_FN,
     };
@@ -29,7 +29,7 @@ export function mobileAppleDeviceTriggerHack(
   const handleTouchEnd = async (event: PointerEvent) => {
     const isMouse = event.pointerType === 'mouse';
 
-    if (!isMobileAppleDevice() || isMouse) {
+    if (isMouse) {
       return;
     }
 
@@ -40,7 +40,7 @@ export function mobileAppleDeviceTriggerHack(
 
     const navigationCheck = () =>
       new Promise<boolean>((resolve) => {
-        beforeNavigate(() => resolve(true));
+        afterNavigate(() => resolve(true));
         // If no navigation occurs within a frame, resolve with false
         requestAnimationFrame(() => resolve(false));
       });
