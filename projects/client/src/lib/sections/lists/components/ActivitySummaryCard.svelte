@@ -8,9 +8,15 @@
     activity: SocialActivity | HistoryEntry;
     activityAt: Date;
     badges?: Snippet;
+    popupActions?: Snippet;
   };
 
-  const { activity, activityAt, badges }: SocialActivityItemProps = $props();
+  const {
+    activity,
+    activityAt,
+    badges,
+    popupActions,
+  }: SocialActivityItemProps = $props();
 </script>
 
 {#if activity.type === "episode"}
