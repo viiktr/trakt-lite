@@ -7,6 +7,7 @@ Object.defineProperty(window, 'localStorage', {
     return {
       getItem: vi.fn((key: string) => store.get(key)),
       setItem: vi.fn((key: string, value: string) => store.set(key, value)),
+      removeItem: vi.fn((key: string) => store.delete(key)),
       clear: vi.fn(() => store.clear()),
     };
   })(),
