@@ -1,8 +1,15 @@
 import { browser } from '$app/environment';
+import { NOOP_FN } from '$lib/utils/constants.ts';
+import { GlobalEventBus } from '$lib/utils/events/GlobalEventBus.ts';
 import { time } from '$lib/utils/timing/time.ts';
+import { onDestroy } from 'svelte';
 import { type Readable, writable } from 'svelte/store';
 
-const NAMESPACE = 'trakt_store_';
+export const NAMESPACE = 'trakt_store';
+
+function keyGenerator(key: string) {
+  return `${NAMESPACE}.${key}`;
+}
 
 interface StorageItem<T> {
   value: T;
@@ -35,16 +42,18 @@ export function useStorage<T>(
 
   const defaultValue = options.defaultValue ?? null;
   const ttl = options.ttl ?? time.months(1);
-  const namespacedKey = NAMESPACE + key;
+  const namespacedKey = keyGenerator(key);
   const storedValue = getStoredValue<T>(namespacedKey);
 
   if (ttl <= 0) {
     throw new Error('Expiration time must be positive');
   }
 
-  const { subscribe, set: internalSet } = writable<T | Nil>(
+  const { subscribe, set: _set } = writable<T | Nil>(
     storedValue ?? defaultValue,
   );
+
+  onDestroy(updateCachedValue(namespacedKey, _set));
 
   function setItem(value: T) {
     if (!browser) return;
@@ -56,9 +65,12 @@ export function useStorage<T>(
 
     try {
       localStorage.setItem(namespacedKey, JSON.stringify(item));
-      internalSet(value);
+      _set(value);
     } catch (e) {
-      console.error(`[useStorage] Failed to store "${namespacedKey}"`, e);
+      console.error(
+        `[useStorage] Failed to store "${namespacedKey}"`,
+        e,
+      );
     }
   }
 
@@ -67,9 +79,12 @@ export function useStorage<T>(
 
     try {
       localStorage.removeItem(namespacedKey);
-      internalSet(null);
+      _set(null);
     } catch (e) {
-      console.error(`[useStorage] Failed to remove "${namespacedKey}"`, e);
+      console.error(
+        `[useStorage] Failed to remove "${namespacedKey}"`,
+        e,
+      );
     }
   }
 
@@ -81,13 +96,43 @@ export function useStorage<T>(
 }
 
 /**
+ * Updates a cached value for a specific key when localStorage changes
+ *
+ * @param key The storage key to watch
+ * @param updater Function called with the new value when storage changes
+ * @returns Function to unregister the listener
+ */
+function updateCachedValue<T>(
+  key: string,
+  updater: (value: T | Nil) => void,
+): () => void {
+  if (!browser) {
+    return NOOP_FN;
+  }
+
+  return GlobalEventBus.getInstance().register(
+    'storage',
+    (event) => {
+      if (event.key === key) {
+        updater(event.newValue as T | Nil);
+      }
+    },
+  );
+}
+
+/**
  * Gets an item from storage and checks if it's expired
  */
 function getStoredValue<T>(key: string): T | Nil {
   if (!browser) return null;
 
+  const json = localStorage.getItem(key);
+
+  return extractStorageValue(json, key);
+}
+
+function extractStorageValue<T>(json: string | Nil, key: string): T | Nil {
   try {
-    const json = localStorage.getItem(key);
     if (!json) return null;
 
     const item = JSON.parse(json) as StorageItem<T>;
