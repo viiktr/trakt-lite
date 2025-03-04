@@ -2,7 +2,6 @@ import { browser } from '$app/environment';
 import { NOOP_FN } from '$lib/utils/constants.ts';
 import { GlobalEventBus } from '$lib/utils/events/GlobalEventBus.ts';
 import { time } from '$lib/utils/timing/time.ts';
-import { onDestroy } from 'svelte';
 import { type Readable, writable } from 'svelte/store';
 
 export const NAMESPACE = 'trakt_store';
@@ -37,13 +36,14 @@ export function useStorage<T>(
   } = {},
 ): StorageStore<T> {
   if (browser) {
-    clearExpiredItems();
+    nukeExpiredItems();
   }
 
   const defaultValue = options.defaultValue ?? null;
   const ttl = options.ttl ?? time.months(1);
   const namespacedKey = keyGenerator(key);
-  const storedValue = getStoredValue<T>(namespacedKey);
+  const storedItem = readRawStorage(namespacedKey);
+  const storedValue = parseStoredValue<T>(storedItem, namespacedKey);
 
   if (ttl <= 0) {
     throw new Error('Expiration time must be positive');
@@ -53,7 +53,7 @@ export function useStorage<T>(
     storedValue ?? defaultValue,
   );
 
-  onDestroy(updateCachedValue(namespacedKey, _set));
+  updateCachedValue(namespacedKey, _set);
 
   function setItem(value: T) {
     if (!browser) return;
@@ -64,7 +64,9 @@ export function useStorage<T>(
     };
 
     try {
-      localStorage.setItem(namespacedKey, JSON.stringify(item));
+      const itemValue = JSON.stringify(item);
+      localStorage.setItem(namespacedKey, itemValue);
+      dispatchStorageEvent(namespacedKey, itemValue);
       _set(value);
     } catch (e) {
       console.error(
@@ -79,6 +81,7 @@ export function useStorage<T>(
 
     try {
       localStorage.removeItem(namespacedKey);
+      dispatchStorageEvent(namespacedKey, null);
       _set(null);
     } catch (e) {
       console.error(
@@ -96,6 +99,19 @@ export function useStorage<T>(
 }
 
 /**
+ * Dispatches a storage event to all listeners
+ */
+function dispatchStorageEvent(key: string, newValue: string | Nil) {
+  globalThis.dispatchEvent(
+    new StorageEvent('storage', {
+      key,
+      newValue,
+      oldValue: readRawStorage(key),
+    }),
+  );
+}
+
+/**
  * Updates a cached value for a specific key when localStorage changes
  *
  * @param key The storage key to watch
@@ -110,28 +126,31 @@ function updateCachedValue<T>(
     return NOOP_FN;
   }
 
-  return GlobalEventBus.getInstance().register(
-    'storage',
-    (event) => {
-      if (event.key === key) {
-        updater(event.newValue as T | Nil);
-      }
-    },
-  );
+  return GlobalEventBus
+    .getInstance()
+    .register(
+      'storage',
+      (event) => {
+        if (event.key === key) {
+          updater(parseStoredValue(event.newValue, key));
+        }
+      },
+    );
 }
 
 /**
- * Gets an item from storage and checks if it's expired
+ * Reads a raw value from localStorage
  */
-function getStoredValue<T>(key: string): T | Nil {
+function readRawStorage(key: string): string | Nil {
   if (!browser) return null;
 
-  const json = localStorage.getItem(key);
-
-  return extractStorageValue(json, key);
+  return localStorage.getItem(key);
 }
 
-function extractStorageValue<T>(json: string | Nil, key: string): T | Nil {
+/**
+ * Parses a stored value from localStorage
+ */
+function parseStoredValue<T>(json: string | Nil, key: string): T | Nil {
   try {
     if (!json) return null;
 
@@ -159,7 +178,7 @@ function isExpired(expires: number): boolean {
 /**
  * Clears all expired namespaced items
  */
-function clearExpiredItems() {
+function nukeExpiredItems() {
   Object.keys(localStorage)
     .filter((key) => key.startsWith(NAMESPACE))
     .forEach((key) => {

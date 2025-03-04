@@ -113,4 +113,32 @@ describe('useStorage', () => {
     expect(get(store)).toBe(defaultValue);
     expect(localStorage.getItem(fullKey)).toBeFalsy();
   });
+
+  it('should update value when storage event is dispatched', async () => {
+    // Setup two stores with the same key
+    const store1 = useStorage<string>(key);
+    const store2 = useStorage<string>(key);
+
+    // Set a value in store1
+    store1.set('new value');
+
+    // The value should be updated in both stores
+    expect(get(store1)).toBe('new value');
+    expect(get(store2)).toBe('new value');
+
+    // Simulate a storage event from another tab/window
+    const storageEvent = new StorageEvent('storage', {
+      key: 'trakt_store.test-key',
+      newValue: JSON.stringify({
+        value: 'external value',
+        expires: time.seconds(10),
+      }),
+    });
+
+    globalThis.dispatchEvent(storageEvent);
+
+    // Both stores should have the updated value
+    expect(get(store1)).toBe('external value');
+    expect(get(store2)).toBe('external value');
+  });
 });
