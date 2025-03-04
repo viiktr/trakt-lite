@@ -6,13 +6,9 @@ import { type Readable, writable } from 'svelte/store';
 
 export const NAMESPACE = 'trakt_store';
 
-function keyGenerator(key: string) {
-  return `${NAMESPACE}.${key}`;
-}
-
-interface StorageItem<T> {
+interface StoredData<T> {
   value: T;
-  expires: number;
+  expires_at?: number;
 }
 
 interface StorageStore<T> extends Readable<T | Nil> {
@@ -20,13 +16,12 @@ interface StorageStore<T> extends Readable<T | Nil> {
   remove: () => void;
 }
 
+function getKey(key: string): string {
+  return `${NAMESPACE}.${key}`;
+}
+
 /**
  * Creates a store backed by localStorage with automatic expiration handling
- * and namespacing of all keys with "trakt_store_".
- *
- * @param key The storage key (will be prefixed with namespace)
- * @param defaultValue Optional initial value
- * @returns A store with get/set/remove methods
  */
 export function useStorage<T>(
   key: string,
@@ -36,89 +31,90 @@ export function useStorage<T>(
   } = {},
 ): StorageStore<T> {
   if (browser) {
-    nukeExpiredItems();
+    cleanExpiredItems();
   }
 
   const defaultValue = options.defaultValue ?? null;
   const ttl = options.ttl ?? time.months(1);
-  const namespacedKey = keyGenerator(key);
-  const storedItem = readRawStorage(namespacedKey);
-  const storedValue = parseStoredValue<T>(storedItem, namespacedKey);
+  const fullKey = getKey(key);
 
   if (ttl <= 0) {
     throw new Error('Expiration time must be positive');
   }
 
   const { subscribe, set: _set } = writable<T | Nil>(
-    storedValue ?? defaultValue,
+    get<T>(fullKey) ?? defaultValue,
   );
 
-  updateCachedValue(namespacedKey, _set);
+  setupStorageListener(fullKey, _set);
 
-  function setItem(value: T) {
+  function set(value: T) {
     if (!browser) return;
 
-    const item: StorageItem<T> = {
-      value,
-      expires: Date.now() + ttl,
-    };
-
     try {
-      const itemValue = JSON.stringify(item);
-      localStorage.setItem(namespacedKey, itemValue);
-      dispatchStorageEvent(namespacedKey, itemValue);
+      const data: StoredData<T> = {
+        value,
+        expires_at: Date.now() + ttl,
+      };
+      const jsonValue = JSON.stringify(data);
+      localStorage.setItem(fullKey, jsonValue);
+      dispatchStorageEvent(fullKey, jsonValue);
       _set(value);
     } catch (e) {
-      console.error(
-        `[useStorage] Failed to store "${namespacedKey}"`,
-        e,
-      );
+      console.error(`[useStorage] Failed to store "${fullKey}"`, e);
     }
   }
 
-  function removeItem() {
+  function remove() {
     if (!browser) return;
 
     try {
-      localStorage.removeItem(namespacedKey);
-      dispatchStorageEvent(namespacedKey, null);
+      localStorage.removeItem(fullKey);
+      dispatchStorageEvent(fullKey, null);
       _set(null);
     } catch (e) {
-      console.error(
-        `[useStorage] Failed to remove "${namespacedKey}"`,
-        e,
-      );
+      console.error(`[useStorage] Failed to remove "${fullKey}"`, e);
     }
   }
 
   return {
     subscribe,
-    set: setItem,
-    remove: removeItem,
+    set,
+    remove,
   };
 }
 
-/**
- * Dispatches a storage event to all listeners
- */
+function get<T>(key: string): T | null {
+  if (!browser) return null;
+
+  const item = localStorage.getItem(key);
+  if (!item) return null;
+
+  try {
+    const data = JSON.parse(item) as StoredData<T>;
+    if (data.expires_at && data.expires_at < Date.now()) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return data.value;
+  } catch (e) {
+    console.error(`[useStorage] Failed to parse "${key}"`, e);
+    localStorage.removeItem(key);
+    return null;
+  }
+}
+
 function dispatchStorageEvent(key: string, newValue: string | Nil) {
   globalThis.dispatchEvent(
     new StorageEvent('storage', {
       key,
       newValue,
-      oldValue: readRawStorage(key),
+      oldValue: localStorage.getItem(key),
     }),
   );
 }
 
-/**
- * Updates a cached value for a specific key when localStorage changes
- *
- * @param key The storage key to watch
- * @param updater Function called with the new value when storage changes
- * @returns Function to unregister the listener
- */
-function updateCachedValue<T>(
+function setupStorageListener<T>(
   key: string,
   updater: (value: T | Nil) => void,
 ): () => void {
@@ -132,59 +128,24 @@ function updateCachedValue<T>(
       'storage',
       (event) => {
         if (event.key === key) {
-          updater(parseStoredValue(event.newValue, key));
+          updater(get<T>(key));
         }
       },
     );
 }
 
-/**
- * Reads a raw value from localStorage
- */
-function readRawStorage(key: string): string | Nil {
-  if (!browser) return null;
+function cleanExpiredItems() {
+  if (!browser) return;
 
-  return localStorage.getItem(key);
-}
-
-/**
- * Parses a stored value from localStorage
- */
-function parseStoredValue<T>(json: string | Nil, key: string): T | Nil {
-  try {
-    if (!json) return null;
-
-    const item = JSON.parse(json) as StorageItem<T>;
-
-    if (isExpired(item.expires)) {
-      localStorage.removeItem(key);
-      return null;
-    }
-
-    return item.value;
-  } catch (e) {
-    console.error(`[useStorage] Failed to parse "${key}"`, e);
-    return null;
-  }
-}
-
-/**
- * Checks if a timestamp is expired
- */
-function isExpired(expires: number): boolean {
-  return Date.now() > expires;
-}
-
-/**
- * Clears all expired namespaced items
- */
-function nukeExpiredItems() {
   Object.keys(localStorage)
     .filter((key) => key.startsWith(NAMESPACE))
     .forEach((key) => {
       try {
-        const item = JSON.parse(localStorage.getItem(key) || '');
-        if (isExpired(item.expires)) {
+        const item = localStorage.getItem(key);
+        if (!item) return;
+
+        const data = JSON.parse(item) as StoredData<any>;
+        if (data.expires_at && data.expires_at < Date.now()) {
           localStorage.removeItem(key);
         }
       } catch {
