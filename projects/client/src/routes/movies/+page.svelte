@@ -20,7 +20,7 @@
   <TraktPageCoverSetter />
 
   <TrendingList
-    title={m.trending_now()}
+    title={m.trending()}
     drilldownLabel={m.view_all_trending_movies()}
     {type}
   />
