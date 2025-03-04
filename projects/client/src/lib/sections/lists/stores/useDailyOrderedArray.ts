@@ -28,10 +28,8 @@ function saveCachedOrder(key: string, ids: Identity[]) {
   }
 
   const today = getTodayKey();
-  const stored = getCachedOrder(key);
 
-  stored[today] = ids;
-  localStorage.setItem(key, JSON.stringify(stored));
+  localStorage.setItem(key, JSON.stringify({ [today]: ids }));
 }
 
 export function useDailyOrderedArray<T>(

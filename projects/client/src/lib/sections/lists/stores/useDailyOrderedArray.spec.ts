@@ -124,7 +124,6 @@ describe('useDailyOrderedArray', () => {
     expect(localStorage.setItem).toHaveBeenCalledWith(
       'test',
       JSON.stringify({
-        [YESTERDAY]: [2, 1],
         [TODAY]: [1, 2],
       }),
     );
