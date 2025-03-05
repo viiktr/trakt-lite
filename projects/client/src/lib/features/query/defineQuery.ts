@@ -86,12 +86,22 @@ export function defineQuery<
         ...dependencies,
         ...invalidations,
       ] as const,
-      queryFn: () =>
-        request(requestParams)
-          .then((data) => mapper(data, requestParams)),
+      queryFn: async () => {
+        try {
+          const response = await request(requestParams);
+          return mapper(response, requestParams);
+        } catch (_) {
+          throw new Error('queryFn error');
+        }
+      },
       staleTime: params.ttl == null ? undefined : params.ttl,
       refetchOnWindowFocus: params.refetchOnWindowFocus,
-      retry: params.retry,
+      retry: params.retry ?? 0, //TODO do we want 0 as default? Maybe only for queries with well known errors
+      throwOnError: (error) => {
+        //Doesnt work, possible same issue as https://github.com/TanStack/query/issues/7022
+        console.log('Error in query:', error.message);
+        return false;
+      },
     };
   };
 }

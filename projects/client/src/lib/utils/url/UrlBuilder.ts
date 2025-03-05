@@ -94,5 +94,6 @@ export const UrlBuilder = {
     getVip: () => 'https://trakt.tv/vip',
     user: (slug: string) => `https://trakt.tv/users/${slug}`,
     site: () => 'https://trakt.tv',
+    status: () => 'https://status.trakt.tv',
   },
 };

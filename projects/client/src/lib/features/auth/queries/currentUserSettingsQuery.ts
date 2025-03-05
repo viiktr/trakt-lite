@@ -115,6 +115,8 @@ const currentUserRequest = ({ fetch }: ApiParams) =>
       },
     })
     .then((response) => {
+      throw new Error('currentUserRequest error');
+
       if (response.status !== 200) {
         error('Error fetching current user', response);
         /**
