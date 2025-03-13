@@ -12,7 +12,9 @@
 
 <style>
   .trakt-shadow-wrapper {
-    height: var(--ni-148);
+    /* TODO: Better sizing to accommodate footer*/
+    max-height: var(--ni-88);
+    flex: 1;
     position: relative;
 
     &::before {

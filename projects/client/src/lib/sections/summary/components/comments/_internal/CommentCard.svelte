@@ -4,6 +4,7 @@
   import type { MediaComment } from "$lib/requests/models/MediaComment";
   import type { MediaEntry } from "$lib/requests/models/MediaEntry";
   import { Marked } from "marked";
+  import CommentFooter from "./CommentFooter.svelte";
   import CommentHeader from "./CommentHeader.svelte";
   import ShadowScroller from "./ShadowScroller.svelte";
   import { spoilerExtension } from "./spoilerExtension";
@@ -42,6 +43,7 @@
         </div>
       </Spoiler>
     </ShadowScroller>
+    <CommentFooter {comment} />
   </div>
 </Card>
 
@@ -52,6 +54,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--gap-m);
+    justify-content: space-between;
 
     padding: var(--ni-16) var(--ni-20);
 
