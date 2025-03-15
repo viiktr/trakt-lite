@@ -42,6 +42,7 @@
     "uk-ua": "🇺🇦",
     "pl-pl": "🇵🇱",
     "it-it": "🇮🇹",
+    "bg-bg": "🇧🇬",
   };
 
   const localeToTitle: Record<AvailableLocale, string> = {
@@ -58,6 +59,7 @@
     "uk-ua": "Українська",
     "pl-pl": "Polski",
     "it-it": "Italiano",
+    "bg-bg": "Български",
   };
 </script>
 
