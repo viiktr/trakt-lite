@@ -12,7 +12,8 @@
 
 <style>
   .trakt-shadow-wrapper {
-    height: var(--ni-148);
+    flex-grow: 1;
+    overflow: auto;
     position: relative;
 
     &::before {
@@ -55,6 +56,9 @@
 
   .trakt-shadow-scroller {
     height: 100%;
+    min-height: var(--ni-24);
+
     overflow-y: auto;
+    overflow-x: hidden;
   }
 </style>

@@ -62,7 +62,7 @@
   "remove_from_watchlist": "視聴リストから削除",
   "remove_from_watchlist_label": "{title} を視聴リストから削除",
   "watch_the_trailer": "予告編を見る",
-  "search_placeholder": "探したい作品は？",
+  "search_placeholder": "番組や映像作品を検索...",
   "join_trakt_button": "Traktに参加",
   "join_trakt_button_label": "trakt.tvに参加して視聴状況を記録しましょう",
   "copyright_notice": "全著作権所有。",
@@ -329,5 +329,11 @@
   "mark_as_watched_multiple_episodes_warning": "{count}エピソードを視聴済みにしますか？",
   "watch_count_label": "視聴回数",
   "watched_episodes_count_label": "視聴済みエピソード",
-  "empty_media_history_label": "{title} はまだ見ていないよ"
+  "empty_media_history_label": "{title} はまだ見ていないよ",
+  "like_comment_label": "コメントをいいね",
+  "unlike_comment_label": "コメントをいいねしない",
+  "comment_likes": "{count} 件のいいね",
+  "close_label": "閉じる",
+  "comment_replies_label": "コメント返信",
+  "comment_replies_text": "{count} 件の返信"
 }

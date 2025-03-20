@@ -62,7 +62,7 @@
   "remove_from_watchlist": "Rimuovi dalla Watchlist",
   "remove_from_watchlist_label": "Rimuovi {title} dalla tua Watchlist",
   "watch_the_trailer": "Guarda il trailer",
-  "search_placeholder": "Pronto ad esplorare?",
+  "search_placeholder": "Cerca serie e film...",
   "join_trakt_button": "Iscriviti a Trakt",
   "join_trakt_button_label": "Iscriviti a trakt.tv per tenere traccia di ciò che stai guardando",
   "copyright_notice": "Tutti i diritti riservati.",
@@ -329,5 +329,11 @@
   "mark_as_watched_multiple_episodes_warning": "Sei sicuro di voler contrassegnare {count} episodi come visti?",
   "watch_count_label": "Conti visualizzazioni",
   "watched_episodes_count_label": "Episodi visti",
-  "empty_media_history_label": "Non hai ancora visto {title}"
+  "empty_media_history_label": "Non hai ancora visto {title}",
+  "like_comment_label": "Mi piace commento",
+  "unlike_comment_label": "Non mi piace commento",
+  "comment_likes": "{count} mi piace",
+  "close_label": "Chiudi",
+  "comment_replies_label": "Risposte ai commenti",
+  "comment_replies_text": "{count} risposte"
 }

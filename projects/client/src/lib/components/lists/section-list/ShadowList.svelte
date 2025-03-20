@@ -13,6 +13,7 @@
     empty?: Snippet;
     scrollContainer?: Writable<HTMLDivElement>;
     scrollX?: Writable<{ left: number; right: number }>;
+    variant?: "normal" | "centered";
   };
 
   const {
@@ -25,6 +26,7 @@
     actions,
     badge,
     empty,
+    variant = "normal",
   }: SectionListProps<T> = $props();
   const sideDistance = useVarToPixels("var(--layout-distance-side)");
   const windowShadowWidth = useVarToPixels("var(--ni-64)");
@@ -68,7 +70,9 @@
           bind:this={$scrollContainer}
           use:scrollTracking={scrollX}
           use:scrollHistory={id}
-          class="trakt-list-item-container shadow-list-horizontal-scroll"
+          class="trakt-list-item-container"
+          class:shadow-list-horizontal-scroll-centered={variant === "centered"}
+          class:shadow-list-horizontal-scroll={variant === "normal"}
         >
           {#each items as i (i.id)}
             {@render item(i)}
@@ -154,19 +158,11 @@
       background: linear-gradient(
         var(--list-shadow-direction),
         transparent 0%,
-        color-mix(in srgb, var(--color-background) 2%, transparent 98%) 5%,
-        color-mix(in srgb, var(--color-background) 4%, transparent 96%) 9%,
         color-mix(in srgb, var(--color-background) 7%, transparent 93%) 13%,
-        color-mix(in srgb, var(--color-background) 10%, transparent 90%) 17%,
-        color-mix(in srgb, var(--color-background) 14%, transparent 86%) 20%,
         color-mix(in srgb, var(--color-background) 18%, transparent 82%) 24%,
-        color-mix(in srgb, var(--color-background) 23%, transparent 77%) 29%,
         color-mix(in srgb, var(--color-background) 29%, transparent 71%) 34%,
-        color-mix(in srgb, var(--color-background) 35%, transparent 65%) 40%,
         color-mix(in srgb, var(--color-background) 43%, transparent 57%) 46%,
-        color-mix(in srgb, var(--color-background) 52%, transparent 48%) 54%,
         color-mix(in srgb, var(--color-background) 62%, transparent 38%) 63%,
-        color-mix(in srgb, var(--color-background) 73%, transparent 27%) 74%,
         color-mix(in srgb, var(--color-background) 86%, transparent 14%) 86%,
         var(--color-background) 100%
       );
@@ -180,13 +176,17 @@
     }
   }
 
+  .shadow-list-horizontal-scroll-centered,
   .shadow-list-horizontal-scroll {
     height: var(--height-list);
     display: flex;
     overflow-x: auto;
-    scroll-snap-type: x proximity;
     transition: gap var(--transition-increment) ease-in-out;
     @include adaptive-gap(gap);
+  }
+
+  .shadow-list-horizontal-scroll {
+    scroll-snap-type: x proximity;
 
     & > :global(:not(svelte-css-wrapper)) {
       scroll-snap-align: start;
@@ -220,6 +220,19 @@
       @include for-mobile() {
         scroll-snap-align: unset;
       }
+    }
+  }
+
+  .shadow-list-horizontal-scroll-centered {
+    --center-offset: calc(50% - var(--item-width) / 2);
+
+    scroll-snap-type: x mandatory;
+    padding-left: var(--center-offset);
+    padding-right: var(--center-offset);
+
+    & > :global(:not(svelte-css-wrapper)),
+    & > :global(svelte-css-wrapper > *) {
+      scroll-snap-align: center;
     }
   }
 </style>
